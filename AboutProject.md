@@ -123,10 +123,10 @@
 
 > USERS :
 
-- user_id : `string` `PK`
-- user
-- email
-- password
+- user_id : `string` `PK` `AUTO`
+- username : `string`
+- email : `string`
+- password : `string`
   ***
 
 > API :
