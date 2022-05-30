@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Container, Form, Button } from "react-bootstrap";
 
@@ -11,6 +11,10 @@ export const Register = () => {
     pass !== confirmPass ? setMatch(false) : setMatch(true);
   }
 
+  useEffect(() => {
+    checkPass();
+  }, [confirmPass, pass]);
+
   return (
     <Container fluid="md">
       <Form
@@ -20,12 +24,12 @@ export const Register = () => {
         <h2 className="ms-2">Register</h2>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control type="email" placeholder="Enter email" required />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="userName">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Username" />
+          <Form.Control type="text" placeholder="Username" required />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
@@ -36,6 +40,7 @@ export const Register = () => {
             onChange={(e) => {
               setPass(e.target.value);
             }}
+            required
           />
         </Form.Group>
 
@@ -46,9 +51,8 @@ export const Register = () => {
             placeholder="Confirmed Password"
             onChange={(e) => {
               setConfirmPass(e.target.value);
-              checkPass();
             }}
-            onBlur={checkPass}
+            required
           />
           {!match && <p className="text-danger">❌Password not match</p>}
         </Form.Group>
@@ -58,7 +62,7 @@ export const Register = () => {
           type="submit"
           className={`mx-2 ${!match && "disabled"}`}
         >
-          Confirmed
+          Sign up
         </Button>
       </Form>
     </Container>
