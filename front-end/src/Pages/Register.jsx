@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from "react";
+import Axios from "axios";
 
 import { Container, Form, Button } from "react-bootstrap";
 
 export const Register = () => {
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [match, setMatch] = useState(false);
 
   function checkPass() {
     pass !== confirmPass ? setMatch(false) : setMatch(true);
+  }
+
+  function regis() {
+    if (match) {
+      Axios.post("http://localhost:3333/register", {
+        email: email,
+        username: userName,
+        password: pass,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   useEffect(() => {
@@ -24,12 +43,26 @@ export const Register = () => {
         <h2 className="ms-2">Register</h2>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" required />
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="userName">
           <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Username" required />
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            onChange={(event) => {
+              setUserName(event.target.value);
+            }}
+            required
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="password">
@@ -59,8 +92,10 @@ export const Register = () => {
 
         <Button
           variant="primary"
-          type="submit"
-          className={`mx-2 ${!match && "disabled"}`}
+          type="button"
+          className="mx-2"
+          disabled={!match}
+          onClick={regis}
         >
           Sign up
         </Button>
