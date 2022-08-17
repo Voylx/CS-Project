@@ -15,7 +15,9 @@ export const Register = () => {
   }
 
   function regis() {
-    if (match) {
+    if (!(email && userName && pass && confirmPass)) {
+      alert("Incompelete Imformation!");
+    } else if (match) {
       Axios.post("http://localhost:3333/register", {
         email: email,
         username: userName,
@@ -40,7 +42,7 @@ export const Register = () => {
         className="border p-3 mx-auto mt-5 col-lg-6 col-md-8 shadow-lg"
         style={{ borderRadius: "10px" }}
       >
-        <h2 className="ms-2">Register</h2>
+        <h2 className="ms-1">Register</h2>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -93,7 +95,7 @@ export const Register = () => {
         <Button
           variant="primary"
           type="button"
-          className="mx-2"
+          className="w-100"
           disabled={!match}
           onClick={regis}
         >
