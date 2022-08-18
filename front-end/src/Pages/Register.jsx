@@ -25,7 +25,8 @@ export const Register = () => {
         password: pass,
       })
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
+          if (res.data.status === "error") alert(res.data.message);
         })
         .catch((err) => {
           console.log(err);
