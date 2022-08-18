@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 import { Container, Form, Button } from "react-bootstrap";
 
@@ -54,7 +55,6 @@ export const Register = () => {
             required
           />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="userName">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -66,7 +66,6 @@ export const Register = () => {
             required
           />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Passwords</Form.Label>
           <Form.Control
@@ -78,7 +77,6 @@ export const Register = () => {
             required
           />
         </Form.Group>
-
         <Form.Group className="mb-3" controlId="confirmedPassword">
           <Form.Label>Confirmed Passwords </Form.Label>
           <Form.Control
@@ -91,15 +89,26 @@ export const Register = () => {
           />
           {!match && <p className="text-danger">❌Password not match</p>}
         </Form.Group>
-
         <Button
           variant="primary"
           type="button"
-          className="w-100"
+          className="mb-2 w-100"
           disabled={!match}
           onClick={regis}
         >
           Sign up
+        </Button>
+        <div className="linetext mb-2 text-muted">
+          &ensp; Have an Account?&ensp;{" "}
+        </div>
+        <Button
+          variant="success"
+          type="button"
+          className="mb-2 w-100"
+          as={Link}
+          to={"/login"}
+        >
+          Login
         </Button>
       </Form>
     </Container>

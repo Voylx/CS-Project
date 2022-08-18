@@ -4,7 +4,7 @@ import { Container, Button } from "react-bootstrap";
 
 import { Login } from "./Pages/Login";
 import { Register } from "./Pages/Register";
-import {Home} from "./Pages/Home"
+import { Home } from "./Pages/Home";
 
 // import "./App.css";
 

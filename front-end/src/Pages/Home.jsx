@@ -5,30 +5,36 @@ import { Button } from "react-bootstrap";
 
 import { useAuthen } from "../components/Authen";
 
+import { Header } from "../components/Header";
 export const Home = () => {
-  const authen = useAuthen();
+  const isAuthen = useAuthen();
 
   return (
     <div>
+      <Header />
       <h1>Home</h1>
-      <Button
-        variant="success"
-        type="button"
-        className="mx-2"
-        as={Link}
-        to={"/register"}
-      >
-        Register
-      </Button>
-      <Button
-        variant="primary"
-        type="button"
-        className="mx-2"
-        as={Link}
-        to={"/login"}
-      >
-        Login
-      </Button>
+      {isAuthen && (
+        <>
+          <Button
+            variant="success"
+            type="button"
+            className="mx-2"
+            as={Link}
+            to={"/register"}
+          >
+            Register
+          </Button>
+          <Button
+            variant="primary"
+            type="button"
+            className="mx-2"
+            as={Link}
+            to={"/login"}
+          >
+            Login
+          </Button>
+        </>
+      )}
     </div>
   );
 };

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function useAuthen() {
-  //   useEffect(() => {
+  const [isAuthen, setIsAuthen] = useState(false);
   const token = localStorage.getItem("token");
-  //   console.log(token);
 
   Axios.post(
     "http://localhost:3333/authen",
@@ -14,13 +14,18 @@ export function useAuthen() {
     }
   )
     .then((response) => {
-      const authen = response.data.status;
-      if (authen !== "ok") {
+      const status = response.data.status;
+      if (status !== "ok") {
+        setIsAuthen(false);
         console.log("token error");
         alert("sestion time out!");
+        localStorage.removeItem("token");
         window.location = "/";
+      } else {
+        setIsAuthen(true);
       }
     })
     .catch((err) => console.log(err));
-  //   }, []);
+
+  return isAuthen;
 }

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
+
+import "../css/line.css";
 
 export const Login = () => {
   let navigate = useNavigate();
@@ -12,7 +14,7 @@ export const Login = () => {
   const [isError, setisError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
-  async function login() {
+  async function handelLogin() {
     try {
       const res = await Axios.post("http://localhost:3333/login", {
         email,
@@ -34,10 +36,16 @@ export const Login = () => {
     }
   }
 
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      handelLogin();
+    }
+  };
+
   return (
     <Container fluid="md">
       <Form
-        className="border p-3 mx-auto mt-5 col-lg-7 col-md-8 shadow-lg"
+        className="border p-3 mx-auto mt-5 col-lg-6 col-md-8 shadow-lg"
         style={{ borderRadius: "11px" }}
       >
         <h2 className="ms-7 ">Login</h2>
@@ -59,21 +67,19 @@ export const Login = () => {
             onChange={(event) => {
               setPassword(event.target.value);
             }}
+            onKeyPress={handleKeypress}
           />
         </Form.Group>
-        {isError && (
-          <div className="alert alert-danger p-2" role="alert">
-            {errMsg}
-          </div>
-        )}
+        {isError && <Alert variant="danger">{errMsg}</Alert>}
         <Button
           variant="primary"
           type="button"
           className="mb-2 w-100"
-          onClick={login}
+          onClick={handelLogin}
         >
           Login
         </Button>
+        <div className="linetext mb-2 text-muted">&ensp; Or &ensp; </div>
         <Button
           variant="success"
           type="button"
@@ -81,7 +87,7 @@ export const Login = () => {
           as={Link}
           to={"/register"}
         >
-          Register
+          Create New Account
         </Button>
       </Form>
     </Container>
