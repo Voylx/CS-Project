@@ -1,24 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import { Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  window.location = "/";
-};
+import { Logout } from "./Logout";
 
 export const Header = () => {
+  const [textColor, setTextColor] = useState("text-white");
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand to={"/home"} as={Link} className="me-auto">
+        <Navbar.Brand
+          to={"/home"}
+          as={Link}
+          className={`me-auto ${textColor}`}
+          onMouseEnter={() => setTextColor("text-primary")}
+          onMouseLeave={() => setTextColor("text-white")}
+        >
           Crypto-Bot
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        {/* <h1>
-          <img src={LogoutLogo} alt="Logout" />
-        </h1> */}
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="">
@@ -39,13 +40,8 @@ export const Header = () => {
             </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
-        <Nav.Link
-          // href="#link"
-          className="text-white"
-          onClick={handleLogout}
-        >
-          Logout
-        </Nav.Link>
+
+        <Logout />
       </Container>
     </Navbar>
   );
