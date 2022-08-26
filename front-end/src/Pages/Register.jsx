@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import Axios from "../services/Axios";
 import { Link } from "react-router-dom";
 
 import { Container, Form, Button } from "react-bootstrap";
@@ -21,7 +21,7 @@ export const Register = () => {
     if (!(email && userName && pass && confirmPass)) {
       alert("Incompelete Imformation!");
     } else if (match) {
-      Axios.post("http://localhost:3333/register", {
+      Axios.post("/register", {
         email: email,
         username: userName,
         password: pass,

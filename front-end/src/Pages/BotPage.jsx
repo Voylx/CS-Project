@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 
 import { useAuthen } from "../components/Authen";

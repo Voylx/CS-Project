@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import Axios from "../services/Axios";
 import { useNavigate } from "react-router-dom";
 
 export function useAuthen() {
@@ -7,7 +7,7 @@ export function useAuthen() {
   const token = localStorage.getItem("token");
 
   Axios.post(
-    "http://localhost:3333/authen",
+    "/authen",
     {},
     {
       headers: { authorization: "Bearer " + token },

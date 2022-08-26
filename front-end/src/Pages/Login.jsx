@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import Axios from "../services/Axios";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Container, Form, Button, Alert } from "react-bootstrap";
@@ -18,7 +18,7 @@ export const Login = () => {
 
   async function handelLogin() {
     try {
-      const res = await Axios.post("http://localhost:3333/login", {
+      const res = await Axios.post("/login", {
         email,
         password,
       });
