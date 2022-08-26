@@ -107,7 +107,7 @@ app.post("/login", function (req, res, next) {
 
 app.post("/authen", function (req, res, next) {
   const token = req.headers.authorization.split(" ")[1];
-  console.log(token);
+  // console.log(token);
 
   try {
     const decode = jwt.verify(token, secert);
