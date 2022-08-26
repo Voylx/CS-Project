@@ -10,11 +10,14 @@ import { Header } from "../components/Header";
 import add from "../icons/add.png";
 
 const AddBox = () => {
+  let navigate = useNavigate();
   return (
     <div
       className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
       style={{ height: "10rem" }}
-      onClick={() => console.log("Click")}
+      onClick={() => {
+        navigate("../bitkub", { replace: true });
+      }}
     >
       <img src={add} alt="add" height={"50rem"} className="" />
     </div>
