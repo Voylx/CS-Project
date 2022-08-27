@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 
 import { useAuthen } from "../components/Authen";
 
 import { Header } from "../components/Header";
 
 export const BitkubConfig = () => {
+  let navigate = useNavigate();
+
   const isAuthen = useAuthen();
   const [key, setKey] = useState("");
   const [secert, setSecert] = useState("");
@@ -24,7 +26,16 @@ export const BitkubConfig = () => {
           className="border p-3 mx-auto mt-5 col-lg-6 col-md-8 shadow-lg"
           style={{ borderRadius: "11px" }}
         >
-          <h2 className="ms-7 ">API BITKUB</h2>
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="ms-7 ">API BITKUB</h2>
+            <h6
+              className="me-2 text-secondary"
+              onClick={() => navigate("/bot")}
+            >
+              {"Go back"}
+            </h6>
+          </div>
+
           <Form.Group className="mb-2" controlId="formBasicApiKeys">
             <Form.Label>API-Keys</Form.Label>
             <Form.Control

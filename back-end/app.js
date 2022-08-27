@@ -1,13 +1,14 @@
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql2");
+const db = require("./db");
 const { v4: uuidv4 } = require("uuid");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 13;
 
-var jwt = require("jsonwebtoken");
-const secert = "secret-password101";
+const authen = require("./authen");
+
+const apibottrade = require("./routes/apibottrade");
 
 const app = express();
 
@@ -16,12 +17,7 @@ const port = 3333;
 app.use(cors());
 app.use(express.json());
 
-// create the connection to database
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "database-csproject",
-});
+app.use("/bot", apibottrade);
 
 app.post("/register", function (req, res, next) {
   const { email, username, password } = req.body;
@@ -30,7 +26,7 @@ app.post("/register", function (req, res, next) {
     res.send({ status: "error", message: "Incomplete information!!!" });
   } else {
     // check if the email is already in the database
-    connection.execute(
+    db.execute(
       "SELECT * FROM users WHERE email = ?",
       [email],
       function (err, users) {
@@ -45,7 +41,7 @@ app.post("/register", function (req, res, next) {
           else {
             bcrypt.hash(password, saltRounds, function (err, hash) {
               // Store hash in your password DB.
-              connection.execute(
+              db.execute(
                 "INSERT INTO users (user_id, username, email, password) VALUES (?,?,?,?)",
                 [user_id, username, email, hash],
                 function (err, results) {
@@ -69,7 +65,7 @@ app.post("/register", function (req, res, next) {
 app.post("/login", function (req, res, next) {
   const { email, password } = req.body;
 
-  connection.execute(
+  db.execute(
     "SELECT * FROM users WHERE email = ?",
     [email],
     function (err, users) {
@@ -108,13 +104,8 @@ app.post("/login", function (req, res, next) {
 app.post("/authen", function (req, res, next) {
   const token = req.headers.authorization.split(" ")[1];
   // console.log(token);
-
-  try {
-    const decode = jwt.verify(token, secert);
-    res.send({ status: "ok", decode });
-  } catch (error) {
-    res.send({ status: "error", message: "Token invalid" });
-  }
+  const response = authen(token);
+  res.send(response);
 });
 
 app.listen(port, function () {
