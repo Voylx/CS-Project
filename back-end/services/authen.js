@@ -10,4 +10,11 @@ const authen = (token) => {
   }
 };
 
-module.exports = authen;
+const createToken = (user_id) => {
+  const token = jwt.sign({ User_id: user_id }, secert, {
+    expiresIn: "1h",
+  });
+  return token;
+};
+
+module.exports = { authen, createToken };

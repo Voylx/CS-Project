@@ -1,21 +1,50 @@
 import React, { useState, useEffect } from "react";
+import Axios from "../services/Axios";
 
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
 
-import { useAuthen } from "../components/Authen";
+import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
 
-export const BitkubConfig = () => {
+export const LinkApiBitkub = () => {
   let navigate = useNavigate();
 
   const isAuthen = useAuthen();
   const [key, setKey] = useState("");
   const [secert, setSecert] = useState("");
+  const [isError, setisError] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
-  function handelSaveAPI() {
-    if (key && secert) console.log(key, secert);
+  async function handelSaveAPI() {
+    if (!key) {
+      setisError(true);
+      setErrMsg("Please enter API-Keys.");
+      return;
+    }
+    if (!secert) {
+      setisError(true);
+      setErrMsg("Please enter API-Secert.");
+      return;
+    }
+    if (key && secert) {
+      try {
+        const res = await Axios.post("/bot/apibitkub", {
+          API_key: key,
+          API_secert: secert,
+        });
+
+        if (res.data.status == "ok") {
+          alert("Link API Success ");
+          location = "/bot";
+        }
+      } catch (error) {
+        console.log(error.response.data);
+        setisError(true);
+        setErrMsg(error.response.data.message);
+      }
+    }
   }
 
   return (
@@ -48,7 +77,7 @@ export const BitkubConfig = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicApiSecert">
-            <Form.Label>APISecert</Form.Label>
+            <Form.Label>API-Secert</Form.Label>
             <Form.Control
               type="API Secert"
               placeholder="Enter API Secert"
@@ -59,9 +88,10 @@ export const BitkubConfig = () => {
               //   onKeyPress={handleKeypress}
             />
           </Form.Group>
+          {isError && <Alert variant="danger">{errMsg}</Alert>}
           <Button
             variant="primary"
-            type="submit"
+            type="button"
             className="mb-2 w-100"
             onClick={handelSaveAPI}
           >

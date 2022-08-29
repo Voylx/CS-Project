@@ -19,7 +19,7 @@ export const Register = () => {
 
   function regis() {
     if (!(email && userName && pass && confirmPass)) {
-      alert("Incompelete Imformation!");
+      alert("Incompelete Information!");
     } else if (match) {
       Axios.post("/register", {
         email: email,

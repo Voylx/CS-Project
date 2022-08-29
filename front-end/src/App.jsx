@@ -6,7 +6,7 @@ import { Login } from "./Pages/Login";
 import { Register } from "./Pages/Register";
 import { Home } from "./Pages/Home";
 import { BotPage } from "./Pages/BotPage";
-import { BitkubConfig } from "./Pages/BitkubConfig";
+import { LinkApiBitkub } from "./Pages/LinkApiBitkub";
 
 // import "./App.css";
 
@@ -22,7 +22,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="bot">
               <Route path="" element={<BotPage />} />
-              <Route path="bitkub" element={<BitkubConfig />} />
+              <Route path="bitkub" element={<LinkApiBitkub />} />
             </Route>
           </Route>
         </Routes>

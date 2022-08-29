@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 export function useAuthen() {
   const [isAuthen, setIsAuthen] = useState(false);
   const token = localStorage.getItem("token");
+  console.log(token);
 
   Axios.post(
     "/authen",
     {},
     {
-      headers: { authorization: "Bearer " + token },
+      headers: { Authorization: "Bearer " + token },
     }
   )
     .then((response) => {

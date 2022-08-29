@@ -23,18 +23,15 @@ export const Login = () => {
         password,
       });
       console.log(res.data);
-      if (res.data.status == "error") {
-        setisError(true);
-        setErrMsg(res.data.message);
-      } else if (res.data.status == "ok") {
+      if (res.data.status == "ok") {
         localStorage.setItem("token", res.data.token);
-
-        console.log("Success!");
-
+        console.log("Login Success!");
         navigate("../home", { replace: true });
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data);
+      setisError(true);
+      setErrMsg(error.response.data.message);
     }
   }
 
