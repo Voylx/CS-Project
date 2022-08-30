@@ -5,8 +5,11 @@ import { Link } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 
 import { HeaderPreLogin } from "../components/HeaderPreLogin";
+import CheckLogin from "../services/CheckLogin";
 
 export const Register = () => {
+  CheckLogin();
+
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [pass, setPass] = useState("");

@@ -30,9 +30,9 @@ const Box = () => {
     <div
       className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
       style={{ height: "10rem" }}
-      onClick={() => {
-        navigate("../bitkub", { replace: true });
-      }}
+      // onClick={() => {
+      //   navigate("../bitkub", { replace: true });
+      // }}
     >
       have bot eiei
     </div>

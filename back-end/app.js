@@ -93,10 +93,9 @@ app.post("/login", function (req, res, next) {
 });
 
 app.post("/authen", function (req, res, next) {
-  console.log(req.headers.authorization);
+  // console.log(req.headers.authorization);
   try {
     const token = req.headers.authorization.split(" ")[1];
-    // console.log(token);
     const response = authen(token);
     if (response.status === "ok") res.send(response);
     else res.status(400).send(response);

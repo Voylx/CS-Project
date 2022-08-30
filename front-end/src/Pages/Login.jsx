@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Axios from "../services/Axios";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Container, Form, Button, Alert } from "react-bootstrap";
 
 import { HeaderPreLogin } from "../components/HeaderPreLogin";
+
+import CheckLogin from "../services/CheckLogin";
 
 import "../css/line.css";
 
 export const Login = () => {
   let navigate = useNavigate();
+  CheckLogin();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

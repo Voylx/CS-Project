@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import Axios from "../services/Axios";
-import { useNavigate } from "react-router-dom";
 
 export function useAuthen() {
   const [isAuthen, setIsAuthen] = useState(false);
   const token = localStorage.getItem("token");
-  console.log(token);
 
   Axios.post(
     "/authen",
@@ -26,7 +24,14 @@ export function useAuthen() {
         setIsAuthen(true);
       }
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err.response.data);
+      setIsAuthen(false);
+      console.log("token error");
+      alert("sestion time out!");
+      localStorage.removeItem("token");
+      window.location = "/";
+    });
 
   return isAuthen;
 }
