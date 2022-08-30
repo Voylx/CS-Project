@@ -29,7 +29,7 @@ export const LinkLine = () => {
               className="h-auto  mx-auto mt-2 shadow-lg"
               style={{ borderRadius: "11px", height: "10rem" }}
             >
-              รูป QR-Code
+              รูป QR-Code eiei
             </div>
           </div>
         </div>
