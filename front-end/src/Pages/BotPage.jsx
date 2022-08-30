@@ -19,11 +19,19 @@ const AddBox = (props) => {
   const handleShow = () => setShowModal(true);
 
   const linkbotapi = {
-    0: () => navigate("../linkline", { replace: true }),
-    1: () => navigate("../bitkub", { replace: true }),
+    0: () => navigate("../linkline"),
+    1: () => navigate("../bitkub"),
   };
 
-  const handleAddBot = () => {};
+  const handleAddBot = () => {
+    Axios.post("/bot/add", {
+      Type: type,
+    })
+      .then((res) => {
+        if (res.data.status === "ok") linkbotapi[type]();
+      })
+      .catch((err) => console.error(err.response.data));
+  };
 
   return (
     <>
@@ -59,17 +67,19 @@ const AddBox = (props) => {
   );
 };
 
-const Box = () => {
+const Box = (props) => {
+  const { botData } = props;
   let navigate = useNavigate();
+
   return (
     <div
       className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
       style={{ height: "10rem" }}
-      // onClick={() => {
-      //   navigate("../bitkub", { replace: true });
-      // }}
+      onClick={() => {
+        navigate(`../${botData.Bot_id}`);
+      }}
     >
-      have bot eiei
+      {botData.Bot_id}
     </div>
   );
 };
@@ -82,23 +92,26 @@ export const BotBox = (props) => {
     Checkbot(type);
   }, []);
 
-  async function Checkbot(Type) {
-    try {
-      const res = await Axios.post("/bot/checkbot", {
-        Type,
+  function Checkbot(Type) {
+    Axios.post("/bot/checkbot", { Type })
+      .then((res) => {
+        console.log(res.data);
+        setBotData(res.data.bot);
+      })
+      .catch((err) => {
+        console.error(err.response.data);
       });
-      console.log(res.data);
-      setBotData(res.data.bot);
-    } catch (error) {
-      console.log(error.response.data);
-    }
   }
 
   return (
     <Col md={5} className="bg-light m-2 p-2 pb-3  rounded">
       <h3>{title[type]}</h3>
 
-      {botData ? <Box /> : <AddBox {...props} title={title} />}
+      {botData ? (
+        <Box botData={botData} />
+      ) : (
+        <AddBox {...props} title={title} />
+      )}
     </Col>
   );
 };

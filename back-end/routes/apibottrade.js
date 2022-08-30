@@ -38,7 +38,7 @@ router.post("/add", (req, res) => {
       } else if (result.affectedRows === 0) {
         res.status(400).send({
           status: "error",
-          message: "Bot has been create",
+          message: "Bot has been created",
         });
       } else res.send({ status: "ok", message: "Create Bot Success" });
     }

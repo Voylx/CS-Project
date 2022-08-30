@@ -18,23 +18,24 @@ export const Login = () => {
   const [isError, setisError] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
-  async function handelLogin() {
-    try {
-      const res = await Axios.post("/login", {
-        email,
-        password,
+  function handelLogin() {
+    Axios.post("/login", {
+      email,
+      password,
+    })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.status == "ok") {
+          localStorage.setItem("token", res.data.token);
+          console.log("Login Success!");
+          navigate("../home", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setisError(true);
+        setErrMsg(error.response.data.message);
       });
-      console.log(res.data);
-      if (res.data.status == "ok") {
-        localStorage.setItem("token", res.data.token);
-        console.log("Login Success!");
-        navigate("../home", { replace: true });
-      }
-    } catch (error) {
-      console.log(error.response.data);
-      setisError(true);
-      setErrMsg(error.response.data.message);
-    }
   }
 
   const handleKeypress = (e) => {
@@ -98,5 +99,3 @@ export const Login = () => {
     </>
   );
 };
-
-// <Container fluid="sm">Login</Container>
