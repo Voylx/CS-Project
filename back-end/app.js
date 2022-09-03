@@ -117,6 +117,21 @@ app.get("/symbols", function (req, res) {
   });
 });
 
+app.get("/strategies", (req, res) => {
+  db.execute("SELECT * FROM strategies", function (err, data) {
+    //check sql errors
+    if (err) {
+      res.status(500).send({ status: "error", message: err.sqlMessage });
+      return;
+    }
+    const response = {};
+    data.map(({ Strategy_id, Strategy_name }) => {
+      response[Strategy_id] = Strategy_name;
+    });
+    res.send({ status: "ok", strategies: response });
+  });
+});
+
 app.listen(port, function () {
   console.log("CORS-enabled web server listening on port " + port);
 });
