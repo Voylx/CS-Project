@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use("/bot", apibot);
 
-app.post("/register", function (req, res, next) {
+app.post("/register", function (req, res) {
   const { email, username, password } = req.body;
   const user_id = uuidv4();
   if (!(email && username && password)) {
@@ -56,7 +56,7 @@ app.post("/register", function (req, res, next) {
   }
 });
 
-app.post("/login", function (req, res, next) {
+app.post("/login", function (req, res) {
   const { email, password } = req.body;
 
   db.execute(
@@ -92,7 +92,7 @@ app.post("/login", function (req, res, next) {
   );
 });
 
-app.post("/authen", function (req, res, next) {
+app.post("/authen", function (req, res) {
   // console.log(req.headers.authorization);
   try {
     const token = req.headers.authorization.split(" ")[1];
@@ -102,6 +102,19 @@ app.post("/authen", function (req, res, next) {
   } catch (error) {
     res.status(401).send({ status: "error", message: "Token invalid" });
   }
+});
+
+app.get("/symbols", function (req, res) {
+  db.execute("SELECT * FROM symbols", function (err, data) {
+    //check sql errors
+    if (err) {
+      res.status(500).send({ status: "error", message: err.sqlMessage });
+      return;
+    }
+    // console.log(data);
+    const symbols = data.map((V, I) => V.Sym);
+    res.send({ status: "ok", symbols: symbols });
+  });
 });
 
 app.listen(port, function () {

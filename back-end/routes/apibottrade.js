@@ -68,7 +68,7 @@ router.post("/getapibitkub", (req, res) => {
           message: "api Not Found",
         });
       } else {
-        console.log(results[0]["COUNT(API_KEY)"]);
+        // console.log(results[0]["COUNT(API_KEY)"]);
         res.send({
           status: "ok",
           linkAPI: Boolean(results[0]["COUNT(API_KEY)"]),

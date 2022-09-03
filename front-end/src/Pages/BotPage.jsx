@@ -73,13 +73,17 @@ const Box = (props) => {
 
   return (
     <div
-      className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
-      style={{ height: "10rem" }}
-      onClick={() => {
-        navigate(`../${botData.Bot_id}`);
-      }}
+      className="bg-secondary mx-2 p-2 rounded  d-flex flex-column justify-content-around align-items-center"
+      style={{ height: "7rem" }}
     >
       {botData.Bot_id}
+      <Button
+        onClick={() => {
+          navigate(`../${botData.Bot_id}`);
+        }}
+      >
+        Control
+      </Button>
     </div>
   );
 };
