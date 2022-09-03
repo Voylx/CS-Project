@@ -34,7 +34,7 @@ export const Login = () => {
       .catch((err) => {
         console.log(err.response.data);
         setisError(true);
-        setErrMsg(error.response.data.message);
+        setErrMsg(err.response.data.message);
       });
   }
 

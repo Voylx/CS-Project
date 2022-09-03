@@ -8,7 +8,7 @@ const saltRounds = 13;
 
 const { authen, createToken } = require("./services/authen");
 
-const apibottrade = require("./routes/apibottrade");
+const apibot = require("./routes/apibot");
 
 const app = express();
 
@@ -17,7 +17,7 @@ const port = 3333;
 app.use(cors());
 app.use(express.json());
 
-app.use("/bot", apibottrade);
+app.use("/bot", apibot);
 
 app.post("/register", function (req, res, next) {
   const { email, username, password } = req.body;
