@@ -17,7 +17,7 @@ const port = 3333;
 app.use(cors());
 app.use(express.json());
 
-app.use("/bot", apibot);
+app.use("/api", apibot);
 
 app.post("/register", function (req, res) {
   const { email, username, password } = req.body;

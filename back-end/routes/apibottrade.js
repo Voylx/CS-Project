@@ -5,7 +5,8 @@ const bitkub = require("../API/bitkub");
 
 const router = express.Router();
 
-router.post("/apibitkub", async (req, res) => {
+// add api bitkub
+router.post("/add_apibitkub", async (req, res) => {
   const { User_id, API_key, API_secert } = req.body;
 
   if (!(User_id && API_key && API_secert)) {
@@ -39,7 +40,7 @@ router.post("/apibitkub", async (req, res) => {
       else if (result.affectedRows === 0) {
         res.status(400).send({
           status: "error",
-          message: "You have entered this key already.",
+          message: "You have already added the key.",
         });
       }
       //
@@ -52,30 +53,9 @@ router.post("/apibitkub", async (req, res) => {
   );
 });
 
-router.post("/getapibitkub", (req, res) => {
-  const { User_id } = req.body;
-  db.execute(
-    "SELECT COUNT(API_KEY) FROM bitkub Where  user_id =? ",
-    [User_id],
-    function (err, results) {
-      //Check SQL Error
-      if (err) {
-        console.error(err);
-        res.status(500).send({ status: "error", message: err.sqlMessage });
-      } else if (results.length === 0) {
-        res.status(404).send({
-          status: "err",
-          message: "api Not Found",
-        });
-      } else {
-        // console.log(results[0]["COUNT(API_KEY)"]);
-        res.send({
-          status: "ok",
-          linkAPI: Boolean(results[0]["COUNT(API_KEY)"]),
-        });
-      }
-    }
-  );
+// delete api bitkub
+router.post("/del_apibitkub", (req, res) => {
+  res.send({ status: "ok", message: "ยังไม่ได้ทำ" });
 });
 
 module.exports = router;

@@ -12,7 +12,7 @@ export const TradeBotDetail = () => {
   const [strategy, setStrategy] = useState("default");
 
   function checkLinkAPI() {
-    Axios.post("/bot/getapibitkub", {})
+    Axios.post("/api/check/link_apibitkub", {})
       .then((res) => {
         // console.log(res.data);
         if (!res.data.linkAPI) {
@@ -54,13 +54,16 @@ export const TradeBotDetail = () => {
           <Row>
             {/* select Strategy */}
             <Col className="mb-3" lg={5}>
+              <Form.Label>Select Strategy</Form.Label>
               <Form.Select
-                aria-label="select Strategy"
+                aria-label="Select Strategy"
                 onChange={(e) => {
                   setStrategy(e.target.value);
                 }}
               >
-                <option value="default">Select Strategy</option>
+                <option value="default" className="text-muted">
+                  [All]
+                </option>
 
                 {Object.entries(strategies).map(([k, v]) => (
                   <option value={k} key={k}>
@@ -72,13 +75,17 @@ export const TradeBotDetail = () => {
 
             {/* select Coin */}
             <Col className="mb-3" lg={5}>
+              <Form.Label>Select Coin</Form.Label>
               <Form.Select
                 aria-label="select coin"
                 onChange={(e) => {
                   setSymbol(e.target.value);
                 }}
+                value={symbol}
               >
-                <option value="default">Select Coin</option>
+                <option value="default" className="text-muted" disabled>
+                  Select Coin
+                </option>
                 {symbols.map((v) => (
                   <option value={v} key={v}>
                     {v}
@@ -86,8 +93,9 @@ export const TradeBotDetail = () => {
                 ))}
               </Form.Select>
             </Col>
-            <Col className="mb-3 ">
-              <Button className="w-100">Something...</Button>
+
+            <Col className="mb-3 align-self-end " lg={2}>
+              <Button className="w-100 ">Something...</Button>
             </Col>
           </Row>
         </div>

@@ -28,10 +28,12 @@
 
 ## BACK-END
 
-> Login
+### ("/ ")
+
+> Login ✅
 
 - Method: `post`
-- Path:`/api/login`
+- Path:`/login`
 - Resquest Body:
 
 ```json
@@ -41,12 +43,14 @@
 }
 ```
 
-- Response: home page
+- Response: OK
 
-> Register
+  ***
+
+> Register ✅
 
 - Method: `post`
-- Path:`/api/register`
+- Path:`/register`
 - Resquest Body:
 
 ```json
@@ -57,22 +61,108 @@
 }
 ```
 
-- Response: login page
+- Response: OK
+
+  ***
+
+> authen ✅
+
+- Method: `post`
+- Path:`/authen`
+- Resquest Header:
+
+```json
+{
+  "Authorization": "Bearer " + token
+}
+```
+
+- Response:
+
+```json
+{
+  "status": "ok ",
+  "decode": {
+    "User_id": "ac5c3b26-db74-4c60-8c7a-57476f2a7d87",
+    "iat": 1662305441,
+    "exp": 1662309041
+  }
+}
+```
 
 ---
 
-### API-Key
-
-> Add-apikey
+> symbols ✅
 
 - Method: `get`
-- Path:`/api/add-apikey`
+- Path:`/symbols`
+- Response :
+
+```json
+{
+  "status": "ok",
+  "symbols": ["BTC", "ETH", "BNB", ...]
+}
+```
+
+- Response: OK
+
+  ***
+
+> strategies ✅
+
+- Method: `get`
+- Path:`/strategies`
+- Response :
+
+```json
+{
+  "status": "ok",
+  "strategies": {
+    "strategies_id": "strategies_name"
+  }
+}
+```
+
+- Response: OK
+
+  ***
+
+---
+
+<h5 style="text-align: center;">need authentication token in header</h5>
+
+---
+
+### API ("/api ")
+
+> Addbot
+
+- Method: `post`
+- Path:`/api/add_apibitkub`
 - Resquest Body:
 
 ```json
 {
   "user_id": "string",
-  "password": "string",
+  "api-key": "string",
+  "api-secert": "string"
+}
+```
+
+- Response: OK
+
+  ***
+
+> Add-apikey ✅
+
+- Method: `post`
+- Path:`/api/add_apibitkub`
+- Resquest Body:
+
+```json
+{
+  "user_id": "string",
   "api-key": "string",
   "api-secert": "string"
 }
@@ -85,7 +175,7 @@
 > DEL-apikey
 
 - Method: `get`
-- Path:`/api/del-apikey`
+- Path:`/api/del_apikey`
 - Resquest Body:
 
 ```json
@@ -97,6 +187,85 @@
 ```
 
 - Response: OK
+
+  ***
+
+### CHECK ("/api/check ")
+
+> check link apibitkub ✅
+
+- Method: `post`
+- Path:`/api/check/link_apibitkub`
+- Response Body:
+
+```json
+{
+  "status": "ok",
+  "linkAPI": Boolean
+}
+```
+
+- Response: OK
+
+  ***
+
+> check have bot ✅
+
+- Method: `post`
+- Path:`/api/check/havebot`
+- Response Body:
+
+```json
+{
+  "Type": type // 0 = trade ,1 = noti
+}
+```
+
+- Response: OK
+
+```json
+{
+  "status": "ok",
+  "bot": {
+    "Bot_id": "35e50c43-1ef8-4041-aa7e-4a324a466504",
+    "User_id": "ac5c3b26-db74-4c60-8c7a-57476f2a7d87",
+    "Type": 1
+  }
+}
+```
+
+---
+
+> check bot by bot_id ✅
+
+- Method: `post`
+- Path:`/api/check/bot_by_botid`
+- Response Body:
+
+```json
+{
+  "Bot_id": "35e50c43-1ef8-4041-aa7e-4a324a466504" // 0 = trade ,1 = noti
+}
+```
+
+- Response: OK
+
+```json
+{
+  "status": "ok",
+  "bot": {
+    "Bot_id": "35e50c43-1ef8-4041-aa7e-4a324a466504",
+    "User_id": "ac5c3b26-db74-4c60-8c7a-57476f2a7d87",
+    "Type": 1
+  }
+}
+```
+
+---
+
+---
+
+## <h3 style="text-align: center;">ยังไม่ได้ทำ</h3>
 
 ---
 

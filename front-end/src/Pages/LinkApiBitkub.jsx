@@ -30,7 +30,7 @@ export const LinkApiBitkub = () => {
     }
     if (key && secert) {
       try {
-        const res = await Axios.post("/bot/apibitkub", {
+        const res = await Axios.post("/api/add_apibitkub", {
           API_key: key,
           API_secert: secert,
         });

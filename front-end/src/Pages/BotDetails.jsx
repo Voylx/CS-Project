@@ -18,7 +18,7 @@ export const BotDetails = () => {
 
   const Bot_id = params.botId;
   function getbotDetails() {
-    Axios.post("/bot/checkbot_by_botid", { Bot_id })
+    Axios.post("/api/check/bot_by_botid", { Bot_id })
       .then((res) => {
         setBotData(res.data?.bot);
       })

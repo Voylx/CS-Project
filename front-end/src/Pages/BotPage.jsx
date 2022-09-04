@@ -24,7 +24,7 @@ const AddBox = (props) => {
   };
 
   const handleAddBot = () => {
-    Axios.post("/bot/add", {
+    Axios.post("/api/addbot", {
       Type: type,
     })
       .then((res) => {
@@ -97,7 +97,7 @@ export const BotBox = (props) => {
   }, []);
 
   function Checkbot(Type) {
-    Axios.post("/bot/checkbot", { Type })
+    Axios.post("/api/check/havebot", { Type })
       .then((res) => {
         console.log(res.data);
         setBotData(res.data.bot);
