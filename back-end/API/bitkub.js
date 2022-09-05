@@ -2,8 +2,7 @@ const axios = require("axios");
 const crypto = require("crypto");
 
 // const API = require("./secret.json");
-const url = "https://api.bitkub.com";
-
+``;
 const Axios = axios.create({
   baseURL: "https://api.bitkub.com",
 });

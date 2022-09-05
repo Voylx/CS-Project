@@ -6,8 +6,7 @@ const { authen } = require("../services/authen");
 
 const apibottrade = require("./apibottrade");
 const check = require("./check");
-
-const { Router } = require("express");
+const bot = require("./bot/bottrade");
 
 const router = express.Router();
 
@@ -28,6 +27,7 @@ router.use((req, res, next) => {
 
 router.use(apibottrade);
 router.use("/check", check);
+router.use("/bot", bot);
 
 router.post("/addbot", (req, res) => {
   //add to BOT TABLE
