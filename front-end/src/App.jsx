@@ -9,6 +9,7 @@ import { BotPage } from "./Pages/BotPage";
 import { LinkApiBitkub } from "./Pages/LinkApiBitkub";
 import { LinkLine } from "./Pages/LinkLine";
 import { BotDetails } from "./Pages/BotDetails";
+import { LinkApiLine } from "./Pages/LinkApiLine";
 
 // import "./App.css";
 
@@ -27,6 +28,7 @@ function App() {
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="linkline" element={<LinkLine />} />
               <Route path=":botId" element={<BotDetails />} />
+              <Route path="linkapiline" element={<LinkApiLine />} />
             </Route>
           </Route>
         </Routes>

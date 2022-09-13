@@ -28,19 +28,15 @@ const symstr = sym.reduce(
   (pre, cur) => pre + "market.trade.thb_" + cur + ",",
   "wss://api.bitkub.com/websocket-api/"
 );
-console.log(symstr.substring(0, symstr.length - 1));
+// console.log(symstr.substring(0, symstr.length - 1));
 
 const serverAddress = symstr.substring(0, symstr.length - 1);
 
 const ws = new WebSocket(serverAddress);
 
-ws.on("open", () => {
-  console.log("Connect");
-});
+ws.on("open", () => console.log("Connect"));
 
-ws.on("close", () => {
-  console.log("Disconnect");
-});
+ws.on("close", () => console.log("Disconnect"));
 
 ws.on("message", (msg) => {
   try {

@@ -58,7 +58,16 @@ app.post("/register", function (req, res) {
 
 app.post("/login", function (req, res) {
   const { email, password } = req.body;
-
+  // console.log(email, password);
+  if (!(email && password)) {
+    {
+      res.status(400).send({
+        status: "error",
+        message: "Incomplete information!!!",
+      });
+      return;
+    }
+  }
   db.execute(
     "SELECT * FROM users WHERE email = ?",
     [email],

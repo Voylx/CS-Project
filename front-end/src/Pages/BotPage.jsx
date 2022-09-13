@@ -9,6 +9,7 @@ import { useAuthen } from "../services/Authen";
 import { Header } from "../components/Header";
 
 import add from "../icons/add.png";
+import settingpic from "../icons/settings.png";
 
 const AddBox = (props) => {
   const { type, title } = props;
@@ -39,9 +40,7 @@ const AddBox = (props) => {
         className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
         style={{ height: "10rem" }}
         // onClick={linkbotapi[type]}
-        onClick={() => {
-          setShowModal(true);
-        }}
+        onClick={handleShow}
       >
         <img src={add} alt="add" height={"50rem"} className="" />
         {/* <AddBoxModal show={showModal} setShow={setShowModal} /> */}
@@ -68,22 +67,33 @@ const AddBox = (props) => {
 };
 
 const Box = (props) => {
-  const { botData } = props;
+  const { botData, type } = props;
   let navigate = useNavigate();
 
+  const linksetting = {
+    0: () => navigate("../linkapiline"),
+    1: () => navigate("../bitkub"),
+  };
+
   return (
-    <div
-      className="bg-secondary mx-2 p-2 rounded  d-flex flex-column justify-content-around align-items-center"
-      style={{ height: "7rem" }}
-    >
-      {botData.Bot_id}
-      <Button
-        onClick={() => {
-          navigate(`../${botData.Bot_id}`);
-        }}
-      >
-        Control
-      </Button>
+    <div className="bg-secondary mx-2 p-2 rounded " style={{ height: "7rem" }}>
+      <img
+        src={settingpic}
+        alt="setting"
+        height={"22rem"}
+        className="float-end"
+        onClick={linksetting[type]}
+      />
+      <div className=" d-flex flex-column p-3 justify-content-around align-items-center">
+        {botData.Bot_id}
+        <Button
+          onClick={() => {
+            navigate(`../${botData.Bot_id}`);
+          }}
+        >
+          Control
+        </Button>
+      </div>
     </div>
   );
 };
@@ -112,7 +122,7 @@ export const BotBox = (props) => {
       <h3>{title[type]}</h3>
 
       {botData ? (
-        <Box botData={botData} />
+        <Box {...props} botData={botData} />
       ) : (
         <AddBox {...props} title={title} />
       )}
