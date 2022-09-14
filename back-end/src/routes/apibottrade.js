@@ -81,21 +81,24 @@ router.post("/update_apibitkub", async (req, res) => {
 
   db.execute(
     `UPDATE bitkub SET API_key =? ,API_secert =? WHERE User_id=?`,
-    [User_id, API_key, API_secert],
+    [API_key, API_secert, User_id],
     function (err, result) {
       //Check SQL Error
       if (err) {
         console.error(err);
         res.status(500).send({ status: "error", message: err.sqlMessage });
       }
-      //
-      else {
-        console.log(result);
+      // User have already link API
+      else if (result.affectedRows === 0) {
+        res.status(400).send({
+          status: "error",
+          message: "You have already added the key.",
+        });
+      } else
         res.send({
           status: "ok",
           message: { affectedRows: result.affectedRows },
         });
-      }
     }
   );
 });
