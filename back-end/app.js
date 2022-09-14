@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
-const db = require("./services/db");
+const db = require("./src/services/db");
 const { v4: uuidv4 } = require("uuid");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 13;
 
-const { authen, createToken } = require("./services/authen");
+const { authen, createToken } = require("./src/services/authen");
 
-const apibot = require("./routes/apibot");
+const apibot = require("./src/routes/apibot");
 
 const app = express();
 

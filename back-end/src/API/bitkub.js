@@ -89,9 +89,38 @@ const place_ask = async ({ key, secert }, sym, amt) => {
   }
 };
 
+const getchart = async (symbol, tf = "1D" || "240" || "60", day = 5) => {
+  // const resolution = "1D";
+  const now = Math.floor(Date.now() / 1000);
+  // const daysec = 86400;
+  const sectime = {
+    "1D": 86400,
+    240: 14400,
+    60: 3600,
+  };
+  // const day = 5;
+  // if (day == null) day = 5;
+  // console.log(sectime[tf]);
+  const from = now - sectime[tf] * day;
+
+  const to = now;
+
+  const result = await axios.get(
+    `/tradingview/history?symbol=${symbol}_THB&resolution=${tf}&from=${from}&to=${to}`
+  );
+  ``;
+
+  return result.data;
+};
+const getclosechart = async (symbol, tf, day) => {
+  const result = await getchart(symbol, tf, day);
+  return result.c;
+};
 module.exports = {
   getSevertime,
   balances,
   place_bid,
   place_ask,
+  getchart,
+  getclosechart,
 };

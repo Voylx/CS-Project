@@ -32,8 +32,11 @@ router.use((req, res, next) => {
   });
 });
 
-router.get("/test", (req, res) => {
+router.get("/test", async (req, res) => {
   console.log(req.headers.BTK);
+
+  const data = await BTK.getclosechart("BTC", "1D", 5);
+  console.log(data);
 
   res.send({ status: "ok", message: "test" });
 });
@@ -95,4 +98,43 @@ router.post("/place_ask", (req, res) => {
       res.status(501).send({ status: "error", message: err });
     });
 });
+
+router.post("/ma", async (req, res) => {
+  const { cdc } = require("../../strategies/emacross");
+  const Axios = require("../../services/Axios");
+  const response = [];
+
+  try {
+    const ress = await Axios.get("/symbols");
+    const symbols = ress.data.symbols;
+    const promises = [];
+    for (i in symbols) {
+      const data = BTK.getclosechart(symbols[i], "1D", 30);
+      promises.push(data);
+      const result = cdc(data);
+      response.push({ [symbols[i]]: result });
+    }
+    // symbols.map((sym) => {
+    //   const data = BTK.getclosechart(sym, 30);
+    //   promises.push(data);
+    // });
+
+    // const datas = await Promise.all(promises);
+    // console.log(datas);
+    // const results = [];
+
+    // symbols.map((sym) => {
+    //   const data = BTK.getclosechart(sym, 30);
+    //   promises.push(data);
+    // });
+    // results.push(cdc(datas));
+    // console.log(results);
+
+    res.send({ status: "ok", response });
+  } catch (err) {
+    console.log(err);
+    res.status(err.status || 500).send(err);
+  }
+});
+
 module.exports = router;
