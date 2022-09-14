@@ -54,6 +54,15 @@ export const TradeBotDetail = () => {
           <Row>
             {/* select Strategy */}
             <Col className="mb-3" lg={5}>
+              <div className="d-flex justify-content-between align-items-center">
+                <h2 className="ms-7 ">Strategy bot</h2>
+                <h6
+                  className="me-2 text-secondary"
+                  onClick={() => navigate("/bot")}
+                >
+                  {"Go back"}
+                </h6>
+              </div>
               <Form.Label>Select Strategy</Form.Label>
               <Form.Select
                 aria-label="Select Strategy"

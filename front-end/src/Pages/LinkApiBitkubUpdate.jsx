@@ -77,7 +77,7 @@ export const LinkApiBitkubUpdate = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicApiSecert">
-            <Form.Label>API-Secert</Form.Label>
+            <Form.Label>Update API-Secert</Form.Label>
             <Form.Control
               type="API Secert"
               placeholder="Enter API Secert"
