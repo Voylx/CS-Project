@@ -108,27 +108,18 @@ router.post("/ma", async (req, res) => {
     const ress = await Axios.get("/symbols");
     const symbols = ress.data.symbols;
     const promises = [];
-    for (i in symbols) {
-      const data = BTK.getclosechart(symbols[i], "1D", 30);
+
+    symbols.map((sym) => {
+      const data = BTK.getclosechart(sym, "1D", 30);
       promises.push(data);
-      const result = cdc(data);
-      response.push({ [symbols[i]]: result });
-    }
-    // symbols.map((sym) => {
-    //   const data = BTK.getclosechart(sym, 30);
-    //   promises.push(data);
-    // });
+    });
 
-    // const datas = await Promise.all(promises);
-    // console.log(datas);
-    // const results = [];
+    const datas = await Promise.all(promises);
 
-    // symbols.map((sym) => {
-    //   const data = BTK.getclosechart(sym, 30);
-    //   promises.push(data);
-    // });
-    // results.push(cdc(datas));
-    // console.log(results);
+    const response = [];
+    symbols.map((sym, i) => {
+      response.push({ [sym]: cdc(datas[i]) });
+    });
 
     res.send({ status: "ok", response });
   } catch (err) {
