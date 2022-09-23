@@ -7,7 +7,7 @@ const sma = (length, data) => {
     sum += data[i];
   }
   result.push(sum / length);
-  let step = data.length - length - 1;
+  let step = data.length - length;
   for (let i = 0; i < step; i++) {
     sum -= data[i];
     sum += data[i + length];
@@ -27,7 +27,7 @@ const ema = (length, data) => {
   ema.push(sum / length);
   const multiply = 2 / (length + 1);
 
-  let step = data.length - length - 1;
+  let step = data.length - length;
   for (let i = 0; i < step; i++) {
     let thisema =
       data[i + length] * multiply + ema[ema.length - 1] * (1 - multiply);

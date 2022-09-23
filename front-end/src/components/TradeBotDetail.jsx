@@ -50,19 +50,18 @@ export const TradeBotDetail = () => {
     <>
       <Container>
         <div className="border rounded-3 p-3 mb-5 mx-auto mt-5  shadow-lg col-lg-10 ">
-          {/* {symbols} */}
           <Row>
+            <div className="d-flex justify-content-between align-items-center">
+              <h2 className="ms-7 ">Strategy bot</h2>
+              <h6
+                className="me-2 text-secondary"
+                onClick={() => navigate("/bot")}
+              >
+                {"Go back"}
+              </h6>
+            </div>
             {/* select Strategy */}
             <Col className="mb-3" lg={5}>
-              <div className="d-flex justify-content-between align-items-center">
-                <h2 className="ms-7 ">Strategy bot</h2>
-                <h6
-                  className="me-2 text-secondary"
-                  onClick={() => navigate("/bot")}
-                >
-                  {"Go back"}
-                </h6>
-              </div>
               <Form.Label>Select Strategy</Form.Label>
               <Form.Select
                 aria-label="Select Strategy"
