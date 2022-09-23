@@ -7,8 +7,8 @@ const cdc = (data) => {
 };
 
 const ema_10_21 = (data) => {
-  const fast = 12;
-  const slow = 26;
+  const fast = 10;
+  const slow = 21;
   return emacross(data, { fast, slow });
 };
 
@@ -24,10 +24,12 @@ const emacross = (data, { fast, slow }) => {
 
     let today, Yday;
 
-    if (fast_ema[l] > slow_ema[l]) today = true;
+    if (fast_ema[fast_ema.length - 1] > slow_ema[slow_ema.length - 1])
+      today = true;
     else today = false;
 
-    if (fast_ema[l - 1] > slow_ema[l - 1]) Yday = true;
+    if (fast_ema[fast_ema.length - 2] > slow_ema[slow_ema.length - 2])
+      Yday = true;
     else Yday = false;
 
     if (today != Yday) {

@@ -10,6 +10,8 @@ const bot = require("./bot/bottrade");
 
 const router = express.Router();
 
+router.use("/bot", bot);
+
 // authen and get User_id
 router.use((req, res, next) => {
   try {
@@ -27,7 +29,6 @@ router.use((req, res, next) => {
 
 router.use(apibottrade);
 router.use("/check", check);
-router.use("/bot", bot);
 
 router.post("/addbot", (req, res) => {
   //add to BOT TABLE

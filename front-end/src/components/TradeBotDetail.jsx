@@ -89,11 +89,11 @@ export const TradeBotDetail = () => {
         </Row>
         <div className="linetext mb-5 text-muted"></div>
         <div className="border rounded-3 p-3 mb-5 mx-auto mt-5  shadow-lg col-lg-10 ">
-          {/* {symbols} */}
           <Row>
             <div className="d-flex justify-content-between align-items-center">
               <h2 className="ms-7 ">Strategy bot</h2>
               <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
+
                 {"Go back"}
               </h6>
             </div>
