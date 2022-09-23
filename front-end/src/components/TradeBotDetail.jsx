@@ -93,7 +93,6 @@ export const TradeBotDetail = () => {
             <div className="d-flex justify-content-between align-items-center">
               <h2 className="ms-7 ">Strategy bot</h2>
               <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
-
                 {"Go back"}
               </h6>
             </div>
