@@ -9,6 +9,7 @@ const saltRounds = 13;
 const { authen, createToken } = require("./src/services/authen");
 
 const apibot = require("./src/routes/apibot");
+const line = require("./src/routes/line/line");
 
 const app = express();
 
@@ -18,6 +19,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", apibot);
+app.use("/", line);
+
+app.get("/", (req, res) => {
+  res.send(
+    `<h1 style="color:blue;text-align:center; justify-content:center">Crypto Bot API</h1>`
+  );
+});
 
 app.post("/register", function (req, res) {
   const { email, username, password } = req.body;
