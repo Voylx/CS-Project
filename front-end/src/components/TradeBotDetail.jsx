@@ -49,14 +49,51 @@ export const TradeBotDetail = () => {
   return (
     <>
       <Container>
+        <Row className="m-4 g-3 ">
+          <h2 className="ms-7 ">Viewer Trade</h2>
+        </Row>
+        <Row
+          className="m-4 g-2 "
+          xs={3}
+          lg={3}
+          xl={4}
+          onClick={() => navigate("/bot/viewertrade")}
+        >
+          {[
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20, 21,
+          ].map((i) => {
+            return (
+              <Col>
+                <div
+                  className="border rounded-3 shadow p-3 "
+                  style={
+                    {
+                      // height: "7rem",
+                    }
+                  }
+                >
+                  <h5 className="m-0">BTC</h5>
+                  <h6 className="m-0 fs-6 text-primary">728,695.47</h6>
+                  {i % 2 == 0 ? (
+                    <p className="m-0 fs-6 text-success">(1.33%)</p>
+                  ) : (
+                    <p className="m-0 fs-6 text-danger">(-1.33%)</p>
+                  )}
+
+                  {/* <h6 className="m-0 text-primary">BTC</h6> */}
+                </div>
+              </Col>
+            );
+          })}
+        </Row>
+        <div className="linetext mb-5 text-muted"></div>
         <div className="border rounded-3 p-3 mb-5 mx-auto mt-5  shadow-lg col-lg-10 ">
           <Row>
             <div className="d-flex justify-content-between align-items-center">
               <h2 className="ms-7 ">Strategy bot</h2>
-              <h6
-                className="me-2 text-secondary"
-                onClick={() => navigate("/bot")}
-              >
+              <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
+
                 {"Go back"}
               </h6>
             </div>
@@ -108,6 +145,7 @@ export const TradeBotDetail = () => {
             </Col>
           </Row>
         </div>
+
         {/* sym:{symbol}
         <br />
         strategy:{strategies[strategy]} */}
@@ -116,7 +154,7 @@ export const TradeBotDetail = () => {
             return (
               <Col>
                 <div
-                  className="border rounded-3 shadow p-2"
+                  className="border rounded-3 shadow p-2 mb-1"
                   style={
                     {
                       // height: "7rem",

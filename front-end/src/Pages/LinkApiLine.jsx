@@ -8,7 +8,7 @@ export const LinkApiLine = () => {
   return (
     <div>
       <Header />
-      <div>LinkApiLinelBot</div>
+      <div>LinkApiLinelBotยังไม่ได้ทำไรเลย</div>
       <Button
         onClick={() => {
           navigate(`../linkline`);
