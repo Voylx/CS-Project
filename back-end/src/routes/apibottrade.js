@@ -34,7 +34,7 @@ router.post("/add_apibitkub", async (req, res) => {
       //Check SQL Error
       if (err) {
         console.error(err);
-        res.status(500).send({ status: "error", message: err.sqlMessage });
+        res.status(500).send({ status: "error", message: err });
       }
       // User have already link API
       else if (result.affectedRows === 0) {

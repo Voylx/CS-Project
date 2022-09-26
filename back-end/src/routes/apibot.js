@@ -2,7 +2,8 @@ const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 
 const db = require("../services/db");
-const { authen } = require("../services/authen");
+
+const authgetuser = require("../middleware/authen_and_getuserid");
 
 const apibottrade = require("./apibottrade");
 const check = require("./check");
@@ -13,19 +14,7 @@ const router = express.Router();
 router.use("/bot", bot);
 
 // authen and get User_id
-router.use((req, res, next) => {
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const Auth = authen(token);
-    if (Auth.status !== "ok") res.send(Auth);
-    else {
-      req.body.User_id = Auth.decode.User_id;
-      next();
-    }
-  } catch (error) {
-    res.status(400).send({ status: "error", message: "Token invalid" });
-  }
-});
+router.use(authgetuser);
 
 router.use(apibottrade);
 router.use("/check", check);

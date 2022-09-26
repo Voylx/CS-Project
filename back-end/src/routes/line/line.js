@@ -1,21 +1,73 @@
 const express = require("express");
-const line = require("@line/bot-sdk");
 
 const db = require("../../services/db");
 
+const authgetuser = require("../../middleware/authen_and_getuserid");
+
 const router = express.Router();
+
+const line = require("../../services/line");
 
 router.post("/linewebhook", (req, res) => {
   const { events } = req.body;
   const lineuserid = events[0].source.userId;
-  console.log(events[0]);
-  console.log(lineuserid);
+  const replyToken = events[0].replyToken;
+  const text = events[0]?.message?.text;
+  // prettier-ignore
+  if (!text) {  res.send("ok"); return; }
 
   //todooooo
-  //เอาlineuseridไปเชคในตาราง prelinkline
-  // ไม่มี ค่อยทำ
+  //เอาlineuseridไปเชคในตาราง line
+  db.query(
+    "SELECT * FROM line WHERE LineUser_id = ?",
+    [lineuserid],
+    (err, lineUsers) => {
+      // prettier-ignore
+      if (err) {res.status(500).send({ status: "error", message: err }); return; }
+      // prettier-ignore
+      if (lineUsers.length > 0) { res.send("ok"); return; }
+      // ถ้าไม่มี ค่อยทำ
+      console.log(text);
+      // check text and rand_num
+      db.query(
+        "SELECT * FROM prelinkline WHERE rand_num = ?",
+        [text],
+        (err, data) => {
+          // prettier-ignore
+          if (err) {res.status(500).send({ status: "error", message: err }); return; }
+          // prettier-ignore
+          if (data.length === 0) { res.send("ok"); return; }
 
-  res.send();
+          // store line_users_id in line table
+          db.execute(
+            "INSERT INTO line (User_id, LineUser_id) VALUES (?,?); ",
+            [data[0].User_id, lineuserid],
+            (err, results) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send({ status: "error", message: err });
+                return;
+              }
+              db.execute(
+                "DELETE FROM prelinkline WHERE User_id = ?",
+                [data[0].User_id],
+                (err, results) => {
+                  if (err) {
+                    console.log(err);
+                    res.status(500).send({ status: "error", message: err });
+                    return;
+                  }
+
+                  line.reply(replyToken, "Connect Success");
+                  res.send("ok");
+                }
+              );
+            }
+          );
+        }
+      );
+    }
+  );
 });
 
 router.post("/pushtextmessage", (req, res) => {
@@ -27,25 +79,15 @@ router.post("/pushtextmessage", (req, res) => {
     });
     return;
   }
-  const client = new line.Client({
-    channelAccessToken:
-      "thycWu8MBIKPETvBc3K77vJmvNVNJzIzRkq54WiezgKG7b4XFnANktSxSeSXUpsB4ZACjXZCJENtmlmKcAMqhoEzc04PiiqLTBk4rcr19cZa/SLzVh436CNYigDoEg5sp14MEIoP8IxkHmX1an6KwgdB04t89/1O/w1cDnyilFU=",
-  });
-  const message = {
-    type: "text",
-    text: text,
-  };
 
-  client
-    .pushMessage(lineuserid, message)
-    .then(() => {
-      //   ...
-    })
-    .catch((err) => {
-      // error handling
-      console.log(err);
-    });
-  res.send();
+  const resp = line.push(lineuserid, text);
+  console.log(resp);
+  res.send(resp);
+});
+
+router.post("/prelinkline", authgetuser, (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
 });
 
 module.exports = router;
