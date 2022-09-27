@@ -58,8 +58,9 @@ router.post("/linewebhook", (req, res) => {
                     return;
                   }
 
-                  line.reply(replyToken, "Connect Success");
-                  res.send("ok");
+                  line
+                    .reply(replyToken, "Connect Success")
+                    .then((e) => res.send(e));
                 }
               );
             }
@@ -70,7 +71,7 @@ router.post("/linewebhook", (req, res) => {
   );
 });
 
-router.post("/pushtextmessage", (req, res) => {
+router.post("/pushtextmessage", async (req, res) => {
   const { text, lineuserid } = req.body;
   if (!text || !lineuserid) {
     res.status(400).send({
@@ -80,7 +81,7 @@ router.post("/pushtextmessage", (req, res) => {
     return;
   }
 
-  const resp = line.push(lineuserid, text);
+  const resp = await line.push(lineuserid, text);
   console.log(resp);
   res.send(resp);
 });

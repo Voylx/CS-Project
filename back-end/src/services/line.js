@@ -10,32 +10,28 @@ const Line = {
     type: "text",
     text: "Hello, world!",
   },
-  reply(replyToken, text) {
+  reply: async function (replyToken, text) {
     this.message.text = text;
-    this.client
-      .replyMessage(replyToken, this.message)
-      .then(() => {
-        // ...
-      })
-      .catch((err) => {
-        // error handling
-        console.log(err);
-        throw err;
-      });
+    try {
+      await this.client.replyMessage(replyToken, this.message);
+      return { status: "ok", message: "reply success" };
+    } catch (err) {
+      // error handling
+      console.log(err);
+      throw err;
+    }
   },
-  push(lineuserid, text) {
+  async push(lineuserid, text) {
     let ret;
     this.message.text = text;
-    this.client
-      .pushMessage(lineuserid, this.message)
-      .then(() => {
-        //..
-      })
-      .catch((err) => {
-        // error handling
-        console.log(err);
-        throw err;
-      });
+    try {
+      await this.client.pushMessage(lineuserid, this.message);
+      return { status: "ok", message: "push success" };
+    } catch (err) {
+      // error handling
+      console.log(err);
+      throw err;
+    }
   },
 };
 
