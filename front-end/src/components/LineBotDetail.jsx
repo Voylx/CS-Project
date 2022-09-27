@@ -4,12 +4,23 @@ import Axios from "../services/Axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 
-import { useAuthen } from "../services/Authen";
-
-import { Header } from "../components/Header";
-
 export const LineBotDetail = () => {
   let navigate = useNavigate();
+  function checkLinkAPI() {
+    Axios.post("/api/check/link_line", {})
+      .then((res) => {
+        console.log(res.data);
+        if (!res.data.linkLine) {
+          navigate("/bot/linkline");
+        }
+      })
+      .catch((err) => console.error(err?.response?.data));
+  }
+
+  useEffect(() => {
+    checkLinkAPI();
+  }, []);
+
   return (
     <div>
       <Container fluid="md">
@@ -27,12 +38,12 @@ export const LineBotDetail = () => {
             </h6>
           </div>
           <div className="mb-5 text-center">
-            <div className="fs-2">QR-Code</div>
+            <div className="fs-3">หน้าเชื่อมแล้ว</div>
             <div
-              className="h-auto  mx-auto mt-2 shadow-lg"
-              style={{ borderRadius: "11px", height: "10rem" }}
+              className=" fs-2 mx-auto mt-2 shadow-lg "
+              // style={{ borderRadius: "11px", height: "10rem" }}
             >
-              รูป QR-Code eiei
+              random
             </div>
           </div>
         </div>
