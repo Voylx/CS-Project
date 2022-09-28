@@ -30,15 +30,27 @@ export const BotDetails = () => {
 
   useEffect(() => {
     getbotDetails();
+    console.log(
+      Object.keys(botData).length !== 0
+        ? botData.Type
+          ? "Trade"
+          : "Line"
+        : "None"
+    );
+    console.log(botData);
   }, []);
 
   return (
     <div>
       <Header />
-      {botData?.Type ? (
-        <TradeBotDetail botData={botData} />
+      {Object.keys(botData).length !== 0 ? (
+        botData.Type ? (
+          <TradeBotDetail botData={botData} />
+        ) : (
+          <LineBotDetail botData={botData} />
+        )
       ) : (
-        <LineBotDetail botData={botData} />
+        <></>
       )}
     </div>
   );

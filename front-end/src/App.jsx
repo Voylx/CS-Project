@@ -27,11 +27,15 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="bot">
               <Route path="" element={<BotPage />} />
+              <Route path=":botId" element={<BotDetails />} />
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="bitkubupdate" element={<LinkApiBitkubUpdate />} />
-              <Route path="viewertrade" element={<ViewerTrade />} />
+              {/* <Route path="viewertrade" element={<ViewerTrade />} /> */}
+              <Route path="viewertrade">
+                <Route path=":symbol" element={<ViewerTrade />} />
+              </Route>
               <Route path="linkline" element={<LinkLine />} />
-              <Route path=":botId" element={<BotDetails />} />
+
               <Route path="linkapiline" element={<LinkApiLine />} />
             </Route>
           </Route>

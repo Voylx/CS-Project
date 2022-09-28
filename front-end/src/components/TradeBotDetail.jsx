@@ -8,7 +8,7 @@ import SelectStrategies from "./SelectStrategies";
 export const TradeBotDetail = () => {
   let navigate = useNavigate();
   const [symbols, setSymbols] = useState([]);
-  const [strategies, setStrategies] = useState([]);
+  const [strategies, setStrategies] = useState({});
   const [symbol, setSymbol] = useState("default");
   const [strategy, setStrategy] = useState("default");
 
@@ -22,8 +22,18 @@ export const TradeBotDetail = () => {
       })
       .catch((err) => console.error(err?.response?.data));
   }
+  function getsymbols() {
+    Axios.get("/symbols")
+      .then((res) => {
+        setSymbols(res.data.symbols);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   useEffect(() => {
     checkLinkAPI();
+    getsymbols();
   }, []);
 
   return (
@@ -32,19 +42,10 @@ export const TradeBotDetail = () => {
         <Row className="m-4 g-3 ">
           <h2 className="ms-7 ">Viewer Trade</h2>
         </Row>
-        <Row
-          className="m-4 g-2 "
-          xs={3}
-          lg={3}
-          xl={4}
-          onClick={() => navigate("/bot/viewertrade")}
-        >
-          {[
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-            20, 21,
-          ].map((i) => {
+        <Row className="m-4 g-2 " xs={3} lg={3} xl={4}>
+          {symbols.map((v, i) => {
             return (
-              <Col key={i}>
+              <Col key={i} onClick={() => navigate(`/bot/viewertrade/${v}`)}>
                 <div
                   className="border rounded-3 shadow p-3 "
                   style={
@@ -53,7 +54,7 @@ export const TradeBotDetail = () => {
                     }
                   }
                 >
-                  <h5 className="m-0">BTC</h5>
+                  <h5 className="m-0">{v}</h5>
                   <h6 className="m-0 fs-6 text-primary">728,695.47</h6>
                   {i % 2 == 0 ? (
                     <p className="m-0 fs-6 text-success">(1.33%)</p>

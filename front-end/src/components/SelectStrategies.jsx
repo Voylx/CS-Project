@@ -4,6 +4,8 @@ import Axios from "../services/Axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
+import SymStgBox from "./SymStgBox";
+
 const SelectStrategies = () => {
   let navigate = useNavigate();
 
@@ -45,31 +47,6 @@ const SelectStrategies = () => {
     else setSymsFilter([symbol]);
     if (strategy === "default") setStgFilter(strategies);
     else setStgFilter({ [strategy]: strategies[strategy] });
-  }
-
-  function SymStgBox({ sym, stg, i }) {
-    return (
-      <Col className="">
-        <div
-          className="border rounded-3 shadow p-2 mb-1 "
-          style={
-            {
-              // height: "7rem",
-            }
-          }
-        >
-          <h6 className="m-0">{stg}</h6>
-          <h6 className="m-0 text-primary">{sym}</h6>
-          {i % 2 == 0 ? (
-            <p className="m-0 fs-6 text-success">BUY</p>
-          ) : (
-            <p className="m-0 fs-6 text-danger">SELL</p>
-          )}
-          <p className="m-0 fs-6 text-muted">2022-09-05 : 22:43:00</p>
-          <p className="m-0 fs-6 text-muted">(3 days ago) </p>
-        </div>
-      </Col>
-    );
   }
 
   function StgSelectAndFilterBox() {
