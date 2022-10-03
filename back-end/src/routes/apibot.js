@@ -9,6 +9,7 @@ const authgetuser = require("../middleware/authen_and_getuserid");
 const apibottrade = require("./apibottrade");
 const check = require("./check");
 const bot = require("./bot/bottrade");
+const { request } = require("express");
 
 const router = express.Router();
 
@@ -47,35 +48,50 @@ router.post("/delete", (req, res) => {
   //delete Bot in BOT TABLE
 });
 
-router.post("/addselected", async (req, res) => {
-  const { User_id, Bot_id, Sym, Strategys_Id, Amt_money } = req.body;
+router.post("/addselected",
+  (req, res, next) => {
+    const { Bot_id } = req.body;
 
-  console.log(req.headers);
+    Axios.post("/api/check/bot_by_botid", { Bot_id }, { headers: { Authorization: req.headers.authorization } })
+      .then((response) => {
+        req.body.botType = response?.data?.bot?.Type
+        next();
+      }).catch((error) => {
+        res.status(500).send(error?.response?.data)
+      })
 
-try {
-  const checkbot = await Axios.post("/api/check/bot_by_botid", {
-    Bot_id
-  },
-    {
-      headers: { Authorization: req.headers.authorization },
-    });
+  }, (req, res, next) => {
+    const { Sym, Strategys_Id, botType, Amt_money } = req.body;
+    if (botType) {
+      if (!(Sym && Strategys_Id && Amt_money)) {
+        res.status(400).send({
+          status: "error",
+          message: "Incomplete request ",
+        });
+        return;
+      }
+    }
+    else {
+      if (!(Sym && Strategys_Id)) {
+        res.status(400).send({
+          status: "error",
+          message: "Incomplete request ",
+        });
+        return;
+      }
+    }
+    next();
 
-  console.log(checkbot.data);
-} catch (error) {
-  console.log(error.response.data);
-  res.status(500).send({ status: "error", error: error?.response?.data });
-
-}
-  
-
-  // if (!(User_id, Bot_id, Sym, Strategys_Id)) {
-  //   res.status(400).send({
-  //     status: "error",
-  //     message: "Incomplete information!!!",
-  //   });
-  //   return;
-  // }
-  // res.send({ status: "ok", message: "Add Select", data: req.body });
-})
+  }, (req, res) => {
+    const { User_id, Bot_id, Sym, Strategys_Id, botType, Amt_money } = req.body;
+    db.execute("", [], function (err, res) {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ status: "error", message: err.sqlMessage });
+      }
+    })
+    console.log({ User_id, Bot_id, Sym, Strategys_Id, botType, Amt_money });
+    res.send(req.body)
+  })
 
 module.exports = router;
