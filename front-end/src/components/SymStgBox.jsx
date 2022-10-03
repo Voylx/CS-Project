@@ -7,7 +7,7 @@ const FavIcon = ({ fav,check }) => {
   const { fav: isFav, setFav } = fav;
   const { check: isCheck, setCheck } = check;
   return (
-    <div className="col">
+    <span className="col-4 me-0 d-flex justify-content-end">
       <span className="ms-1" onClick={() => { setFav(!isFav) }}>
         {isFav ? <AiFillStar /> : <AiOutlineStar />}
       </span>
@@ -15,7 +15,7 @@ const FavIcon = ({ fav,check }) => {
         {isCheck ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </span>
 
-    </div>
+    </span>
   );
 };
 
@@ -25,8 +25,8 @@ const SymStgBox = ({ sym, stg, i }) => {
   return (
     <Col className="">
       <div className="border rounded-3 shadow p-2 mb-1 ">
-        <Row>
-          <h6 className="col">{stg}</h6>
+        <Row className="">
+          <h6 className="col-8">{stg}</h6>
 
           <FavIcon fav={{ fav, setFav }} check={{ check, setCheck }} />
         </Row>
