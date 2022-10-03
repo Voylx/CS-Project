@@ -42,11 +42,11 @@ const SelectStrategies = () => {
       });
   }
 
-  function handleFilter() {
-    if (symbol === "default") setSymsFilter(symbols);
-    else setSymsFilter([symbol]);
-    if (strategy === "default") setStgFilter(strategies);
-    else setStgFilter({ [strategy]: strategies[strategy] });
+  function handleResetFilter() {
+    setSymbol("default")
+    setSymsFilter(symbols);
+    setStrategy("default");
+    setStgFilter(strategies);
   }
 
   function StgSelectAndFilterBox() {
@@ -111,8 +111,8 @@ const SelectStrategies = () => {
           </Col>
 
           <Col className="mb-3  align-self-end " lg={2}>
-            <Button className="w-100 " onClick={handleFilter}>
-              Filter...
+            <Button className="w-100 " onClick={handleResetFilter}>
+              Reset
             </Button>
           </Col>
         </Row>

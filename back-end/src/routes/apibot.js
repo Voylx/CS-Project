@@ -1,5 +1,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
+const Axios = require("../services/Axios");
 
 const db = require("../services/db");
 
@@ -45,5 +46,36 @@ router.post("/addbot", (req, res) => {
 router.post("/delete", (req, res) => {
   //delete Bot in BOT TABLE
 });
+
+router.post("/addselected", async (req, res) => {
+  const { User_id, Bot_id, Sym, Strategys_Id, Amt_money } = req.body;
+
+  console.log(req.headers);
+
+try {
+  const checkbot = await Axios.post("/api/check/bot_by_botid", {
+    Bot_id
+  },
+    {
+      headers: { Authorization: req.headers.authorization },
+    });
+
+  console.log(checkbot.data);
+} catch (error) {
+  console.log(error.response.data);
+  res.status(500).send({ status: "error", error: error?.response?.data });
+
+}
+  
+
+  // if (!(User_id, Bot_id, Sym, Strategys_Id)) {
+  //   res.status(400).send({
+  //     status: "error",
+  //     message: "Incomplete information!!!",
+  //   });
+  //   return;
+  // }
+  // res.send({ status: "ok", message: "Add Select", data: req.body });
+})
 
 module.exports = router;
