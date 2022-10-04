@@ -19,6 +19,7 @@ router.post("/add_apibitkub", async (req, res) => {
 
   // check api to bitkub
   const result = await bitkub.balances(API_key, API_secert);
+  console.log(result.error.response);
   if (result.error !== 0) {
     res.status(400).send({
       status: "error",
