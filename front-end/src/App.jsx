@@ -12,6 +12,7 @@ import { BotDetails } from "./Pages/BotDetails";
 import { LinkApiLine } from "./Pages/LinkApiLine";
 import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
+import { BotContorl } from "./Pages/BotControl";
 
 // import "./App.css";
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="bitkubupdate" element={<LinkApiBitkubUpdate />} />
               {/* <Route path="viewertrade" element={<ViewerTrade />} /> */}
+              <Route path="control" element={<BotContorl />} />
               <Route path="viewertrade">
                 <Route path=":symbol" element={<ViewerTrade />} />
               </Route>

@@ -3,18 +3,27 @@ import { Col, Row } from "react-bootstrap";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
-const FavIcon = ({ fav,check }) => {
+const FavIcon = ({ fav, check }) => {
   const { fav: isFav, setFav } = fav;
   const { check: isCheck, setCheck } = check;
   return (
     <span className="col-4 me-0 d-flex justify-content-end">
-      <span className="ms-1" onClick={() => { setFav(!isFav) }}>
+      <span
+        className="ms-1"
+        onClick={() => {
+          setFav(!isFav);
+        }}
+      >
         {isFav ? <AiFillStar /> : <AiOutlineStar />}
       </span>
-      <span className="ms-1" onClick={() => { setCheck(!isCheck) }}>
+      <span
+        className="ms-1"
+        onClick={() => {
+          setCheck(!isCheck);
+        }}
+      >
         {isCheck ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </span>
-
     </span>
   );
 };
