@@ -6,26 +6,28 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
 import SymStgBox from "./SymStgBox";
 
-const SelectStrategies = () => {
+const SelectStrategies = (props) => {
   let navigate = useNavigate();
 
   const [symbols, setSymbols] = useState([]);
   const [strategies, setStrategies] = useState({});
   const [symbol, setSymbol] = useState("default");
   const [strategy, setStrategy] = useState("default");
-  const [symsFilter, setSymsFilter] = useState(symbols);
-  const [stgFilter, setStgFilter] = useState(strategies);
+  const [stgFilter, setStgFilter] = useState([]);
+
+  const [symstg, setSymstg] = useState([]);
+  const [symstgFilter, setSymstgFilter] = useState(symstg);
 
   useEffect(() => {
     getsymbols();
     getstrategies();
+    getsymstgboxdata();
   }, []);
 
   function getsymbols() {
     Axios.get("/symbols")
       .then((res) => {
         setSymbols(res.data.symbols);
-        setSymsFilter(res.data.symbols);
       })
       .catch((err) => {
         console.log(err);
@@ -35,7 +37,19 @@ const SelectStrategies = () => {
     Axios.get("/strategies")
       .then((res) => {
         setStrategies(res.data.strategies);
-        setStgFilter(res.data.strategies);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function getsymstgboxdata() {
+    Axios.post("/api/getsymstgboxdata", {
+      Bot_id: props.botData.Bot_id,
+    })
+      .then((res) => {
+        // console.log(res.data);
+        setSymstg(res.data.data);
+        setSymstgFilter(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -43,10 +57,9 @@ const SelectStrategies = () => {
   }
 
   function handleResetFilter() {
-    setSymbol("default")
-    setSymsFilter(symbols);
+    setSymbol("default");
     setStrategy("default");
-    setStgFilter(strategies);
+    setSymstgFilter(symstg);
   }
 
   function StgSelectAndFilterBox() {
@@ -61,16 +74,20 @@ const SelectStrategies = () => {
           </div>
           {/* select Strategy */}
           <Col className="mb-3" lg={5}>
-            <Form.Label>Select Strategy</Form.Label>
+            {" "}
+            .<Form.Label>Select Strategy</Form.Label>
             <Form.Select
               aria-label="Select Strategy"
               onChange={(e) => {
                 setStrategy(e.target.value);
-                if (e.target.value === "default") setStgFilter(strategies);
-                else
-                  setStgFilter({
-                    [e.target.value]: strategies[e.target.value],
+
+                if (e.target.value === "default") setSymstgFilter(symstg);
+                else {
+                  const sym_filter = symstg.filter((v) => {
+                    return v.Strategy_id === parseInt(e.target.value);
                   });
+                  setSymstgFilter(sym_filter);
+                }
               }}
               value={strategy}
             >
@@ -93,8 +110,13 @@ const SelectStrategies = () => {
               aria-label="select coin"
               onChange={(e) => {
                 setSymbol(e.target.value);
-                if (e.target.value === "default") setSymsFilter(symbols);
-                else setSymsFilter([e.target.value]);
+                if (e.target.value === "default") setSymstgFilter(symstg);
+                else {
+                  const sym_filter = symstg.filter((v) => {
+                    return v.Sym === e.target.value;
+                  });
+                  setSymstgFilter(sym_filter);
+                }
               }}
               value={symbol}
             >
@@ -123,14 +145,17 @@ const SelectStrategies = () => {
     <>
       <StgSelectAndFilterBox />
       <Row className="g-3" xs={2} lg={3} xl={4}>
-        {/* {[1, 2, 3, 4, 5, 6, 7].map((i) => {
-          return <SymStgBox i={i} />;
-        })} */}
-        {symsFilter.map((sym, i) => {
-          return Object.entries(stgFilter).map(([k, v], i) => {
-            return <SymStgBox sym={sym} stg={v} i={i} key={sym + v} />;
-          });
-        })}
+        {symstgFilter.map((v, i) => (
+          <SymStgBox
+            sym={v.Sym}
+            stg={v.Strategy_name}
+            stgID={v.Strategy_id}
+            i={i}
+            key={v.Sym + v.Strategy_id}
+            isFav={Boolean(v.isFav)}
+            {...props}
+          />
+        ))}
       </Row>
     </>
   );

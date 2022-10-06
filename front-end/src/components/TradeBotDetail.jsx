@@ -5,7 +5,7 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 
 import SelectStrategies from "./SelectStrategies";
 
-export const TradeBotDetail = () => {
+export const TradeBotDetail = (props) => {
   let navigate = useNavigate();
   const [symbols, setSymbols] = useState([]);
   const [strategies, setStrategies] = useState({});
@@ -69,7 +69,7 @@ export const TradeBotDetail = () => {
           })}
         </Row>
         <div className="linetext mb-5 text-muted"></div>
-        <SelectStrategies />
+        <SelectStrategies {...props} />
       </Container>
     </>
   );
