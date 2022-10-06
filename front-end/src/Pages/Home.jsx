@@ -17,14 +17,14 @@ export const Home = () => {
       <Header />
       <BannerHead />
 
-      <Container className="">
+      <Container>
         <div>
           <div className=" mt-4 ">
             <Row>
               <Col xs={6} className="mt-4 ">
                 <img
                   src="https://wallpaperaccess.com/full/732233.jpg"
-                  class="rounded float-left w-100 "
+                  className="rounded float-left w-100 "
                   alt="picture investigation2"
                 />
               </Col>
@@ -37,14 +37,14 @@ export const Home = () => {
               <Col xs={6} className="mt-5">
                 <img
                   src="https://wallpaperaccess.com/full/732233.jpg"
-                  class="mt-4 rounded float-end w-100 "
+                  className="mt-4 rounded float-end w-100 "
                   alt="picture investigation3"
                 />
               </Col>
               <Col xs={6} className="mt-5">
                 <img
                   src="https://wallpaperaccess.com/full/732233.jpg"
-                  class="rounded float-left w-100 "
+                  className="rounded float-left w-100 "
                   alt="picture investigation2"
                 />
               </Col>
