@@ -13,7 +13,12 @@ const FavIcon = ({ fav, check, fOnClick }) => {
 
   return (
     <span className="col-4 me-0 d-flex justify-content-end">
-      <span className="ms-1" onClick={fOnClick.fav[isFav]}>
+      <span
+        className="ms-1"
+        onClick={() => {
+          setFav(!isFav);
+        }}
+      >
         {isFav ? <AiFillStar /> : <AiOutlineStar />}
       </span>
       <span

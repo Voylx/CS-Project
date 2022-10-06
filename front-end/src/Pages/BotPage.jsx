@@ -37,7 +37,7 @@ const AddBox = (props) => {
   return (
     <>
       <div
-        className="bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
+        className=" bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
         style={{ height: "10rem" }}
         // onClick={linkbotapi[type]}
         onClick={handleShow}

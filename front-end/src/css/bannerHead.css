@@ -21,17 +21,12 @@
     color:#fff;
     font-weight: bolder;
     text-align: center ;
+    text-shadow: 2px 2px #3e3c3c6f;
 }
 .banner-text{
-    font-size:22px;
+    font-size:21px;
     font-weight:lighter;
     color:#fff;
     text-align: center ;
 }
 
-.banner-btn{
-    background: #fff;
-    display: inline-block;
-    padding: .5rem 1rem;
-    text-decoration:none ;
-color: #333;}
