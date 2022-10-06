@@ -13,15 +13,15 @@ const SelectStrategies = (props) => {
   const [strategies, setStrategies] = useState({});
   const [symbol, setSymbol] = useState("default");
   const [strategy, setStrategy] = useState("default");
-  const [stgFilter, setStgFilter] = useState([]);
 
   const [symstg, setSymstg] = useState([]);
-  const [symstgFilter, setSymstgFilter] = useState(symstg);
+  const [symstgFilter, setSymstgFilter] = useState([]);
 
   useEffect(() => {
     getsymbols();
     getstrategies();
     getsymstgboxdata();
+    console.log(symstg);
   }, []);
 
   function getsymbols() {
@@ -78,17 +78,36 @@ const SelectStrategies = (props) => {
             .<Form.Label>Select Strategy</Form.Label>
             <Form.Select
               aria-label="Select Strategy"
-              onChange={(e) => {
-                setStrategy(e.target.value);
-
-                if (e.target.value === "default") setSymstgFilter(symstg);
-                else {
-                  const sym_filter = symstg.filter((v) => {
-                    return v.Strategy_id === parseInt(e.target.value);
-                  });
-                  setSymstgFilter(sym_filter);
+              onChange={
+                //
+                function filter(e) {
+                  if (symbol === "default" && e.target.value === "default")
+                    setSymstgFilter(symstg);
+                  else if (
+                    symbol !== "default" &&
+                    e.target.value !== "default"
+                  ) {
+                    const filter = symstg.filter((v) => {
+                      return (
+                        v.Strategy_id === parseInt(e.target.value) &&
+                        v.Sym === symbol
+                      );
+                    });
+                    setSymstgFilter(filter);
+                  } else if (symbol !== "default") {
+                    const sym_filter = symstg.filter((v) => {
+                      return v.Sym === symbol;
+                    });
+                    setSymstgFilter(sym_filter);
+                  } else if (e.target.value !== "default") {
+                    const stg_filter = symstg.filter((v) => {
+                      return v.Strategy_id === parseInt(e.target.value);
+                    });
+                    setSymstgFilter(stg_filter);
+                  }
+                  setStrategy(e.target.value);
                 }
-              }}
+              }
               value={strategy}
             >
               <option value="default" className="text-muted">
@@ -108,16 +127,36 @@ const SelectStrategies = (props) => {
             <Form.Label>Select Coin</Form.Label>
             <Form.Select
               aria-label="select coin"
-              onChange={(e) => {
-                setSymbol(e.target.value);
-                if (e.target.value === "default") setSymstgFilter(symstg);
-                else {
-                  const sym_filter = symstg.filter((v) => {
-                    return v.Sym === e.target.value;
-                  });
-                  setSymstgFilter(sym_filter);
+              onChange={
+                //
+                function filter(e) {
+                  if (e.target.value === "default" && strategy === "default")
+                    setSymstgFilter(symstg);
+                  else if (
+                    e.target.value !== "default" &&
+                    strategy !== "default"
+                  ) {
+                    const filter = symstg.filter((v) => {
+                      return (
+                        v.Strategy_id === parseInt(strategy) &&
+                        v.Sym === e.target.value
+                      );
+                    });
+                    setSymstgFilter(filter);
+                  } else if (e.target.value !== "default") {
+                    const sym_filter = symstg.filter((v) => {
+                      return v.Sym === e.target.value;
+                    });
+                    setSymstgFilter(sym_filter);
+                  } else if (strategy !== "default") {
+                    const stg_filter = symstg.filter((v) => {
+                      return v.Strategy_id === parseInt(strategy);
+                    });
+                    setSymstgFilter(stg_filter);
+                  }
+                  setSymbol(e.target.value);
                 }
-              }}
+              }
               value={symbol}
             >
               <option value="default" className="text-muted">
@@ -132,8 +171,9 @@ const SelectStrategies = (props) => {
             </Form.Select>
           </Col>
 
+          {/* button */}
           <Col className="mb-3  align-self-end " lg={2}>
-            <Button className="w-100 " onClick={handleResetFilter}>
+            <Button className="w-100 mb-1" onClick={handleResetFilter}>
               Reset
             </Button>
           </Col>
