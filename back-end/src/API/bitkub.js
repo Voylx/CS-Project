@@ -19,7 +19,7 @@ function hash(data, secert) {
 }
 
 const getSevertime = async () => {
-  const result = await Axios.get("/api/servertime");
+  const result = await axios.get("/api/servertime");
   return result.data;
 };
 
