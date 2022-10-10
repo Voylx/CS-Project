@@ -19,7 +19,8 @@ function hash(data, secert) {
 }
 
 const getSevertime = async () => {
-  return Math.round(new Date() / 1000);
+  const result = await Axios.get("/api/servertime");
+  return result.data;
 };
 
 const getsymbols = async () => {
