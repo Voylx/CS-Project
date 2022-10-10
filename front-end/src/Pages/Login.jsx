@@ -34,7 +34,9 @@ export const Login = () => {
       .catch((err) => {
         console.log(err.response.data);
         setisError(true);
-        setErrMsg(err.response.data.message);
+        setErrMsg(
+          err?.response?.data?.message ?? "Could not connect to the server."
+        );
       });
   }
 
