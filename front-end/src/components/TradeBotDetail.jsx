@@ -70,6 +70,7 @@ export const TradeBotDetail = (props) => {
         </Row>
         <div className="linetext mb-5 text-muted"></div>
         <SelectStrategies {...props} />
+        <div style={{ height: "10rem" }}>.</div>
       </Container>
     </>
   );

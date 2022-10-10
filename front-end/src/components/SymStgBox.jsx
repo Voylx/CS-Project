@@ -13,27 +13,26 @@ const FavIcon = ({ fav, check, fOnClick }) => {
 
   return (
     <span className="col-4 me-0 d-flex justify-content-end">
-      <span
-        className="ms-1"
-        onClick={() => {
-          setFav(!isFav);
-        }}
-      >
-        {isFav ? <AiFillStar /> : <AiOutlineStar />}
+      <span className="ms-1" onClick={fOnClick.fav[isFav]}>
+        {isFav ? <AiFillStar className="text-warning" /> : <AiOutlineStar />}
       </span>
-      <span
-        className="ms-1"
-        onClick={() => {
-          setCheck(!isCheck);
-        }}
-      >
+      <span className="ms-1" onClick={fOnClick.fav[isFav]}>
         {isCheck ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </span>
     </span>
   );
 };
 
-const SymStgBox = ({ sym, stg, stgID, i, isFav, botData }) => {
+const SymStgBox = ({
+  sym,
+  stg,
+  stgID,
+  i,
+  isFav,
+  botData,
+  getsymstgboxdata,
+  selectFav,
+}) => {
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
   const [check, setCheck] = useState(false);
@@ -42,13 +41,15 @@ const SymStgBox = ({ sym, stg, stgID, i, isFav, botData }) => {
     fav: {
       true: () => {
         //fav true->false
-        // console.log("fav true->false");
+        console.log("fav true->false");
         delFav();
+        !selectFav && getsymstgboxdata();
       },
       false: () => {
         //fav false->true
-        // console.log("fav false->false");
+        console.log("fav false->false");
         addFav();
+        !selectFav && getsymstgboxdata();
       },
     },
   };

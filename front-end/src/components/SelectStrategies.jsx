@@ -3,6 +3,7 @@ import Axios from "../services/Axios";
 
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
 import SymStgBox from "./SymStgBox";
 
@@ -16,6 +17,8 @@ const SelectStrategies = (props) => {
 
   const [symstg, setSymstg] = useState([]);
   const [symstgFilter, setSymstgFilter] = useState([]);
+
+  const [selectFav, setSelectFav] = useState(false);
 
   useEffect(() => {
     getsymbols();
@@ -42,24 +45,34 @@ const SelectStrategies = (props) => {
         console.log(err);
       });
   }
-  function getsymstgboxdata() {
-    Axios.post("/api/getsymstgboxdata", {
-      Bot_id: props.botData.Bot_id,
-    })
-      .then((res) => {
-        // console.log(res.data);
-        setSymstg(res.data.data);
-        setSymstgFilter(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  const getsymstgboxdata = async () => {
+    try {
+      const res = await Axios.post("/api/getsymstgboxdata", {
+        Bot_id: props.botData.Bot_id,
       });
-  }
+      // console.log(res.data);
+      setSymstg(res.data.data);
+      setSymstgFilter(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   function handleResetFilter() {
     setSymbol("default");
     setStrategy("default");
     setSymstgFilter(symstg);
+    setSelectFav(false);
+  }
+
+  async function handleFilterFav() {
+    await getsymstgboxdata();
+    setSymbol("default");
+    setStrategy("default");
+    const filter = symstg.filter((v) => {
+      return v.isFav;
+    });
+    setSymstgFilter(filter);
   }
 
   function StgSelectAndFilterBox() {
@@ -72,103 +85,132 @@ const SelectStrategies = (props) => {
               {"Go back"}
             </h6>
           </div>
-          {/* select Strategy */}
-          <Col className="mb-3" lg={5}>
-            {" "}
-            .<Form.Label>Select Strategy</Form.Label>
-            <Form.Select
-              aria-label="Select Strategy"
-              onChange={
-                //
-                function filter(e) {
-                  if (symbol === "default" && e.target.value === "default")
-                    setSymstgFilter(symstg);
-                  else if (
-                    symbol !== "default" &&
-                    e.target.value !== "default"
-                  ) {
-                    const filter = symstg.filter((v) => {
-                      return (
-                        v.Strategy_id === parseInt(e.target.value) &&
-                        v.Sym === symbol
-                      );
-                    });
-                    setSymstgFilter(filter);
-                  } else if (symbol !== "default") {
-                    const sym_filter = symstg.filter((v) => {
-                      return v.Sym === symbol;
-                    });
-                    setSymstgFilter(sym_filter);
-                  } else if (e.target.value !== "default") {
-                    const stg_filter = symstg.filter((v) => {
-                      return v.Strategy_id === parseInt(e.target.value);
-                    });
-                    setSymstgFilter(stg_filter);
+          <Col className="mb-1 row" lg={9}>
+            {/* select Strategy */}
+            <Col className="mb-3">
+              {" "}
+              <Form.Label>Select Strategy</Form.Label>
+              <Form.Select
+                aria-label="Select Strategy"
+                disabled={selectFav}
+                onChange={
+                  //
+                  function filter(e) {
+                    if (symbol === "default" && e.target.value === "default")
+                      setSymstgFilter(symstg);
+                    else if (
+                      symbol !== "default" &&
+                      e.target.value !== "default"
+                    ) {
+                      const filter = symstg.filter((v) => {
+                        return (
+                          v.Strategy_id === parseInt(e.target.value) &&
+                          v.Sym === symbol
+                        );
+                      });
+                      setSymstgFilter(filter);
+                    } else if (symbol !== "default") {
+                      const sym_filter = symstg.filter((v) => {
+                        return v.Sym === symbol;
+                      });
+                      setSymstgFilter(sym_filter);
+                    } else if (e.target.value !== "default") {
+                      const stg_filter = symstg.filter((v) => {
+                        return v.Strategy_id === parseInt(e.target.value);
+                      });
+                      setSymstgFilter(stg_filter);
+                    }
+                    setStrategy(e.target.value);
                   }
-                  setStrategy(e.target.value);
                 }
-              }
-              value={strategy}
-            >
-              <option value="default" className="text-muted">
-                [All]
-              </option>
-
-              {Object.entries(strategies).map(([k, v]) => (
-                <option value={k} key={k}>
-                  {v}
+                value={strategy}
+              >
+                <option value="default" className="text-muted">
+                  [All]
                 </option>
-              ))}
-            </Form.Select>
+
+                {Object.entries(strategies).map(([k, v]) => (
+                  <option value={k} key={k}>
+                    {v}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
+
+            {/* select Coin */}
+            <Col className="mb-3">
+              <Form.Label>Select Coin</Form.Label>
+              <Form.Select
+                aria-label="select coin"
+                disabled={selectFav}
+                onChange={
+                  //
+                  function filter(e) {
+                    if (e.target.value === "default" && strategy === "default")
+                      setSymstgFilter(symstg);
+                    else if (
+                      e.target.value !== "default" &&
+                      strategy !== "default"
+                    ) {
+                      const filter = symstg.filter((v) => {
+                        return (
+                          v.Strategy_id === parseInt(strategy) &&
+                          v.Sym === e.target.value
+                        );
+                      });
+                      setSymstgFilter(filter);
+                    } else if (e.target.value !== "default") {
+                      const sym_filter = symstg.filter((v) => {
+                        return v.Sym === e.target.value;
+                      });
+                      setSymstgFilter(sym_filter);
+                    } else if (strategy !== "default") {
+                      const stg_filter = symstg.filter((v) => {
+                        return v.Strategy_id === parseInt(strategy);
+                      });
+                      setSymstgFilter(stg_filter);
+                    }
+                    setSymbol(e.target.value);
+                  }
+                }
+                value={symbol}
+              >
+                <option value="default" className="text-muted">
+                  [All]
+                </option>
+
+                {symbols.map((v) => (
+                  <option value={v} key={v}>
+                    {v}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
           </Col>
 
-          {/* select Coin */}
-          <Col className="mb-3" lg={5}>
-            <Form.Label>Select Coin</Form.Label>
-            <Form.Select
-              aria-label="select coin"
-              onChange={
-                //
-                function filter(e) {
-                  if (e.target.value === "default" && strategy === "default")
-                    setSymstgFilter(symstg);
-                  else if (
-                    e.target.value !== "default" &&
-                    strategy !== "default"
-                  ) {
-                    const filter = symstg.filter((v) => {
-                      return (
-                        v.Strategy_id === parseInt(strategy) &&
-                        v.Sym === e.target.value
-                      );
-                    });
-                    setSymstgFilter(filter);
-                  } else if (e.target.value !== "default") {
-                    const sym_filter = symstg.filter((v) => {
-                      return v.Sym === e.target.value;
-                    });
-                    setSymstgFilter(sym_filter);
-                  } else if (strategy !== "default") {
-                    const stg_filter = symstg.filter((v) => {
-                      return v.Strategy_id === parseInt(strategy);
-                    });
-                    setSymstgFilter(stg_filter);
-                  }
-                  setSymbol(e.target.value);
-                }
-              }
-              value={symbol}
-            >
-              <option value="default" className="text-muted">
-                [All]
-              </option>
-
-              {symbols.map((v) => (
-                <option value={v} key={v}>
-                  {v}
-                </option>
-              ))}
-            </Form.Select>
+          <Col
+            className="mb-3  align-self-end d-flex justify-content-center  "
+            lg={1}
+            as="h2"
+          >
+            {selectFav ? (
+              <AiFillStar
+                className="text-warning mb-2"
+                onClick={() => {
+                  setSelectFav(false);
+                  handleResetFilter();
+                }}
+              />
+            ) : (
+              <AiOutlineStar
+                className="mb-2"
+                onClick={async () => {
+                  // await getsymstgboxdata();
+                  setSelectFav(true);
+                  handleFilterFav();
+                }}
+              />
+            )}
           </Col>
 
           {/* button */}
@@ -193,6 +235,8 @@ const SelectStrategies = (props) => {
             i={i}
             key={v.Sym + v.Strategy_id}
             isFav={Boolean(v.isFav)}
+            getsymstgboxdata={getsymstgboxdata}
+            selectFav={selectFav}
             {...props}
           />
         ))}
