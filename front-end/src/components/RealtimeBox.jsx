@@ -11,23 +11,6 @@ const RealtimeBox = ({ sym, data }) => {
 
   const [color, setColor] = useState(false);
 
-  const ws = new WebSocket(
-    `wss://api.bitkub.com/websocket-api/market.ticker.thb_${sym}`
-  );
-
-  ws.onmessage = function (event) {
-    try {
-      const ws_data = JSON.parse(event.data);
-      if (ws_data.last !== price) {
-        // console.log(ws_data.stream.substring(18), ws_data.last, price);
-        setPrice(ws_data.last);
-        setChange(ws_data.percentChange);
-      }
-    } catch (err) {
-      console.log({ error: err.message });
-    }
-  };
-
   useEffect(() => {
     console.log(sym, price);
     setColor(true);
@@ -36,10 +19,42 @@ const RealtimeBox = ({ sym, data }) => {
     }, 500);
   }, [price]);
 
+  useEffect(() => {
+    console.log("do");
+    const ws = new WebSocket(
+      `wss://api.bitkub.com/websocket-api/market.ticker.thb_${sym}`
+    );
+
+    ws.onopen = () => {
+      console.log("open");
+    };
+    ws.onclose = () => {
+      console.log("close");
+    };
+    ws.onmessage = function (event) {
+      try {
+        const ws_data = JSON.parse(event.data);
+        if (ws_data.last !== price) {
+          // console.log(ws_data.stream.substring(18), ws_data.last, price);
+          setPrice(ws_data.last);
+          setChange(ws_data.percentChange);
+        }
+      } catch (err) {
+        console.log({ error: err.message });
+      }
+    };
+    return () => {
+      if (ws.readyState === 1) {
+        ws.close();
+        console.log("then");
+      }
+    };
+  }, []);
+
   return (
     <Col onClick={() => navigate(`/bot/viewertrade/${sym}`)}>
       <div
-        className={`border rounded-3 shadow p-3 ${color ? "bg-success" : ""}`}
+        className={`border rounded-3 shadow p-3 ${color ? "bg-purlight" : ""}`}
         style={
           {
             // height: "7rem",
