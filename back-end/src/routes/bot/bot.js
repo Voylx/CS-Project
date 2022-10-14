@@ -131,6 +131,7 @@ router.get("/getsymaction", async (req, res) => {
   res.send({ status: "ok", sym_action });
 });
 router.get("/every1D", async (req, res) => {
+  const db = await require("../../services/db_promise");
   const response = await calc_strategy("ema_10_21");
   // const response = await calc_strategy("ema_10_21");
 
@@ -152,58 +153,48 @@ router.get("/every1D", async (req, res) => {
 
   sym_test = {
     strategy: "ema_10_21",
-    action: { DOGE: "SELL🔴", BTC: "SELL🔴", ADA: "SELL🔴" },
+    action: { DOGE: "SELL🔴", BTC: "BUY🟢", ADA: "SELL🔴" },
   };
 
-  let sql = "SELECT * FROM SELECTED WHERE Sym = ";
-  syms = Object.keys(sym_test.action);
+  let sql = "SELECT * FROM selected WHERE Sym = ";
+  const symUse = sym_test;
+  syms = Object.keys(symUse.action);
   syms.map((v, i) => {
     if (i < syms.length - 1) sql += "? or Sym =";
     else sql += " ?";
   });
 
-  //finde bot_id that need to action
-  const select_obj = {};
-  db.execute(sql, syms, function (err, result_db_selects) {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ status: "error", message: err.message });
-      return;
-    }
+  try {
+    //finde bot_id that need to action
+
+    const [result_db_selects] = await db.execute(sql, syms);
     if (result_db_selects.length === 0) {
       res.send();
       return;
     }
-
+    const select_obj = {};
     result_db_selects.map((v, i) => {
-      select_obj[v.Bot_id] = {
-        Selected_id: v.Selected_id,
-        Sym: v.Sym,
-        Strategys_Id: v.Strategys_Id,
-        Amt_money: v.Amt_money,
-      };
+      !select_obj[v.Bot_id]
+        ? (select_obj[v.Bot_id] = [
+            {
+              Sym: v.Sym,
+              Action: symUse.action[v.Sym],
+              Amt_money: v.Amt_money,
+            },
+          ])
+        : select_obj[v.Bot_id].push({
+            Sym: v.Sym,
+            Action: symUse.action[v.Sym],
+            Amt_money: v.Amt_money,
+          });
     });
 
     res.send(select_obj);
-    Object.entries(select_obj).map(([k, v], i) => {
-      console.log(k, v);
-      db.execute(
-        "SELECT * FROM history WHERE Bot_id = ? AND Sym = ?",
-        [k, v.Sym],
-        function (err, result) {
-          if (err) {
-            console.log(err);
-            res.status(500).send({ status: "error", message: err.message });
-            return;
-          }
-          if (result.length === 0) return;
-          console.log(result);
-          console.log(result[0].Timestamp);
-          console.log(Date.now());
-        }
-      );
-    });
-  });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ status: "error", message: err.message });
+    return;
+  }
 
   // res.send();
 });

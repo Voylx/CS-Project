@@ -9,7 +9,7 @@ const authgetuser = require("../middleware/authen_and_getuserid");
 
 const apibottrade = require("./apibottrade");
 const check = require("./check");
-const bot = require("./bot/bottrade");
+const bot = require("./bot/bot");
 
 const router = express.Router();
 
@@ -108,7 +108,6 @@ router.post(
         });
       }
     );
-    // res.send(req.body);
   }
 );
 
