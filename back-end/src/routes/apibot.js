@@ -102,6 +102,12 @@ router.post(
           res.status(500).send({ status: "error", message: err.sqlMessage });
           return;
         }
+        if (result.affectedRows === 0) {
+          res
+            .status(500)
+            .send({ status: "error", message: "Can not add selected" });
+          return;
+        }
         res.status(200).send({
           status: "success",
           result,
@@ -127,6 +133,12 @@ router.post("/delselected", (req, res) => {
       if (err) {
         console.error(err);
         res.status(500).send({ status: "error", message: err.sqlMessage });
+      }
+      if (results.affectedRows === 0) {
+        res
+          .status(500)
+          .send({ status: "error", message: "Can not delete selected" });
+        return;
       }
       res.status(200).send({
         status: "success",
@@ -257,8 +269,23 @@ router.post("/getsymstgboxdata", (req, res) => {
     strategies.Strategy_id = fav.Strategys_Id AND
     fav.Bot_id = ?;
   `;
+  const sql2 = `
+    SELECT symbols.Sym, strategies.Strategy_id, strategies.Strategy_name, 
+    CASE WHEN fav.Fav_id IS NOT NULL THEN 1 END as isFav,
+    CASE WHEN selected.Selected_id IS NOT NULL THEN 1 END as isSelected
+    FROM symbols
+    JOIN strategies
+    LEFT JOIN 
+    fav ON symbols.Sym = fav.Sym AND 
+    strategies.Strategy_id = fav.Strategys_Id AND
+    fav.Bot_id = ?
+    LEFT JOIN
+    selected on selected.Bot_id = ? AND 
+    symbols.Sym = selected.Sym AND 
+    strategies.Strategy_id = selected.Strategys_Id;
+  `;
 
-  db.execute(sql, [Bot_id], (err, results) => {
+  db.execute(sql2, [Bot_id, Bot_id], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send({ status: "error", message: err.sqlMessage });

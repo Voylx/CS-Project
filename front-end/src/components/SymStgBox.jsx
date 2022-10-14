@@ -7,17 +7,14 @@ import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
 
-const FavIcon = ({ fav, check, fOnClick }) => {
-  const { fav: isFav, setFav } = fav;
-  const { check: isCheck, setCheck } = check;
-
+const FavIcon = ({ fav, selected, fOnClick }) => {
   return (
     <span className="col-4 me-0 d-flex justify-content-end">
-      <span className="ms-1" onClick={fOnClick.fav[isFav]}>
-        {isFav ? <AiFillStar className="text-warning" /> : <AiOutlineStar />}
+      <span className="ms-1" onClick={fOnClick.fav[fav]}>
+        {fav ? <AiFillStar className="text-warning" /> : <AiOutlineStar />}
       </span>
-      <span className="ms-1" onClick={fOnClick.fav[isFav]}>
-        {isCheck ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+      <span className="ms-1" onClick={fOnClick.selected[selected]}>
+        {selected ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </span>
     </span>
   );
@@ -29,13 +26,14 @@ const SymStgBox = ({
   stgID,
   i,
   isFav,
+  isSelected,
   botData,
   getsymstgboxdata,
   selectFav,
 }) => {
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
-  const [check, setCheck] = useState(false);
+  const [selected, setSelected] = useState(isSelected);
 
   const fOnClick = {
     fav: {
@@ -50,6 +48,20 @@ const SymStgBox = ({
         console.log("fav false->false");
         addFav();
         !selectFav && getsymstgboxdata();
+      },
+    },
+    selected: {
+      true: () => {
+        //fav true->false
+        console.log("fav true->false");
+        delSelected();
+        getsymstgboxdata();
+      },
+      false: () => {
+        //fav false->true
+        console.log("fav false->false");
+        addSelected();
+        getsymstgboxdata();
       },
     },
   };
@@ -96,17 +108,55 @@ const SymStgBox = ({
       .catch((err) => console.error(err));
   }
 
+  function addSelected() {
+    Axios.post("/api/addselected", {
+      Bot_id: botData.Bot_id,
+      Sym: sym,
+      Strategys_Id: stgID,
+    })
+      .then((res) => {
+        if (
+          res.data.status === "error" &&
+          res.data.message === "Token invalid"
+        ) {
+          navigate("/");
+          throw res.data;
+        }
+        if (res.data.status === "success") {
+          setSelected(!selected);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function delSelected() {
+    Axios.post("/api/delselected", {
+      Bot_id: botData.Bot_id,
+      Sym: sym,
+      Strategys_Id: stgID,
+    })
+      .then((res) => {
+        if (
+          res.data.status === "error" &&
+          res.data.message === "Token invalid"
+        ) {
+          navigate("/");
+          throw res.data;
+        }
+        if (res.data.status === "success") {
+          setSelected(!selected);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
   return (
     <Col className="">
       <div className="border rounded-3 shadow p-2 mb-1 ">
         <Row className="">
           <h6 className="col-8">{stg}</h6>
 
-          <FavIcon
-            fav={{ fav, setFav }}
-            check={{ check, setCheck }}
-            fOnClick={fOnClick}
-          />
+          <FavIcon fav={fav} selected={selected} fOnClick={fOnClick} />
         </Row>
         <h6 className="m-0 text-primary">{sym}</h6>
         {i % 2 == 0 ? (
