@@ -59,7 +59,9 @@ router.post("/link_line", (req, res) => {
   );
 });
 
-router.post("/havebot", (req, res) => {
+router.post("/havebot", async (req, res) => {
+  const db = await require("../services/db_promise");
+
   const { User_id, Type } = req.body;
   // check type in
   if (Type === undefined) {
@@ -69,31 +71,31 @@ router.post("/havebot", (req, res) => {
     });
     return;
   }
-  db.execute(
-    "SELECT * FROM bot Where user_id = ? and type = ?",
-    [User_id, Type],
-    function (err, results) {
-      //Check SQL Error
-      if (err) {
-        console.error(err);
-        res.status(500).send({ status: "error", message: err.message });
-      } else if (results.length === 0) {
-        res.send({
-          status: "ok",
-          bot: null,
-        });
-      } else {
-        res.send({
-          status: "ok",
-          bot: results[0],
-        });
-      }
+
+  try {
+    const [results] = await db.execute(
+      "SELECT * FROM bot Where user_id = ? and type = ?",
+      [User_id, Type]
+    );
+    if (results.length === 0) {
+      res.send({
+        status: "ok",
+        bot: null,
+      });
+    } else {
+      res.send({
+        status: "ok",
+        bot: results[0],
+      });
     }
-  );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ status: "error", message: err.message });
+  }
 });
 
 router.post("/bot_by_botid", async (req, res) => {
-  const db2 = await require("../services/db_promise");
+  const db = await require("../services/db_promise");
   const { User_id, Bot_id } = req.body;
   // check type bot
   if (!Bot_id) {
@@ -105,11 +107,11 @@ router.post("/bot_by_botid", async (req, res) => {
   }
 
   try {
-    const [results] = await db2.execute(
+    const [results] = await db.execute(
       "SELECT * FROM bot WHERE User_id =? and Bot_id =?",
       [User_id, Bot_id]
     );
-    console.log(results);
+    // console.log(results);
     if (results.length === 0) {
       res.status(404).send({
         status: "err",

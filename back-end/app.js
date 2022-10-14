@@ -69,7 +69,7 @@ app.post("/register", function (req, res) {
 app.post("/login", async function (req, res) {
   const db = await require("./src/services/db_promise");
   const { email, password } = req.body;
-  console.log(email, password);
+  // console.log(email, password);
 
   if (!(email && password)) {
     {

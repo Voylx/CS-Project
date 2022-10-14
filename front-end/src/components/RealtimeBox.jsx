@@ -20,7 +20,6 @@ const RealtimeBox = ({ sym, data }) => {
   }, [price]);
 
   useEffect(() => {
-    console.log("do");
     const ws = new WebSocket(
       `wss://api.bitkub.com/websocket-api/market.ticker.thb_${sym}`
     );

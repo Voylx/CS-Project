@@ -16,7 +16,7 @@ export const LinkLine = () => {
       .then((res) => {
         if (res.data.linkLine) {
           navigate(-1);
-        }
+        } else getprelinkline();
       })
       .catch((err) => console.error(err?.response?.data));
   }
@@ -44,7 +44,6 @@ export const LinkLine = () => {
 
   useEffect(() => {
     checkLinkAPI();
-    getprelinkline();
   }, []);
 
   return (
@@ -80,7 +79,7 @@ export const LinkLine = () => {
               variant="primary"
               type="button"
               className="mt-3 mb-2 w-100"
-              onClick={() => window.location.reload()}
+              onClick={() => navigate(0)}
             >
               เสร็จสิ้น
             </Button>

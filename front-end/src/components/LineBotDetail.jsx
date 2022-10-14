@@ -7,15 +7,17 @@ import { useAuthen } from "../services/Authen";
 
 export const LineBotDetail = () => {
   let navigate = useNavigate();
-  function checkLinkAPI() {
-    Axios.post("/api/check/link_line", {})
-      .then((res) => {
-        console.log(res.data);
-        if (!res.data.linkLine) {
-          navigate("/bot/linkline");
-        }
-      })
-      .catch((err) => console.error(err?.response?.data));
+  async function checkLinkAPI() {
+    try {
+      const res = await Axios.post("/api/check/link_line", {});
+
+      console.log(res.data);
+      if (!res.data.linkLine) {
+        navigate("/bot/linkline");
+      }
+    } catch (error) {
+      console.error(error?.response?.data);
+    }
   }
 
   useEffect(() => {
