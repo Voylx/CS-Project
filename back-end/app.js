@@ -121,17 +121,15 @@ app.post("/authen", function (req, res) {
   }
 });
 
-app.get("/symbols", function (req, res) {
-  db.execute("SELECT * FROM symbols", function (err, data) {
-    //check sql errors
-    if (err) {
-      res.status(500).send({ status: "error", message: err.sqlMessage });
-      return;
-    }
-    // console.log(data);
+app.get("/symbols", async function (req, res) {
+  const db = await require("./src/services/db_promise");
+  try {
+    const [data] = await db.execute("SELECT * FROM symbols");
     const symbols = data.map((V, I) => V.Sym);
     res.send({ status: "ok", symbols: symbols });
-  });
+  } catch (err) {
+    res.status(500).send({ status: "error", message: err.sqlMessage });
+  }
 });
 
 app.get("/strategies", (req, res) => {

@@ -1,5 +1,6 @@
 const express = require("express");
 const { db } = require("../../services/db");
+const line = require("../../services/line");
 
 const BTK = require("../../API/bitkub");
 
@@ -130,6 +131,7 @@ router.get("/getsymaction", async (req, res) => {
   console.log(sym_action);
   res.send({ status: "ok", sym_action });
 });
+
 router.get("/every1D", async (req, res) => {
   const db = await require("../../services/db_promise");
   const response = await calc_strategy("ema_10_21");
@@ -153,43 +155,68 @@ router.get("/every1D", async (req, res) => {
 
   sym_test = {
     strategy: "ema_10_21",
-    action: { DOGE: "SELL🔴", BTC: "BUY🟢", ADA: "SELL🔴" },
+    action: { BNB: "SELL🔴", BTC: "BUY🟢", ADA: "SELL🔴" },
   };
 
-  let sql = "SELECT * FROM selected WHERE Sym = ";
+  let sql = `
+    SELECT selected.Bot_id, selected.Sym, Strategys_Id , Amt_money ,Type, lineUser_id, bitkub.API_key, bitkub.API_secert
+    FROM selected 
+    LEFT JOIN bot ON selected.Bot_id = bot.bot_id
+    LEFT JOIN line on bot.User_id = line.User_id AND bot.Type = 0
+    LEFT JOIN bitkub on bot.User_id = bitkub.User_id AND bot.Type = 1
+    WHERE Strategys_Id= ? AND (Sym = 
+  `;
   const symUse = sym_test;
   syms = Object.keys(symUse.action);
   syms.map((v, i) => {
     if (i < syms.length - 1) sql += "? or Sym =";
-    else sql += " ?";
+    else sql += " ?)";
   });
 
   try {
-    //finde bot_id that need to action
-
-    const [result_db_selects] = await db.execute(sql, syms);
+    //finde bot_id that need to action และ ข้อมูลของbotว่าต้องซื้อขายอะไร เป็นแบบไหน line หรือ trade
+    const [result_db_selects] = await db.execute(sql, [3, ...syms]);
+    // console.log(result_db_selects);
     if (result_db_selects.length === 0) {
       res.send();
       return;
     }
-    const select_obj = {};
+    const bot_action = {};
     result_db_selects.map((v, i) => {
-      !select_obj[v.Bot_id]
-        ? (select_obj[v.Bot_id] = [
-            {
-              Sym: v.Sym,
-              Action: symUse.action[v.Sym],
-              Amt_money: v.Amt_money,
-            },
-          ])
-        : select_obj[v.Bot_id].push({
-            Sym: v.Sym,
-            Action: symUse.action[v.Sym],
-            Amt_money: v.Amt_money,
-          });
+      !bot_action[v.Bot_id] && Object.assign(bot_action, { [v.Bot_id]: {} });
+      // add Type,API_key,lineUser_id to obj
+      bot_action[v.Bot_id]["Type"] = v.Type;
+      if (v.Type) {
+        bot_action[v.Bot_id]["API_key"] = v.API_key;
+        bot_action[v.Bot_id]["API_secert"] = v.API_secert;
+      } else {
+        bot_action[v.Bot_id]["lineUser_id"] = v.lineUser_id;
+      }
+
+      !bot_action[v.Bot_id].action ? (bot_action[v.Bot_id].action = []) : null;
+      //add action to obj
+      bot_action[v.Bot_id].action.push({
+        Sym: v.Sym,
+        Action: symUse.action[v.Sym],
+        Amt_money: v.Amt_money,
+      });
     });
 
-    res.send(select_obj);
+    Object.entries(bot_action).map(async ([k, V]) => {
+      if (V.Type) {
+        // ACTION Trade
+      } else {
+        // ACTION Line
+        const pre_Text = V.action.map((v) => {
+          return v.Sym + " : " + v.Action;
+        });
+        if (!V.lineUser_id) return;
+        const resp = await line.push(V.lineUser_id, pre_Text.join("\n"));
+        console.log(resp);
+      }
+    });
+
+    res.send(bot_action);
   } catch (err) {
     console.log(err);
     res.status(500).send({ status: "error", message: err.message });
