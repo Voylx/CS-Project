@@ -49,7 +49,6 @@ export const ViewerTrade = () => {
         </div>
         <div className="mb-5 ">
           <div className="fs-1">{symbol}</div>
-          <div className="fs-5 text-success">(1.33%)</div>
 
           <>
             {/* TradingView Widget BEGIN */}

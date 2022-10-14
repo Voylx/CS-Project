@@ -66,9 +66,11 @@ app.post("/register", function (req, res) {
   }
 });
 
-app.post("/login", function (req, res) {
+app.post("/login", async function (req, res) {
+  const db = await require("./src/services/db_promise");
   const { email, password } = req.body;
-  // console.log(email, password);
+  console.log(email, password);
+
   if (!(email && password)) {
     {
       res.status(400).send({
@@ -78,35 +80,33 @@ app.post("/login", function (req, res) {
       return;
     }
   }
-  db.execute(
-    "SELECT * FROM users WHERE email = ?",
-    [email],
-    function (err, users) {
-      // console.log(users);
-      if (err) {
-        res.status(500).send({ status: "error", message: err.sqlMessage });
-      } else if (users.length === 0) {
-        res.status(404).send({ status: "error", message: "User not found" });
-      }
-      // console.log(password, users[0].password);
-      else {
-        bcrypt.compare(password, users[0].password, function (err, result) {
-          if (result) {
-            // const token = jwt.sign({ user_id: users[0].user_id }, secert, {
-            //   expiresIn: "1h",
-            // });
-            const token = createToken(users[0].user_id);
-            res.send({ status: "ok", message: "login success", token: token });
-          } else {
-            res.status(400).send({
-              status: "error",
-              message: "The password that you've entered is incorrect.",
-            });
-          }
-        });
-      }
+  try {
+    const [users] = await db.execute("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
+    // console.log(password, users[0].password);
+    if (users.length === 0) {
+      res.status(404).send({ status: "error", message: "User not found" });
+    } else {
+      bcrypt.compare(password, users[0].password, function (err, result) {
+        if (result) {
+          // const token = jwt.sign({ user_id: users[0].user_id }, secert, {
+          //   expiresIn: "1h",
+          // });
+          const token = createToken(users[0].user_id);
+          res.send({ status: "ok", message: "login success", token: token });
+        } else {
+          res.status(400).send({
+            status: "error",
+            message: "The password that you've entered is incorrect.",
+          });
+        }
+      });
     }
-  );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "error", message: error.sqlMessage });
+  }
 });
 
 app.post("/authen", function (req, res) {
@@ -172,6 +172,18 @@ app.get("/api/tickers", async (req, res) => {
     status: "success",
     results,
   });
+});
+
+app.get("/test", async (req, res) => {
+  const db = await require("./src/services/db_promise");
+  try {
+    const [data] = await db.execute("SELECT * FROM `bitkub`");
+    console.log(data);
+    res.send({ message: "test", data });
+  } catch (err) {
+    console.log(err);
+    res.send({ message: "test error" });
+  }
 });
 
 app.listen(port, function () {
