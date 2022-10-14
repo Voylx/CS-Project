@@ -132,10 +132,17 @@ router.get("/getsymaction", async (req, res) => {
   res.send({ status: "ok", sym_action });
 });
 
-router.get("/every1D", async (req, res) => {
+async function calc_stg(stg_id) {
   const db = await require("../../services/db_promise");
-  const response = await calc_strategy("ema_10_21");
-  // const response = await calc_strategy("ema_10_21");
+
+  const response = await calc_strategy(stg_id);
+  const strategy_name = {
+    1: "CDC-TF1D",
+    2: "CDC-TF4H",
+    3: "EMA-10-21-TF1D",
+    4: "EMA-10-21-TF4H",
+    5: "EMA-10-21-TF1H",
+  };
 
   //filter Action
   const sym_action = {
@@ -154,7 +161,7 @@ router.get("/every1D", async (req, res) => {
   // test demo data
 
   sym_test = {
-    strategy: "ema_10_21",
+    strategy: "cdc",
     action: { BNB: "SELL🔴", BTC: "BUY🟢", ADA: "SELL🔴" },
   };
 
@@ -168,62 +175,68 @@ router.get("/every1D", async (req, res) => {
   `;
   const symUse = sym_test;
   syms = Object.keys(symUse.action);
+  if (syms.length === 0) return;
   syms.map((v, i) => {
     if (i < syms.length - 1) sql += "? or Sym =";
     else sql += " ?)";
   });
 
-  try {
-    //finde bot_id that need to action และ ข้อมูลของbotว่าต้องซื้อขายอะไร เป็นแบบไหน line หรือ trade
-    const [result_db_selects] = await db.execute(sql, [3, ...syms]);
-    // console.log(result_db_selects);
-    if (result_db_selects.length === 0) {
-      res.send();
-      return;
-    }
-    const bot_action = {};
-    result_db_selects.map((v, i) => {
-      !bot_action[v.Bot_id] && Object.assign(bot_action, { [v.Bot_id]: {} });
-      // add Type,API_key,lineUser_id to obj
-      bot_action[v.Bot_id]["Type"] = v.Type;
-      if (v.Type) {
-        bot_action[v.Bot_id]["API_key"] = v.API_key;
-        bot_action[v.Bot_id]["API_secert"] = v.API_secert;
-      } else {
-        bot_action[v.Bot_id]["lineUser_id"] = v.lineUser_id;
-      }
-
-      !bot_action[v.Bot_id].action ? (bot_action[v.Bot_id].action = []) : null;
-      //add action to obj
-      bot_action[v.Bot_id].action.push({
-        Sym: v.Sym,
-        Action: symUse.action[v.Sym],
-        Amt_money: v.Amt_money,
-      });
-    });
-
-    Object.entries(bot_action).map(async ([k, V]) => {
-      if (V.Type) {
-        // ACTION Trade
-      } else {
-        // ACTION Line
-        const pre_Text = V.action.map((v) => {
-          return v.Sym + " : " + v.Action;
-        });
-        if (!V.lineUser_id) return;
-        const resp = await line.push(V.lineUser_id, pre_Text.join("\n"));
-        console.log(resp);
-      }
-    });
-
-    res.send(bot_action);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ status: "error", message: err.message });
+  //finde bot_id that need to action และ ข้อมูลของbotว่าต้องซื้อขายอะไร เป็นแบบไหน line หรือ trade
+  const [result_db_selects] = await db.execute(sql, [stg_id, ...syms]);
+  // console.log(result_db_selects);
+  if (result_db_selects.length === 0) {
+    // res.send();
     return;
   }
+  const bot_action = {};
+  result_db_selects.map((v, i) => {
+    !bot_action[v.Bot_id] && Object.assign(bot_action, { [v.Bot_id]: {} });
+    // add Type,API_key,lineUser_id to obj
+    bot_action[v.Bot_id]["Type"] = v.Type;
+    if (v.Type) {
+      bot_action[v.Bot_id]["API_key"] = v.API_key;
+      bot_action[v.Bot_id]["API_secert"] = v.API_secert;
+    } else {
+      bot_action[v.Bot_id]["lineUser_id"] = v.lineUser_id;
+    }
 
-  // res.send();
+    !bot_action[v.Bot_id].action ? (bot_action[v.Bot_id].action = []) : null;
+    //add action to obj
+    bot_action[v.Bot_id].action.push({
+      Sym: v.Sym,
+      Action: symUse.action[v.Sym],
+      Amt_money: v.Amt_money,
+    });
+  });
+
+  Object.entries(bot_action).map(async ([k, V]) => {
+    if (V.Type) {
+      // ACTION Trade
+    } else {
+      // ACTION Line
+      const pre_Text = V.action.map((v) => {
+        return v.Sym + " : " + v.Action;
+      });
+      if (!V.lineUser_id) return;
+      const resp = await line.push(
+        V.lineUser_id,
+        "Strategy : " + strategy_name[stg_id] + "\n" + pre_Text.join("\n")
+      );
+      console.log(resp);
+    }
+  });
+  return bot_action;
+}
+
+router.get("/every1D", async (req, res) => {
+  try {
+    const cdc1D = await calc_stg(1);
+    const ema1D = await calc_stg(3);
+    res.send({ cdc1D: cdc1D || null, ema1D: ema1D || null });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "error", message: error?.message });
+  }
 });
 
 module.exports = router;
