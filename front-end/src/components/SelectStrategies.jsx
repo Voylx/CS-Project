@@ -53,6 +53,7 @@ const SelectStrategies = (props) => {
       // console.log(res.data);
       setSymstg(res.data.data);
       setSymstgFilter(res.data.data);
+      return res.data.data;
     } catch (err) {
       console.log(err);
     }
@@ -66,13 +67,13 @@ const SelectStrategies = (props) => {
   }
 
   async function handleFilterFav() {
-    await getsymstgboxdata();
-    setSymbol("default");
-    setStrategy("default");
-    const filter = symstg.filter((v) => {
+    const aaa = await getsymstgboxdata();
+    const filter = aaa.filter((v) => {
       return v.isFav;
     });
     setSymstgFilter(filter);
+    setSymbol("default");
+    setStrategy("default");
   }
 
   function StgSelectAndFilterBox() {
@@ -85,9 +86,9 @@ const SelectStrategies = (props) => {
               {"Go back"}
             </h6>
           </div>
-          <Col className="mb-1 row" lg={9}>
+          <Col className="mb-1 row" md={9} sm={12}>
             {/* select Strategy */}
-            <Col className="mb-3">
+            <Col className="mb-3" xs={12} sm={6}>
               {" "}
               <Form.Label>Select Strategy</Form.Label>
               <Form.Select
@@ -138,7 +139,7 @@ const SelectStrategies = (props) => {
             </Col>
 
             {/* select Coin */}
-            <Col className="mb-3">
+            <Col className="mb-3" xs={12} sm={6}>
               <Form.Label>Select Coin</Form.Label>
               <Form.Select
                 aria-label="select coin"
@@ -189,36 +190,47 @@ const SelectStrategies = (props) => {
           </Col>
 
           <Col
-            className="mb-3  align-self-end d-flex justify-content-center  "
-            lg={1}
-            as="h2"
+            className=" mb-2 align-self-end d-flex justify-content-center  "
+            md={1}
+            xs={{ span: 2, order: "last" }}
           >
-            {selectFav ? (
-              <AiFillStar
-                className="text-warning mb-2"
-                onClick={() => {
-                  setSelectFav(false);
-                  handleResetFilter();
-                }}
-              />
-            ) : (
-              <AiOutlineStar
-                className="mb-2"
-                onClick={async () => {
-                  // await getsymstgboxdata();
-                  setSelectFav(true);
-                  handleFilterFav();
-                }}
-              />
-            )}
+            <h2>
+              {selectFav ? (
+                <AiFillStar
+                  className="text-warning mb-2"
+                  onClick={() => {
+                    setSelectFav(false);
+                    handleResetFilter();
+                  }}
+                />
+              ) : (
+                <AiOutlineStar
+                  className="mb-2"
+                  onClick={async () => {
+                    // await getsymstgboxdata();
+                    setSelectFav(true);
+                    handleFilterFav();
+                  }}
+                />
+              )}
+            </h2>
           </Col>
 
           {/* button */}
-          <Col className="mb-3  align-self-end " lg={2}>
+          <Col
+            className="mb-3  align-self-end "
+            md={{ span: 2, order: "last" }}
+            xs={9}
+          >
             <Button className="w-100 mb-1" onClick={handleResetFilter}>
               Reset
             </Button>
           </Col>
+        </Row>
+        <Row>
+          <p className="text-danger text-center">
+            *** 1 เหรียญ เลือกได้ 1 กลยุทธ์ เท่านั้น ***
+          </p>
         </Row>
       </div>
     );
@@ -226,7 +238,7 @@ const SelectStrategies = (props) => {
   return (
     <>
       <StgSelectAndFilterBox />
-      <Row className="g-3" xs={2} lg={3} xl={4}>
+      <Row className="g-3" xs={1} md={3} lg={4} xxl={5}>
         {symstgFilter.map((v, i) => (
           <SymStgBox
             sym={v.Sym}

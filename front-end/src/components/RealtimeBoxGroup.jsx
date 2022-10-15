@@ -23,7 +23,7 @@ const RealtimeBoxGroup = () => {
   }
 
   return (
-    <Row className="m-4 g-2 " xs={3} lg={3} xl={4}>
+    <Row className="m-4 g-2 " xs={1} md={2} lg={3} xl={6}>
       {Object.entries(data).map(([k, v], i) => {
         return <RealtimeBox key={k} sym={k} data={v} />;
       })}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 const RealtimeBox = ({ sym, data }) => {
   let navigate = useNavigate();
@@ -60,14 +60,18 @@ const RealtimeBox = ({ sym, data }) => {
           }
         }
       >
-        <h5 className="m-0">{sym}</h5>
-        <h6 className="m-0 fs-6 text-primary">{price}</h6>
+        <Row>
+          <h5 className="m-0 col col-xl-12 ">{sym}</h5>
+          <h6 className="m-0 fs-6 text-primary col col-xl-12">{price}</h6>
 
-        <p
-          className={`m-0 fs-6 ${change >= 0 ? "text-success" : "text-danger"}`}
-        >
-          ({change}%)
-        </p>
+          <p
+            className={`m-0 fs-6 col col-xl-12 ${
+              change >= 0 ? "text-success" : "text-danger"
+            }`}
+          >
+            ({change}%)
+          </p>
+        </Row>
       </div>
     </Col>
   );

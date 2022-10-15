@@ -9,14 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 const FavIcon = ({ fav, selected, fOnClick }) => {
   return (
-    <span className="col-4 me-0 d-flex justify-content-end">
+    <h5 className="col-4 me-0 mb-0 d-flex justify-content-end">
       <span className="ms-1" onClick={fOnClick.fav[fav]}>
         {fav ? <AiFillStar className="text-warning" /> : <AiOutlineStar />}
       </span>
       <span className="ms-1" onClick={fOnClick.selected[selected]}>
-        {selected ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        {selected ? (
+          <MdCheckBox className="text-primary" />
+        ) : (
+          <MdCheckBoxOutlineBlank />
+        )}
       </span>
-    </span>
+    </h5>
   );
 };
 
@@ -41,13 +45,13 @@ const SymStgBox = ({
         //fav true->false
         console.log("fav true->false");
         delFav();
-        !selectFav && getsymstgboxdata();
+        // !selectFav && getsymstgboxdata();
       },
       false: () => {
         //fav false->true
         console.log("fav false->false");
         addFav();
-        !selectFav && getsymstgboxdata();
+        // !selectFav && getsymstgboxdata();
       },
     },
     selected: {
@@ -55,13 +59,13 @@ const SymStgBox = ({
         //fav true->false
         console.log("fav true->false");
         delSelected();
-        getsymstgboxdata();
+        // getsymstgboxdata();
       },
       false: () => {
         //fav false->true
         console.log("fav false->false");
         addSelected();
-        getsymstgboxdata();
+        // getsymstgboxdata();
       },
     },
   };
@@ -126,7 +130,10 @@ const SymStgBox = ({
           setSelected(!selected);
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      });
   }
 
   function delSelected() {

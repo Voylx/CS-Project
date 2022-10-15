@@ -173,9 +173,9 @@ async function calc_stg(stg_id) {
     LEFT JOIN bitkub on bot.User_id = bitkub.User_id AND bot.Type = 1
     WHERE Strategys_Id= ? AND (Sym = 
   `;
-  const symUse = sym_test;
+  const symUse = sym_action;
   syms = Object.keys(symUse.action);
-  if (syms.length === 0) return;
+  if (syms.length === 0) return { Action: symUse };
   syms.map((v, i) => {
     if (i < syms.length - 1) sql += "? or Sym =";
     else sql += " ?)";
@@ -184,10 +184,8 @@ async function calc_stg(stg_id) {
   //finde bot_id that need to action และ ข้อมูลของbotว่าต้องซื้อขายอะไร เป็นแบบไหน line หรือ trade
   const [result_db_selects] = await db.execute(sql, [stg_id, ...syms]);
   // console.log(result_db_selects);
-  if (result_db_selects.length === 0) {
-    // res.send();
-    return;
-  }
+  if (result_db_selects.length === 0) return { Action: symUse };
+
   const bot_action = {};
   result_db_selects.map((v, i) => {
     !bot_action[v.Bot_id] && Object.assign(bot_action, { [v.Bot_id]: {} });
@@ -225,7 +223,7 @@ async function calc_stg(stg_id) {
       console.log(resp);
     }
   });
-  return bot_action;
+  return { Action: symUse, bot_action };
 }
 
 router.get("/every1D", async (req, res) => {
@@ -233,6 +231,26 @@ router.get("/every1D", async (req, res) => {
     const cdc1D = await calc_stg(1);
     const ema1D = await calc_stg(3);
     res.send({ cdc1D: cdc1D || null, ema1D: ema1D || null });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "error", message: error?.message });
+  }
+});
+router.get("/every4H", async (req, res) => {
+  try {
+    const cdc4H = await calc_stg(2);
+    const ema4H = await calc_stg(4);
+    res.send({ cdc4H: cdc4H || null, ema4H: ema4H || null });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "error", message: error?.message });
+  }
+});
+router.get("/every1H", async (req, res) => {
+  try {
+    const ema1H = await calc_stg(5);
+    console.log({ ema1H: ema1H });
+    res.send({ ema1H: ema1H || null });
   } catch (error) {
     console.log(error);
     res.status(500).send({ status: "error", message: error?.message });

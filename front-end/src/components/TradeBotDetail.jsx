@@ -29,6 +29,7 @@ export const TradeBotDetail = (props) => {
       <Container>
         <Row className="m-4 g-3 ">
           <h2 className="ms-7 ">Viewer Trade</h2>
+          <h6 className="ms-0 ">(Bot Trade)</h6>
         </Row>
         <RealtimeBoxGroup />
         <div className="linetext mb-5 text-muted"></div>
