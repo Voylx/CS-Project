@@ -28,7 +28,7 @@ export const Login = () => {
         if (res.data.status == "ok") {
           localStorage.setItem("token", res.data.token);
           console.log("Login Success!");
-          navigate("../home", { replace: true });
+          navigate("../home");
         }
       })
       .catch((err) => {
