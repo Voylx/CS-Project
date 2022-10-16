@@ -35,7 +35,6 @@ export const Header = () => {
           Crypto-Bot
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="">
             <Nav.Link href="/home">Home</Nav.Link>
@@ -53,9 +52,9 @@ export const Header = () => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
-          </Nav>
+          </Nav>{" "}
         </Navbar.Collapse>
-        <p className="text-primary mb-0">{username}</p>
+        <p className="text-primary mb-0"> {username}</p>
         <Logout />
       </Container>
     </Navbar>
