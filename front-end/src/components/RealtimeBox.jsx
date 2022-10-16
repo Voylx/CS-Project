@@ -8,7 +8,6 @@ const RealtimeBox = ({ sym, data }) => {
   let navigate = useNavigate();
   const [price, setPrice] = useState(data.last);
   const [change, setChange] = useState(data.percentChange);
-
   const [color, setColor] = useState(false);
 
   useEffect(() => {

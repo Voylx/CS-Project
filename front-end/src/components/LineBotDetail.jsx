@@ -30,7 +30,10 @@ export const LineBotDetail = (props) => {
     <div>
       <Container>
         <Row className="m-4 g-3 ">
-          <h2 className="ms-7 ">Viewer Trade</h2>
+          <div className=" d-flex  align-items-center">
+            <h1>Viewer Trade</h1>
+            <h7>(Line Notification)</h7>
+          </div>
         </Row>
         <RealtimeBoxGroup />
         <div className="linetext mb-5 text-muted"></div>
