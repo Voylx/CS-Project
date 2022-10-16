@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Axios from "../services/Axios";
 
 import { Logout } from "./Logout";
 
 export const Header = () => {
   const [textColor, setTextColor] = useState("text-white");
+  const [username, setUsername] = useState("");
+
+  async function getusername() {
+    try {
+      const res = await Axios.post("/api/getusernames", {});
+      setUsername(res.data.username);
+    } catch (error) {
+      console.error(error?.response?.data);
+    }
+  }
+  useEffect(() => {
+    getusername();
+    console.log(username);
+  }, [username]);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -40,7 +55,7 @@ export const Header = () => {
             </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
-
+        <p className="text-primary mb-0">{username}</p>
         <Logout />
       </Container>
     </Navbar>
