@@ -248,8 +248,6 @@ const SelectStrategies = (props) => {
             key={v.Sym + v.Strategy_id}
             isFav={Boolean(v.isFav)}
             isSelected={Boolean(v.isSelected)}
-            getsymstgboxdata={getsymstgboxdata}
-            selectFav={selectFav}
             {...props}
           />
         ))}

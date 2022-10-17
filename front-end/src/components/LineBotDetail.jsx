@@ -32,7 +32,7 @@ export const LineBotDetail = (props) => {
         <Row className="m-4 g-3 ">
           <div className=" d-flex  align-items-center">
             <h1>Viewer Trade</h1>
-            <h7>(Line Notification)</h7>
+            <h6>(Line Notification)</h6>
           </div>
         </Row>
         <RealtimeBoxGroup />

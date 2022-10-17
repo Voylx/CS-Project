@@ -30,7 +30,7 @@ export const TradeBotDetail = (props) => {
         <Row className="m-4 g-3 ">
           <div className=" d-flex  align-items-center">
             <h2>Viewer Trade</h2>
-            <h7>(Bitkub)</h7>
+            <h6>(Bitkub)</h6>
           </div>
         </Row>
         <RealtimeBoxGroup />

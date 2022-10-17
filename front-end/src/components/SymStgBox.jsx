@@ -24,17 +24,7 @@ const FavIcon = ({ fav, selected, fOnClick }) => {
   );
 };
 
-const SymStgBox = ({
-  sym,
-  stg,
-  stgID,
-  i,
-  isFav,
-  isSelected,
-  botData,
-  getsymstgboxdata,
-  selectFav,
-}) => {
+const SymStgBox = ({ sym, stg, stgID, i, isFav, isSelected, botData }) => {
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
   const [selected, setSelected] = useState(isSelected);
