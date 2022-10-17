@@ -24,7 +24,17 @@ const FavIcon = ({ fav, selected, fOnClick }) => {
   );
 };
 
-const SymStgBox = ({ sym, stg, stgID, i, isFav, isSelected, botData }) => {
+const SymStgBox = ({
+  sym,
+  stg,
+  stgID,
+  i,
+  isFav,
+  isSelected,
+  botData,
+  side,
+  datetime,
+}) => {
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
   const [selected, setSelected] = useState(isSelected);
@@ -146,6 +156,52 @@ const SymStgBox = ({ sym, stg, stgID, i, isFav, isSelected, botData }) => {
       })
       .catch((err) => console.error(err));
   }
+  function unixTime(unixtime) {
+    if (unixtime) {
+      var u = new Date(unixtime * 1000);
+
+      return (
+        u.getUTCFullYear() +
+        "-" +
+        ("0" + u.getMonth()).slice(-2) +
+        "-" +
+        ("0" + u.getDate()).slice(-2) +
+        " : " +
+        ("0" + u.getHours()).slice(-2) +
+        ":" +
+        ("0" + u.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + u.getSeconds()).slice(-2)
+      );
+    }
+  }
+  function timeSince(date) {
+    if (!date) return;
+    var seconds = Math.floor((new Date() - date * 1000) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " years ago";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months ago";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days ago";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours ago";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes ago";
+    }
+    return Math.floor(seconds) + " seconds ago";
+  }
 
   return (
     <Col className="">
@@ -156,13 +212,22 @@ const SymStgBox = ({ sym, stg, stgID, i, isFav, isSelected, botData }) => {
           <FavIcon fav={fav} selected={selected} fOnClick={fOnClick} />
         </Row>
         <h6 className="m-0 text-primary">{sym}</h6>
-        {i % 2 == 0 ? (
-          <p className="m-0 fs-6 text-success">BUY</p>
-        ) : (
-          <p className="m-0 fs-6 text-danger">SELL</p>
-        )}
-        <p className="m-0 fs-6 text-muted">2022-09-05 : 22:43:00</p>
-        <p className="m-0 fs-6 text-muted">(3 days ago) </p>
+        <p
+          className={`m-0 fs-6 ${
+            side === "BUY"
+              ? "text-success"
+              : side === "SELL"
+              ? "text-danger"
+              : "text-secondary"
+          }`}
+        >
+          {side || "-"}
+        </p>
+
+        <p className="m-0 fs-6 text-muted">{unixTime(datetime) || <br />}</p>
+        <p className="m-0 fs-6 text-muted">
+          {datetime ? `(${timeSince(datetime)})` : <br />}
+        </p>
       </div>
     </Col>
   );
