@@ -28,7 +28,7 @@ export const TradeBotDetail = (props) => {
     <>
       <Container>
         <Row className="m-4 g-3 ">
-          <div className=" d-flex  align-items-center">
+          <div className=" d-flex  align-items-center ">
             <h2>Viewer Trade</h2>
             <h6>(Bitkub)</h6>
           </div>

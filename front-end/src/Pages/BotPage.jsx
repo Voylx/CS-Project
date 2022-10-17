@@ -118,7 +118,7 @@ export const BotBox = (props) => {
   }
 
   return (
-    <Col md={5} className="bg-light m-2 p-2 pb-3  rounded">
+    <Col md={5} className="bg-lightgray2 m-2 p-2 pb-3  rounded">
       <h3>{title[type]}</h3>
 
       {botData ? (
@@ -136,13 +136,13 @@ export const BotPage = () => {
   return (
     <div>
       <Header />
-      <Container>
+      <Container className=" mt-5">
         <h1 className="display-1 text-center fw-bold">Crypto-Bot</h1>
 
         {isAuthen && (
-          <div>
-            <h3>Choose Bot</h3>
-            <Row className="justify-content-around">
+          <div className="  mt-5  rounded">
+            <h3 className=" mt-5 mb-3">Choose Bot</h3>
+            <Row className="justify-content-around ">
               <BotBox type={1} />
               <BotBox type={0} />
             </Row>

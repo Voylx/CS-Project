@@ -14,8 +14,10 @@ $light:         $gray-100 !default;
 $dark:          $gray-900 !default;
 $purlight:      $purple-200 !default;
 $lightgray:      $gray-400 !default;
+$lightgray2:      $gray-500 !default;
 $middlegray:   $gray-700 !default;
 $middlegray2:   $gray-800 !default;
+$crystal:       $cyan-100 !default;
 
 
 // scss-docs-end theme-color-variables
@@ -32,8 +34,12 @@ $theme-colors: (
   "dark":       $dark,
   "purlight":   $purlight,
   "lightgray":  $lightgray,
+  "lightgray2": $lightgray,
   "middlegray": $middlegray,
   "middlegray2": $middlegray2,
+  "crystal":  $crystal,
+  
+  
 //   "new-indigo": $new-indigo
 ) !default;
 // scss-docs-end theme-colors-map
