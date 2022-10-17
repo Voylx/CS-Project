@@ -22,7 +22,7 @@ const BannerHead = () => {
               <p>{BannerText.description}</p>
               <Button
                 type="button"
-                class="btn btn-outline-primary"
+                class="btn btn-primary mt-1"
                 onClick={() => navigate("/bot")}
               >
                 เริ่มต้นใช้งาน
