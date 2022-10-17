@@ -13,6 +13,10 @@ $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-900 !default;
 $purlight:      $purple-200 !default;
+$lightgray:      $gray-400 !default;
+$middlegray:   $gray-700 !default;
+$middlegray2:   $gray-800 !default;
+
 
 // scss-docs-end theme-color-variables
 
@@ -27,7 +31,9 @@ $theme-colors: (
   "light":      $light,
   "dark":       $dark,
   "purlight":   $purlight,
-  
+  "lightgray":  $lightgray,
+  "middlegray": $middlegray,
+  "middlegray2": $middlegray2,
 //   "new-indigo": $new-indigo
 ) !default;
 // scss-docs-end theme-colors-map
