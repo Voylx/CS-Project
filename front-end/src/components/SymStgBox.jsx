@@ -204,29 +204,31 @@ const SymStgBox = ({
 
   return (
     <Col className="">
-      <div className="border rounded-3 shadow p-2 mb-1 ">
+      <div className="border rounded-3 shadow p-2 mb-1">
         <Row className="">
           <h6 className="col-8">{stg}</h6>
 
           <FavIcon fav={fav} selected={selected} fOnClick={fOnClick} />
         </Row>
-        <h6 className="m-0 text-primary">{sym}</h6>
-        <p
-          className={`m-0 fs-6 ${
-            side === "BUY"
-              ? "text-success"
-              : side === "SELL"
-              ? "text-danger"
-              : "text-secondary"
-          }`}
-        >
-          {side || "-"}
-        </p>
+        <div onClick={() => navigate("/bot/historyline")}>
+          <h6 className="m-0 text-primary">{sym}</h6>
+          <p
+            className={`m-0 fs-6 ${
+              side === "BUY"
+                ? "text-success"
+                : side === "SELL"
+                ? "text-danger"
+                : "text-secondary"
+            }`}
+          >
+            {side || "-"}
+          </p>
 
-        <p className="m-0 fs-6 text-muted">{unixTime(datetime) || <br />}</p>
-        <p className="m-0 fs-6 text-muted">
-          {datetime ? `(${timeSince(datetime)})` : <br />}
-        </p>
+          <p className="m-0 fs-6 text-muted">{unixTime(datetime) || <br />}</p>
+          <p className="m-0 fs-6 text-muted">
+            {datetime ? `(${timeSince(datetime)})` : <br />}
+          </p>
+        </div>
       </div>
     </Col>
   );
