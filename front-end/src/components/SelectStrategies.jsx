@@ -4,6 +4,7 @@ import Axios from "../services/Axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 import SymStgBox from "./SymStgBox";
 
@@ -18,7 +19,8 @@ const SelectStrategies = (props) => {
   const [symstg, setSymstg] = useState([]);
   const [symstgFilter, setSymstgFilter] = useState([]);
 
-  const [selectFav, setSelectFav] = useState(false);
+  const [filFav, setFilFav] = useState(false);
+  const [filSelect, setFilSelect] = useState(false);
 
   useEffect(() => {
     getsymbols();
@@ -63,13 +65,23 @@ const SelectStrategies = (props) => {
     setSymbol("default");
     setStrategy("default");
     setSymstgFilter(symstg);
-    setSelectFav(false);
+    setFilFav(false);
   }
 
   async function handleFilterFav() {
     const aaa = await getsymstgboxdata();
     const filter = aaa.filter((v) => {
       return v.isFav;
+    });
+    setSymstgFilter(filter);
+    setSymbol("default");
+    setStrategy("default");
+  }
+
+  async function handleFilterSelect() {
+    const aaa = await getsymstgboxdata();
+    const filter = aaa.filter((v) => {
+      return v.isSelected;
     });
     setSymstgFilter(filter);
     setSymbol("default");
@@ -93,7 +105,7 @@ const SelectStrategies = (props) => {
               <Form.Label>Select Strategy</Form.Label>
               <Form.Select
                 aria-label="Select Strategy"
-                disabled={selectFav}
+                disabled={filFav || filSelect}
                 onChange={
                   //
                   function filter(e) {
@@ -143,7 +155,7 @@ const SelectStrategies = (props) => {
               <Form.Label>Select Coin</Form.Label>
               <Form.Select
                 aria-label="select coin"
-                disabled={selectFav}
+                disabled={filFav || filSelect}
                 onChange={
                   //
                   function filter(e) {
@@ -194,22 +206,42 @@ const SelectStrategies = (props) => {
             md={1}
             xs={{ span: 2, order: "last" }}
           >
-            <h2>
-              {selectFav ? (
+            <h2 className="d-flex ">
+              {filFav ? (
                 <AiFillStar
-                  className="text-warning mb-2"
+                  className="text-warning mb-2 mx-1"
                   onClick={() => {
-                    setSelectFav(false);
+                    setFilFav(false);
                     handleResetFilter();
                   }}
                 />
               ) : (
                 <AiOutlineStar
-                  className="mb-2"
+                  className={`mb-2 mx-1 ${filSelect && "text-muted"}`}
                   onClick={async () => {
-                    // await getsymstgboxdata();
-                    setSelectFav(true);
-                    handleFilterFav();
+                    if (!filSelect) {
+                      setFilFav(true);
+                      handleFilterFav();
+                    }
+                  }}
+                />
+              )}
+              {filSelect ? (
+                <MdCheckBox
+                  className="text-primary mb-2 mx-1"
+                  onClick={() => {
+                    setFilSelect(false);
+                    handleResetFilter();
+                  }}
+                />
+              ) : (
+                <MdCheckBoxOutlineBlank
+                  className={`mb-2 mx-1 ${filFav && "text-muted"}`}
+                  onClick={async () => {
+                    if (!filFav) {
+                      setFilSelect(true);
+                      handleFilterSelect();
+                    }
                   }}
                 />
               )}
@@ -239,12 +271,11 @@ const SelectStrategies = (props) => {
     <>
       <StgSelectAndFilterBox />
       <Row className="g-3" xs={1} md={3} lg={4} xxl={5}>
-        {symstgFilter.map((v, i) => (
+        {symstgFilter.map((v) => (
           <SymStgBox
             sym={v.Sym}
             stg={v.Strategy_name}
             stgID={v.Strategy_id}
-            i={i}
             key={v.Sym + v.Strategy_id}
             isFav={Boolean(v.isFav)}
             isSelected={Boolean(v.isSelected)}

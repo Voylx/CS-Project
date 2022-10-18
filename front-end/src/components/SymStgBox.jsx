@@ -28,7 +28,6 @@ const SymStgBox = ({
   sym,
   stg,
   stgID,
-  i,
   isFav,
   isSelected,
   botData,
