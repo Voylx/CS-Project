@@ -210,7 +210,9 @@ const SymStgBox = ({
 
           <FavIcon fav={fav} selected={selected} fOnClick={fOnClick} />
         </Row>
-        <div onClick={() => navigate("/bot/historyline")}>
+        <div
+          onClick={() => navigate(`../symstghistory?sym=${sym}&stgID=${stgID}`)}
+        >
           <h6 className="m-0 text-primary">{sym}</h6>
           <p
             className={`m-0 fs-6 ${

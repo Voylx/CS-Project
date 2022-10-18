@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
-import { Link, useNavigate } from "react-router-dom";
-import {
-  Container,
-  Form,
-  Button,
-  Alert,
-  Row,
-  Col,
-  Table,
-  Tab,
-} from "react-bootstrap";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Container, Button, Row, Col, Table } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
 
-export const HistoryLine = () => {
+export const SymStgHistory = () => {
   let navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const sym = searchParams.get("sym");
+  const stgID = searchParams.get("stgID");
 
   const isAuthen = useAuthen();
 
@@ -37,7 +32,7 @@ export const HistoryLine = () => {
             </h6>
           </div>
           <div className="d-flex  ">
-            <h3>BTC </h3>
+            <h3>{sym}</h3>
             {/* <h4>(open)</h4> */}
           </div>
           {/* <Form.Group className="mb-2" controlId="formBasicApiKeys">

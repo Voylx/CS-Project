@@ -13,7 +13,7 @@ import { LinkApiLine } from "./Pages/LinkApiLine";
 import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
 import { BotContorl } from "./Pages/BotControl";
-import { HistoryLine } from "./Pages/HistoryLine";
+import { SymStgHistory } from "./Pages/SymStgHistory";
 
 // import "./App.css";
 
@@ -29,7 +29,10 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="bot">
               <Route path="" element={<BotPage />} />
-              <Route path=":botId" element={<BotDetails />} />
+              <Route path=":botId">
+                <Route path="" element={<BotDetails />} />
+                <Route path="symstghistory" element={<SymStgHistory />} />
+              </Route>
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="bitkubupdate" element={<LinkApiBitkubUpdate />} />
               {/* <Route path="viewertrade" element={<ViewerTrade />} /> */}
@@ -39,7 +42,6 @@ function App() {
               </Route>
               <Route path="linkline" element={<LinkLine />} />
               <Route path="linkapiline" element={<LinkApiLine />} />
-              <Route path="historyline" element={<HistoryLine />} />
             </Route>
           </Route>
         </Routes>
