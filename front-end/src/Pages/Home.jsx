@@ -5,10 +5,10 @@ import { Button, Modal, Container, Row, Col, Carousel } from "react-bootstrap";
 
 import ViewerGif from "../img/video/tradingView.gif";
 import realTime from "../img/video/realtime.gif";
-
-import StrategyPic from "../img/StrategyPic.png";
+import StrategyPic from "../img/StrategyPic.png"; //รอแก้
 
 import { useAuthen } from "../services/Authen";
+import Axios from "../services/Axios";
 
 import { Header } from "../components/Header";
 import BannerHead from "../components/BannerHead";

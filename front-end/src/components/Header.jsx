@@ -18,6 +18,7 @@ export const Header = () => {
       console.error(error?.response?.data);
     }
   }
+
   useEffect(() => {
     getusername();
     console.log(username);

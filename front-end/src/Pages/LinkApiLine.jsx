@@ -10,6 +10,22 @@ import { Header } from "../components/Header";
 
 export const LinkApiLine = () => {
   let navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+
+  async function getusername() {
+    try {
+      const res = await Axios.post("/api/getusernames", {});
+      setUsername(res.data.username);
+    } catch (error) {
+      console.error(error?.response?.data);
+    }
+  }
+
+  useEffect(() => {
+    getusername();
+  }, [username]);
+
   return (
     <div>
       <Header />
@@ -28,7 +44,7 @@ export const LinkApiLine = () => {
             </h6>
           </div>
           <Form.Group className="mb-3" controlId="formBasicApiSecertLine">
-            <Form.Label>Username:</Form.Label>
+            <Form.Label>Username: {username}</Form.Label>
           </Form.Group>
 
           {/* <Form.Group className="mb-2" controlId="formBasicApiKeys">
