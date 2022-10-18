@@ -13,6 +13,7 @@ import { LinkApiLine } from "./Pages/LinkApiLine";
 import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
 import { BotContorl } from "./Pages/BotControl";
+import { HistoryLine } from "./Pages/HistoryLine";
 
 // import "./App.css";
 
@@ -37,8 +38,8 @@ function App() {
                 <Route path=":symbol" element={<ViewerTrade />} />
               </Route>
               <Route path="linkline" element={<LinkLine />} />
-
               <Route path="linkapiline" element={<LinkApiLine />} />
+              <Route path="historyline" element={<HistoryLine />} />
             </Route>
           </Route>
         </Routes>

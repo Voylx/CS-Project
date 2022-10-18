@@ -331,4 +331,9 @@ router.post("/getusernames", async (req, res) => {
   }
 });
 
+router.get("/getsymstghistory", async (req, res) => {
+  const db = await require("../services/db_promise");
+
+  const { Sym, Strategys_Id } = req.query;
+});
 module.exports = router;
