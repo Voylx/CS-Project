@@ -69,8 +69,8 @@ export const Home = () => {
               </h3>
               <Col xs={6} className="mt-5 align-self-center">
                 <div className="text-light text-center fs-5 mb-1">
-                  สามารถเลือกกลยุทธ์และรูปแบบเหรียญ
-                  เพื่อให้บอททำการเทรดหรือแจ้งเตือน
+                  สามารถเลือกกลยุทธ์และรูปแบบเหรียญ เพื่อให้บอททำการเทรด
+                  หรือแจ้งเตือน
                   <div>
                     <Button
                       variant="outline-secondary"
