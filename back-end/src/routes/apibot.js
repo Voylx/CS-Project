@@ -137,9 +137,11 @@ router.post("/delselected", (req, res) => {
         res.status(500).send({ status: "error", message: err.sqlMessage });
       }
       if (results.affectedRows === 0) {
-        res
-          .status(500)
-          .send({ status: "error", message: "Can not delete selected" });
+        res.status(500).send({
+          status: "error",
+          message: "Can not delete selected",
+          results: results,
+        });
         return;
       }
       res.status(200).send({
@@ -273,9 +275,9 @@ router.post("/getsymstgboxdata", (req, res) => {
       LEFT JOIN 
       fav ON symbols.Sym = fav.Sym AND 
       strategies.Strategy_id = fav.Strategys_Id AND
-      fav.Bot_id = 'c3b5f2ea-02a2-45f2-89cc-7305893bddba'
+      fav.Bot_id = ?
       LEFT JOIN
-      selected on selected.Bot_id = 'c3b5f2ea-02a2-45f2-89cc-7305893bddba' AND 
+      selected on selected.Bot_id = ? AND 
       symbols.Sym = selected.Sym AND 
       strategies.Strategy_id = selected.Strategys_Id
       LEFT JOIN
