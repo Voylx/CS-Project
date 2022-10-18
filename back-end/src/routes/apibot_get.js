@@ -33,4 +33,31 @@ router.get("/tickers", async (req, res) => {
   });
 });
 
+router.get("/getsymstghistory", async (req, res) => {
+  const db = await require("../services/db_promise");
+
+  const { Sym, Strategy_id } = req.query;
+  if (!Sym || !Strategy_id) {
+    res.status(400).send({
+      status: "error",
+      message: "Incomplete request ",
+    });
+    return;
+  }
+  try {
+    const [historys] = await db.execute(
+      "SELECT * FROM sym_stg_history WHERE Sym = ? AND Strategy_id =?",
+      [Sym, Strategy_id]
+    );
+    res.send({
+      status: "success",
+      historys: historys,
+
+      // username: user[0].username,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: "error", message: error.sqlMessage });
+  }
+});
 module.exports = router;
