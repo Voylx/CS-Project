@@ -45,16 +45,47 @@ router.get("/getsymstghistory", async (req, res) => {
     return;
   }
   try {
-    const [historys] = await db.execute(
-      "SELECT * FROM sym_stg_history WHERE Sym = ? AND Strategy_id =?",
-      [Sym, Strategy_id]
-    );
-    res.send({
-      status: "success",
-      historys: historys,
+    const sql = `
+      SELECT Sym,sym_stg_history.Strategy_id,Strategy_name,Side,UNIX_TIMESTAMP(Timestamp)AS Timestamp FROM sym_stg_history 
+      JOIN strategies ON sym_stg_history.Strategy_id = strategies.Strategy_id
+      WHERE Sym = ? AND strategies.Strategy_id =?
+    `;
+    const [data] = await db.execute(sql, [Sym, Strategy_id]);
+    console.log(data.length);
+    // ถ้ามีhistoryแล้ว
+    if (data.length > 0) {
+      const historys = data.map((V) => {
+        const newV = Object.fromEntries(
+          Object.entries(V).filter(([k, v]) => {
+            return k === "Side" || k === "Timestamp";
+          })
+        );
+        return newV;
+      });
 
-      // username: user[0].username,
-    });
+      res.send({
+        status: "success",
+        historys: historys,
+        Sym,
+        Strategy_name: data[0].Strategy_name,
+        Strategy_id: Strategy_id,
+      });
+    }
+    // ถ้ายังไม่มีhistory
+    else {
+      const [result] = await db.execute(
+        "SELECT Strategy_name FROM strategies WHERE Strategy_id = 1",
+        [Strategy_id]
+      );
+
+      res.send({
+        status: "success",
+        historys: [],
+        Sym,
+        Strategy_name: result[0].Strategy_name,
+        Strategy_id: Strategy_id,
+      });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send({ status: "error", message: error.sqlMessage });
