@@ -35,7 +35,35 @@ export const SymStgHistory = () => {
 
   useEffect(() => {
     getsymstghistory();
+    console.log(history);
   }, []);
+
+  function unixTime(unixtime) {
+    if (unixtime) {
+      var u = new Date(unixtime * 1000);
+
+      return (
+        ("0" + u.getHours()).slice(-2) +
+        ":" +
+        ("0" + u.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + u.getSeconds()).slice(-2)
+      );
+    }
+  }
+  function unixDay(unixtime) {
+    if (unixtime) {
+      var u = new Date(unixtime * 1000);
+
+      return (
+        u.getUTCFullYear() +
+        "-" +
+        ("0" + (u.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + u.getDate()).slice(-2)
+      );
+    }
+  }
 
   return (
     <div>
@@ -66,7 +94,22 @@ export const SymStgHistory = () => {
             />
           </Form.Group> */}
 
-          <h4>Last Action: Buy</h4>
+          <h4>
+            Last Action:{" "}
+            {history.length > 0 ? (
+              <span
+                className={
+                  history[history.length - 1].Side === "BUY"
+                    ? "text-success"
+                    : "text-danger"
+                }
+              >
+                {history[history.length - 1].Side}
+              </span>
+            ) : (
+              <span> - </span>
+            )}
+          </h4>
 
           <div>
             <Button
@@ -88,24 +131,32 @@ export const SymStgHistory = () => {
               <td className="table-primary">Date</td>
               <td className="table-secondary">Time</td>
               <td className="table-primary">Side</td>
-              <td className="table-secondary">Symbol</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>09-23-2022</td>
-              <td>09:00</td>
-              <td>Buy</td>
-
-              <td>BTC</td>
-            </tr>
-            <tr>
-              <td>09-23-2022</td>
-              <td>09:00</td>
-              <td>Sell</td>
-
-              <td>THB</td>
-            </tr>
+            {history.length > 0 ? (
+              history.map((v) => {
+                return (
+                  <tr>
+                    <td>{unixDay(v.Timestamp)}</td>
+                    <td>{unixTime(v.Timestamp)}</td>
+                    <td
+                      className={
+                        v.Side === "BUY" ? "text-success" : "text-danger"
+                      }
+                    >
+                      {v.Side}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </Container>

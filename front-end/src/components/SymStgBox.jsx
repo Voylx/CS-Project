@@ -162,7 +162,7 @@ const SymStgBox = ({
       return (
         u.getUTCFullYear() +
         "-" +
-        ("0" + u.getMonth()).slice(-2) +
+        ("0" + (u.getMonth() + 1)).slice(-2) +
         "-" +
         ("0" + u.getDate()).slice(-2) +
         " : " +
