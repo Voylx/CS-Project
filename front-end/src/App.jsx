@@ -32,14 +32,15 @@ function App() {
               <Route path=":botId">
                 <Route path="" element={<BotDetails />} />
                 <Route path="symstghistory" element={<SymStgHistory />} />
+                <Route path="viewertrade">
+                  <Route path=":symbol" element={<ViewerTrade />} />
+                </Route>
               </Route>
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="bitkubupdate" element={<LinkApiBitkubUpdate />} />
               {/* <Route path="viewertrade" element={<ViewerTrade />} /> */}
               <Route path="control" element={<BotContorl />} />
-              <Route path="viewertrade">
-                <Route path=":symbol" element={<ViewerTrade />} />
-              </Route>
+
               <Route path="linkline" element={<LinkLine />} />
               <Route path="linkapiline" element={<LinkApiLine />} />
             </Route>

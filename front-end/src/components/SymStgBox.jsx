@@ -211,7 +211,9 @@ const SymStgBox = ({
           <FavIcon fav={fav} selected={selected} fOnClick={fOnClick} />
         </Row>
         <div
-          onClick={() => navigate(`../symstghistory?sym=${sym}&stgID=${stgID}`)}
+          onClick={() =>
+            navigate(`../../symstghistory?sym=${sym}&stgID=${stgID}`)
+          }
         >
           <h6 className="m-0 text-primary">{sym}</h6>
           <p

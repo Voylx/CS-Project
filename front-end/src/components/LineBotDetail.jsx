@@ -35,7 +35,7 @@ export const LineBotDetail = (props) => {
             <h6>(Line Notification)</h6>
           </div>
         </Row>
-        <RealtimeBoxGroup />
+        <RealtimeBoxGroup {...props} />
         <div className="linetext mb-5 text-muted"></div>
         <SelectStrategies {...props} />
         <div style={{ height: "10rem" }}>.</div>
