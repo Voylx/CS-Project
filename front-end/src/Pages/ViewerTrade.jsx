@@ -3,6 +3,7 @@ import Axios from "../services/Axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthen } from "../services/Authen";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import SymStgBox from "../components/SymStgBox";
 
 import { Header } from "../components/Header";
 
@@ -13,9 +14,40 @@ export const ViewerTrade = () => {
   let navigate = useNavigate();
   let params = useParams();
 
+  const Bot_id = params.botId;
   const symbol = params.symbol;
 
+  const [symStgBoxData, setSymStgBoxData] = useState([]);
+  const [botData, setBotData] = useState({});
+
+  function getsymstgboxdata_onlysym() {
+    Axios.post("/api/getsymstgboxdata_onlysym", {
+      Bot_id: Bot_id,
+      Sym: symbol,
+    })
+      .then((res) => {
+        if (res.data.status === "success") {
+          // console.log(res.data);
+          setSymStgBoxData(res.data.data);
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  async function getbotData() {
+    try {
+      const response = await Axios.post("/api/check/bot_by_botid", {
+        Bot_id: Bot_id,
+      });
+      console.log(response.data.bot);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   useEffect(() => {
+    getsymstgboxdata_onlysym();
+    getbotData();
+    console.log(symStgBoxData);
     new TradingView.widget({
       // autosize: true,
       width: "100%",
@@ -70,28 +102,19 @@ export const ViewerTrade = () => {
         </div>
         <div className="linetext mb-4 text-muted">&ensp;Strategy&ensp;</div>
         <Row className="g-3" xs={2} lg={3} xl={4}>
-          {[1, 2, 3, 4].map((i) => {
+          {symStgBoxData.map((v, i) => {
             return (
-              <Col key={i}>
-                <div
-                  className="border rounded-3 shadow p-2"
-                  style={
-                    {
-                      // height: "7rem",
-                    }
-                  }
-                >
-                  <h6 className="m-0">CDC-TF1D</h6>
-                  <h6 className="m-0 text-primary">BTC</h6>
-                  {i % 2 == 0 ? (
-                    <p className="m-0 fs-6 text-success">BUY</p>
-                  ) : (
-                    <p className="m-0 fs-6 text-danger">SELL</p>
-                  )}
-                  <p className="m-0 fs-6 text-muted">2022-09-05 : 22:43:00</p>
-                  <p className="m-0 fs-6 text-muted">(3 days ago) </p>
-                </div>
-              </Col>
+              <SymStgBox
+                key={i}
+                sym={v.Sym}
+                stg={v.Strategy_name}
+                stgID={v.Strategy_id}
+                isFav={v.isFav}
+                isSelected={v.isSelected}
+                botData={botData}
+                side={v.Side}
+                datetime={v.Timestamp}
+              />
             );
           })}
         </Row>

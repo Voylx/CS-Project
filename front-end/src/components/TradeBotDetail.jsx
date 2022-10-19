@@ -33,7 +33,7 @@ export const TradeBotDetail = (props) => {
             <h6>(Bitkub)</h6>
           </div>
         </Row>
-        <RealtimeBoxGroup />
+        <RealtimeBoxGroup {...props} />
         <div className="linetext mb-5 text-muted"></div>
         <SelectStrategies {...props} />
         <div style={{ height: "10rem" }}>.</div>

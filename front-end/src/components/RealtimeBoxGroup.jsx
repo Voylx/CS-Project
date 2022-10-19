@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 
 import RealtimeBox from "./RealtimeBox";
 
-const RealtimeBoxGroup = () => {
+const RealtimeBoxGroup = (props) => {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const RealtimeBoxGroup = () => {
   return (
     <Row className="m-4 g-2 " xs={1} md={2} lg={3} xl={6}>
       {Object.entries(data).map(([k, v], i) => {
-        return <RealtimeBox key={k} sym={k} data={v} />;
+        return <RealtimeBox key={k} sym={k} data={v} {...props} />;
       })}
     </Row>
   );

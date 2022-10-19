@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Col, Row } from "react-bootstrap";
 
-const RealtimeBox = ({ sym, data }) => {
+const RealtimeBox = ({ sym, data, botData }) => {
   let navigate = useNavigate();
   const [price, setPrice] = useState(data.last);
   const [change, setChange] = useState(data.percentChange);
@@ -50,7 +50,7 @@ const RealtimeBox = ({ sym, data }) => {
   }, []);
 
   return (
-    <Col onClick={() => navigate(`/bot/viewertrade/${sym}`)}>
+    <Col onClick={() => navigate(`/bot/${botData.Bot_id}/viewertrade/${sym}`)}>
       <div
         className={`border rounded-3 shadow p-3 ${color ? "bg-purlight" : ""}`}
         style={
