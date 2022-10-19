@@ -55,7 +55,7 @@ export const Home = () => {
                     <Button
                       variant="outline-secondary"
                       className=" mt-2 text-dark"
-                      onClick={() => navigate("/bot")}
+                      onClick={() => (location = "/bot")}
                     >
                       See more...
                     </Button>
@@ -75,7 +75,7 @@ export const Home = () => {
                     <Button
                       variant="outline-secondary"
                       className="  mt-2 text-light"
-                      onClick={() => navigate("/bot")}
+                      onClick={() => (location = "/bot")}
                     >
                       See more...
                     </Button>
@@ -106,7 +106,7 @@ export const Home = () => {
                     <Button
                       variant="outline-secondary "
                       className=" mt-2 text-dark"
-                      onClick={() => navigate("/bot")}
+                      onClick={() => (location = "/bot")}
                     >
                       See more...
                     </Button>
