@@ -6,6 +6,7 @@ import { Button, Modal, Container, Row, Col, Carousel } from "react-bootstrap";
 import ViewerGif from "../img/video/tradingView.gif";
 import realTime from "../img/video/realtime.gif";
 import StrategyPic from "../img/StrategyPic.png"; //รอแก้
+import botStrategy from "../img/video/botstrategy.gif";
 
 import { useAuthen } from "../services/Authen";
 import Axios from "../services/Axios";
@@ -85,9 +86,9 @@ export const Home = () => {
               </Col>
               <Col xs={6} className="mt-0 mb-4 ">
                 <img
-                  src={realTime} //must be รูปเคลื่อนไหว stg
+                  src={botStrategy}
                   className=" rounded float-left  bg-dark shadow  ratio ratio-16x9"
-                  alt="TradingViewerPic"
+                  alt="botStrategy"
                 />
               </Col>
             </Row>
