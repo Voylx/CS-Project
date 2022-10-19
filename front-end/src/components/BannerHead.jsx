@@ -23,7 +23,7 @@ const BannerHead = () => {
               <Button
                 type="button"
                 className="btn btn-primary mt-1"
-                onClick={() => navigate("/bot")}
+                onClick={() => (location = "/bot")}
               >
                 เริ่มต้นใช้งาน
               </Button>

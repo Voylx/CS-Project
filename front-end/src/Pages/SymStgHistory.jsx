@@ -14,8 +14,28 @@ export const SymStgHistory = () => {
 
   const sym = searchParams.get("sym");
   const stgID = searchParams.get("stgID");
+  const [stgName, setStgName] = useState("");
+  const [history, setHistory] = useState([]);
 
   const isAuthen = useAuthen();
+
+  async function getsymstghistory() {
+    try {
+      const response = await Axios.get(
+        `/api/getsymstghistory?Sym=${sym}&Strategy_id=${stgID}`
+      );
+      const data = response.data;
+      setStgName(data.Strategy_name);
+      setHistory(data.historys);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getsymstghistory();
+  }, []);
 
   return (
     <div>
@@ -26,7 +46,7 @@ export const SymStgHistory = () => {
           style={{ borderRadius: "11px" }}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <h2 className="ms-7">Name strategies</h2>
+            <h2 className="ms-7">{stgName}</h2>
             <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
               {"Go back"}
             </h6>
