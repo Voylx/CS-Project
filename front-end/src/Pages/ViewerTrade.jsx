@@ -39,7 +39,8 @@ export const ViewerTrade = () => {
       const response = await Axios.post("/api/check/bot_by_botid", {
         Bot_id: Bot_id,
       });
-      console.log(response.data.bot);
+
+      setBotData(response.data.bot);
     } catch (error) {
       console.error(error);
     }
@@ -109,8 +110,8 @@ export const ViewerTrade = () => {
                 sym={v.Sym}
                 stg={v.Strategy_name}
                 stgID={v.Strategy_id}
-                isFav={v.isFav}
-                isSelected={v.isSelected}
+                isFav={Boolean(v.isFav)}
+                isSelected={Boolean(v.isSelected)}
                 botData={botData}
                 side={v.Side}
                 datetime={v.Timestamp}
