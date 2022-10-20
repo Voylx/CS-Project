@@ -32,7 +32,7 @@ export function useAuthen() {
       setIsAuthen(false);
       console.log("token error");
       alert("sestion time out!");
-      localStorage.removeItem("token");
+      localStorage.clear();
       window.location = "/";
     });
 

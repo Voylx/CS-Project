@@ -88,7 +88,7 @@ const Box = (props) => {
         {botData.Bot_id}
         <Button
           onClick={() => {
-            navigate(`../${botData.Bot_id}`);
+            navigate(`../${type}`);
           }}
         >
           Control

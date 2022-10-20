@@ -29,7 +29,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="bot">
               <Route path="" element={<BotPage />} />
-              <Route path=":botId">
+              <Route path=":botType">
                 <Route path="" element={<BotDetails />} />
                 <Route path="symstghistory" element={<SymStgHistory />} />
                 <Route path="viewertrade">

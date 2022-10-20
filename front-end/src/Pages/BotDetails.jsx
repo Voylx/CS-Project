@@ -16,16 +16,17 @@ export const BotDetails = () => {
 
   const [botData, setBotData] = useState({});
 
-  const Bot_id = params.botId;
+  const Bot_Type = params.botType;
+  // let Bot_id = "c3b5f2ea-02a2-45f2-89cc-7305893bddba";
+
+  console.log("Bot_Type", Bot_Type);
   function getbotDetails() {
-    Axios.post("/api/check/bot_by_botid", { Bot_id })
-      .then((res) => {
-        setBotData(res.data?.bot);
-      })
-      .catch((err) => {
-        console.error(err.response.data);
-        navigate("/bot", { replace: true });
-      });
+    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
+    if (data) setBotData(data);
+    else {
+      console.log("Can't find botData");
+      navigate("/bot", { replace: true });
+    }
   }
 
   useEffect(() => {

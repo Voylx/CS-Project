@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Nav } from "react-bootstrap";
 
 const handleLogout = () => {
-  localStorage.removeItem("token");
+  localStorage.clear();
   window.location = "/";
 };
 

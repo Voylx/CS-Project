@@ -50,7 +50,7 @@ const RealtimeBox = ({ sym, data, botData }) => {
   }, []);
 
   return (
-    <Col onClick={() => navigate(`/bot/${botData.Bot_id}/viewertrade/${sym}`)}>
+    <Col onClick={() => navigate(`/bot/${botData.Type}/viewertrade/${sym}`)}>
       <div
         className={`border rounded-3 shadow p-3 ${color ? "bg-purlight" : ""}`}
         style={

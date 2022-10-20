@@ -14,15 +14,15 @@ export const ViewerTrade = () => {
   let navigate = useNavigate();
   let params = useParams();
 
-  const Bot_id = params.botId;
+  const Bot_Type = params.botType;
   const symbol = params.symbol;
 
   const [symStgBoxData, setSymStgBoxData] = useState([]);
-  const [botData, setBotData] = useState({});
+  const [botData, setBotData] = useState(undefined);
 
-  function getsymstgboxdata_onlysym() {
+  function getsymstgboxdata_onlysym(data) {
     Axios.post("/api/getsymstgboxdata_onlysym", {
-      Bot_id: Bot_id,
+      Bot_id: data.Bot_id,
       Sym: symbol,
     })
       .then((res) => {
@@ -34,21 +34,18 @@ export const ViewerTrade = () => {
       .catch((err) => console.error(err));
   }
 
-  async function getbotData() {
-    try {
-      const response = await Axios.post("/api/check/bot_by_botid", {
-        Bot_id: Bot_id,
-      });
-
-      setBotData(response.data.bot);
-    } catch (error) {
-      console.error(error);
+  function getData() {
+    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
+    if (data) {
+      setBotData(data);
+      getsymstgboxdata_onlysym(data);
+    } else {
+      console.log("Can't find botData");
+      navigate("/bot", { replace: true });
     }
   }
   useEffect(() => {
-    getsymstgboxdata_onlysym();
-    getbotData();
-    console.log(symStgBoxData);
+    getData();
     new TradingView.widget({
       // autosize: true,
       width: "100%",
