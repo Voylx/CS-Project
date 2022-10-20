@@ -114,7 +114,7 @@ export const SymStgHistory = () => {
               className="p-1 mt-0 mb-1 me-2  btn btn-primary  btn-sm"
               onClick={() => window.location.reload()}
             >
-              1 mounth
+              1 month
             </Button>
             <Button
               variant="primary"
@@ -122,7 +122,7 @@ export const SymStgHistory = () => {
               className="p-1 mt-0 mb-1 me-2 btn btn-primary  btn-sm"
               onClick={() => window.location.reload()}
             >
-              3 mounths
+              3 months
             </Button>
             <Button
               variant="primary"
@@ -130,7 +130,7 @@ export const SymStgHistory = () => {
               className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
               onClick={() => window.location.reload()}
             >
-              6 mounths
+              6 months
             </Button>
             <Button
               variant="primary"
@@ -156,6 +156,35 @@ export const SymStgHistory = () => {
             >
               3 years
             </Button>
+          </div>
+          <div className="p-3">
+            <h6>{stgName}</h6>
+            <div className="d-flex justify-content-between mt-0">
+              <p className="text-secondary ">Symbol</p>
+              <p className="text-secondary me-3">Backtest Duration</p>
+            </div>{" "}
+            <div className="d-flex justify-content-between mt-0">
+              <h6>{sym}</h6>
+              <p className=" me-3">1 month</p>
+            </div>
+            <p className="text-secondary">Winning Percentage</p>
+            <h6 className="text-success ">12.5%</h6>
+            <div className="d-flex justify-content-between">
+              <p className="text-secondary me-3">Avarage Winning Trade</p>
+              <p className="text-secondary me-3">Avarage Losing Trade</p>
+            </div>
+            <div className="d-flex justify-content-between">
+              <h6 className="text-success me-3">12.5%</h6>
+              <h6 className="text-danger me-3">12.5%</h6>
+            </div>
+            <div className="d-flex justify-content-between">
+              <p className="text-secondary">Largest Winning trade</p>
+              <p className="text-secondary me-3">Largest Losing Trade</p>
+            </div>
+            <div className="d-flex justify-content-between">
+              <h6 className="text-success ">12.5%</h6>
+              <h6 className="text-danger me-3">12.5%</h6>
+            </div>
           </div>
         </div>
         <div className="mt-4 linetext mb-2 text-muted">
