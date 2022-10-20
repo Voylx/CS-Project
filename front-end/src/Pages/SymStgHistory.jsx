@@ -8,7 +8,6 @@ import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
 import { TableHistory } from "../components/TableHistory";
-import { BackTestBox } from "../components/BackTestBox";
 
 export const SymStgHistory = () => {
   let navigate = useNavigate();
@@ -153,7 +152,6 @@ export const SymStgHistory = () => {
         <div className="mt-4 linetext mb-2 text-muted">
           &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
         </div>
-        <BackTestBox />
         <TableHistory history={history} />
       </Container>
     </div>
