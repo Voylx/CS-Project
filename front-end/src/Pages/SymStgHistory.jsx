@@ -96,11 +96,64 @@ export const SymStgHistory = () => {
               ปิดการแจ้งเตือนกลยุทธ์นี้
             </Button>
           </div>
+          <div className="mt-4 linetext mb-2 text-muted">
+            &ensp; Back Test &ensp;{" "}
+          </div>
+          <p className="">Maximum Durtion</p>
+          <div className="">
+            <Button
+              variant="primary"
+              type="button"
+              className="p-1 mt-0 mb-1 me-2  btn btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              1 mounth
+            </Button>
+            <Button
+              variant="primary"
+              type="button"
+              className="p-1 mt-0 mb-1 me-2 btn btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              3 mounths
+            </Button>
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              6 mounths
+            </Button>
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              1 year
+            </Button>
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              2 years
+            </Button>
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-0 mb-1 btn me-2 btn-primary  btn-sm"
+              onClick={() => window.location.reload()}
+            >
+              3 years
+            </Button>
+          </div>
         </div>
         <div className="mt-4 linetext mb-2 text-muted">
           &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
         </div>
-        <BackTestBox />
         <TableHistory />
       </Container>
     </div>

@@ -16,14 +16,13 @@ export const BackTestBox = () => {
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex justify-content-between">
           <h2>EMA-10-21-TF1H</h2>
-          <p className="mt-2">(Back Test)</p>
         </div>
         <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
           {"Go back"}
         </h6>
       </div>
 
-      <p className="">Maximu Durtion</p>
+      <p className="">Maximum Durtion</p>
       <div className="">
         <Button
           variant="primary"
