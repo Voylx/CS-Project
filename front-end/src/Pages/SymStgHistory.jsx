@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Container, Button, Row, Col, Table } from "react-bootstrap";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Container, Button } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
 import { TableHistory } from "../components/TableHistory";
+import { ButtonSelected } from "../components/ButtonSelected";
 
 export const SymStgHistory = () => {
   let navigate = useNavigate();
+  let params = useParams();
+  const isAuthen = useAuthen();
+
   let [searchParams, setSearchParams] = useSearchParams();
+  const Bot_Type = params.botType;
+
+  const [botData, setBotData] = useState({});
 
   const sym = searchParams.get("sym");
   const stgID = searchParams.get("stgID");
-  const [stgName, setStgName] = useState("");
+  const [stgName, setStgName] = useState("Strategy_Name");
   const [history, setHistory] = useState([]);
-
-  const isAuthen = useAuthen();
 
   async function getsymstghistory() {
     try {
@@ -28,14 +33,26 @@ export const SymStgHistory = () => {
       const data = response.data;
       setStgName(data.Strategy_name);
       setHistory(data.historys);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error);
     }
   }
 
+  async function getBotData() {
+    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
+
+    if (!data) {
+      console.log("Can't find botData");
+      navigate("/bot", { replace: true });
+      return;
+    }
+    setBotData(data);
+  }
+
   useEffect(() => {
     getsymstghistory();
+    getBotData();
   }, []);
 
   return (
@@ -84,16 +101,8 @@ export const SymStgHistory = () => {
             )}
           </h4>
 
-          <div>
-            <Button
-              variant="primary"
-              type="button"
-              className="mt-3 mb-2 w-100"
-              onClick={() => window.location.reload()}
-            >
-              ปิดการแจ้งเตือนกลยุทธ์นี้
-            </Button>
-          </div>
+          <ButtonSelected Bot_Type={Bot_Type} sym={sym} stgID={stgID} />
+
           <div className="mt-4 linetext mb-2 text-muted">
             &ensp; Back Test &ensp;{" "}
           </div>
