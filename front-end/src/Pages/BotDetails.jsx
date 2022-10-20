@@ -38,6 +38,7 @@ export const BotDetails = () => {
         : "None"
     );
     console.log(botData);
+    const datatest = JSON.parse(localStorage.getItem("botData"));
   }, []);
 
   return (

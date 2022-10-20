@@ -212,7 +212,9 @@ const SymStgBox = ({
         </Row>
         <div
           onClick={() =>
-            navigate(`../../symstghistory?sym=${sym}&stgID=${stgID}`)
+            navigate(
+              `/bot/${botData.Bot_id}/symstghistory?sym=${sym}&stgID=${stgID}`
+            )
           }
         >
           <h6 className="m-0 text-primary">{sym}</h6>

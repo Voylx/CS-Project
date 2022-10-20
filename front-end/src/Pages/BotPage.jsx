@@ -111,6 +111,7 @@ export const BotBox = (props) => {
       .then((res) => {
         console.log(res.data);
         setBotData(res.data.bot);
+        localStorage.setItem(`botData${Type}`, JSON.stringify(res.data.bot));
       })
       .catch((err) => {
         console.error(err.response.data);
