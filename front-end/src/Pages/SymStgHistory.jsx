@@ -37,7 +37,6 @@ export const SymStgHistory = () => {
 
   useEffect(() => {
     getsymstghistory();
-    console.log(history);
   }, []);
 
   return (
@@ -154,7 +153,8 @@ export const SymStgHistory = () => {
         <div className="mt-4 linetext mb-2 text-muted">
           &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
         </div>
-        <TableHistory />
+        <BackTestBox />
+        <TableHistory history={history} />
       </Container>
     </div>
   );
