@@ -37,7 +37,6 @@ export const SymStgHistory = () => {
 
   useEffect(() => {
     getsymstghistory();
-    console.log(history);
   }, []);
 
   return (
@@ -101,7 +100,7 @@ export const SymStgHistory = () => {
           &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
         </div>
         <BackTestBox />
-        <TableHistory />
+        <TableHistory history={history} />
       </Container>
     </div>
   );

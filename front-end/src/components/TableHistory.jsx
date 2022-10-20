@@ -1,41 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Axios from "../services/Axios";
+import React, { useState } from "react";
 
-import { useAuthen } from "../services/Authen";
+import { Table } from "react-bootstrap";
 
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Container, Button, Row, Col, Table } from "react-bootstrap";
-
-export const TableHistory = () => {
-  let navigate = useNavigate();
-  let [searchParams, setSearchParams] = useSearchParams();
-
-  const sym = searchParams.get("sym");
-  const stgID = searchParams.get("stgID");
-  const [stgName, setStgName] = useState("");
-  const [history, setHistory] = useState([]);
-
-  const isAuthen = useAuthen();
-
-  async function getsymstghistory() {
-    try {
-      const response = await Axios.get(
-        `/api/getsymstghistory?Sym=${sym}&Strategy_id=${stgID}`
-      );
-      const data = response.data;
-      setStgName(data.Strategy_name);
-      setHistory(data.historys);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getsymstghistory();
-    console.log(history);
-  }, []);
-
+export const TableHistory = ({ history }) => {
   function unixTime(unixtime) {
     if (unixtime) {
       var u = new Date(unixtime * 1000);
@@ -73,9 +40,9 @@ export const TableHistory = () => {
       </thead>
       <tbody>
         {history.length > 0 ? (
-          history.map((v) => {
+          history.map((v, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td>{unixDay(v.Timestamp)}</td>
                 <td>{unixTime(v.Timestamp)}</td>
                 <td
