@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { Container, Button } from "react-bootstrap";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Container, Button, Row, Col, Table } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
 import { TableHistory } from "../components/TableHistory";
-import { ButtonSelected } from "../components/ButtonSelected";
+import { BackTestDetail } from "../components/BackTestDetail";
 
 export const SymStgHistory = () => {
   let navigate = useNavigate();
-  let params = useParams();
-  const isAuthen = useAuthen();
-
   let [searchParams, setSearchParams] = useSearchParams();
-  const Bot_Type = params.botType;
-
-  const [botData, setBotData] = useState({});
 
   const sym = searchParams.get("sym");
   const stgID = searchParams.get("stgID");
-  const [stgName, setStgName] = useState("Strategy_Name");
+  const [stgName, setStgName] = useState("");
   const [history, setHistory] = useState([]);
+
+  const isAuthen = useAuthen();
 
   async function getsymstghistory() {
     try {
@@ -33,26 +29,14 @@ export const SymStgHistory = () => {
       const data = response.data;
       setStgName(data.Strategy_name);
       setHistory(data.historys);
-      // console.log(data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function getBotData() {
-    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
-
-    if (!data) {
-      console.log("Can't find botData");
-      navigate("/bot", { replace: true });
-      return;
-    }
-    setBotData(data);
-  }
-
   useEffect(() => {
     getsymstghistory();
-    getBotData();
   }, []);
 
   return (
@@ -83,7 +67,6 @@ export const SymStgHistory = () => {
               required
             />
           </Form.Group> */}
-
           <h4>
             Last Action:{" "}
             {history.length > 0 ? (
@@ -100,13 +83,22 @@ export const SymStgHistory = () => {
               <span> - </span>
             )}
           </h4>
-
-          <ButtonSelected Bot_Type={Bot_Type} sym={sym} stgID={stgID} />
-
-          <div className="mt-4 linetext mb-2 text-muted">
-            &ensp; Back Test &ensp;{" "}
+          <div>
+            <Button
+              variant="primary"
+              type="button"
+              className="mt-3 mb-2 w-100"
+              onClick={() => window.location.reload()}
+            >
+              ปิดการแจ้งเตือนกลยุทธ์นี้
+            </Button>
           </div>
-          <p className="">Maximum Durtion</p>
+          <div className="mt-4 linetext mb-2 text-muted">
+            &ensp; Back Test &ensp;
+          </div>
+          {/* BackTestDetail */}
+          <BackTestDetail sym={sym} stgID={stgID} stgName={stgName} />
+          {/* <p className="">Maximum Durtion</p>
           <div className="">
             <Button
               variant="primary"
@@ -185,7 +177,7 @@ export const SymStgHistory = () => {
               <h6 className="text-success ">12.5%</h6>
               <h6 className="text-danger me-3">12.5%</h6>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="mt-4 linetext mb-2 text-muted">
           &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
