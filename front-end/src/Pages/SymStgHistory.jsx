@@ -84,6 +84,7 @@ export const SymStgHistory = () => {
             />
           </Form.Group> */}
 
+          {/* lastAction */}
           <h4>
             Last Action:{" "}
             {history.length > 0 ? (
@@ -103,10 +104,13 @@ export const SymStgHistory = () => {
 
           <ButtonSelected Bot_Type={Bot_Type} sym={sym} stgID={stgID} />
 
+          {/* BackTest */}
           <div className="mt-4 linetext mb-2 text-muted">
             &ensp; Back Test &ensp;{" "}
           </div>
+
           <p className="">Maximum Durtion</p>
+
           <div className="">
             <Button
               variant="primary"
@@ -157,6 +161,8 @@ export const SymStgHistory = () => {
               3 years
             </Button>
           </div>
+
+          {/* Backtest Result */}
           <div className="p-3">
             <h6>{stgName}</h6>
             <div className="d-flex justify-content-between mt-0">
