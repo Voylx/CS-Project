@@ -21,7 +21,7 @@ export const Header = () => {
 
   useEffect(() => {
     getusername();
-    console.log(username);
+    // console.log(username);
   }, [username]);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">

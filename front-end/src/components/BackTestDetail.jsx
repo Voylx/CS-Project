@@ -6,22 +6,9 @@ import { Container, Button, Row, Col, Table } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
-export const BackTestBox = () => {
-  let navigate = useNavigate();
+export const BackTestDetail = ({ sym, stgID, stgName }) => {
   return (
-    <div
-      className="border p-3 mx-auto mt-5 col-lg-10 col-md-9 col-sm-9 shadow-lg"
-      style={{ borderRadius: "8px" }}
-    >
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex justify-content-between">
-          <h2>EMA-10-21-TF1H</h2>
-        </div>
-        <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
-          {"Go back"}
-        </h6>
-      </div>
-
+    <div>
       <p className="">Maximum Durtion</p>
       <div className="">
         <Button
@@ -30,7 +17,7 @@ export const BackTestBox = () => {
           className="p-1 mt-0 mb-1 me-2  btn btn-primary  btn-sm"
           onClick={() => window.location.reload()}
         >
-          1 mounth
+          1 month
         </Button>
         <Button
           variant="primary"
@@ -38,7 +25,7 @@ export const BackTestBox = () => {
           className="p-1 mt-0 mb-1 me-2 btn btn-primary  btn-sm"
           onClick={() => window.location.reload()}
         >
-          3 mounths
+          3 months
         </Button>
         <Button
           variant="primary"
@@ -46,7 +33,7 @@ export const BackTestBox = () => {
           className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
           onClick={() => window.location.reload()}
         >
-          6 mounths
+          6 months
         </Button>
         <Button
           variant="primary"
@@ -59,7 +46,7 @@ export const BackTestBox = () => {
         <Button
           variant="primary"
           type="button"
-          className="mt-0 mb-1 btn btn-primary  btn-sm"
+          className="mt-0 mb-1 me-2 btn btn-primary  btn-sm"
           onClick={() => window.location.reload()}
         >
           2 years
@@ -67,21 +54,40 @@ export const BackTestBox = () => {
         <Button
           variant="primary"
           type="button"
-          className="mt-0 mb-1 btn btn-primary  btn-sm"
+          className="mt-0 mb-1 btn me-2 btn-primary  btn-sm"
           onClick={() => window.location.reload()}
         >
           3 years
         </Button>
       </div>
-      <div>
-        <Button
-          variant="primary"
-          type="button"
-          className="mt-3 mb-2 w-100"
-          onClick={() => window.location.reload()}
-        >
-          ปิดการแจ้งเตือนกลยุทธ์นี้
-        </Button>
+      <div className="p-3">
+        <h6>{stgName}</h6>
+        <div className="d-flex justify-content-between mt-0">
+          <p className="text-secondary ">Symbol</p>
+          <p className="text-secondary me-3">Backtest Duration</p>
+        </div>{" "}
+        <div className="d-flex justify-content-between mt-0">
+          <h6>{sym}</h6>
+          <p className=" me-3">1 month</p>
+        </div>
+        <p className="text-secondary">Winning Percentage</p>
+        <h6 className="text-success ">12.5%</h6>
+        <div className="d-flex justify-content-between">
+          <p className="text-secondary me-3">Avarage Winning Trade</p>
+          <p className="text-secondary me-3">Avarage Losing Trade</p>
+        </div>
+        <div className="d-flex justify-content-between">
+          <h6 className="text-success me-3">12.5%</h6>
+          <h6 className="text-danger me-3">12.5%</h6>
+        </div>
+        <div className="d-flex justify-content-between">
+          <p className="text-secondary">Largest Winning trade</p>
+          <p className="text-secondary me-3">Largest Losing Trade</p>
+        </div>
+        <div className="d-flex justify-content-between">
+          <h6 className="text-success ">12.5%</h6>
+          <h6 className="text-danger me-3">12.5%</h6>
+        </div>
       </div>
     </div>
   );
