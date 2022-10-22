@@ -22,7 +22,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
 
   useEffect(() => {
     getBackTestDetails({});
-  }, []);
+  }, [stgID]);
 
   async function getBackTestDetails({ _duration, _initMoney }) {
     try {

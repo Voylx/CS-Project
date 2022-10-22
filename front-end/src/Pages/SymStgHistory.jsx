@@ -25,9 +25,10 @@ export const SymStgHistory = () => {
   const Bot_Type = params.botType;
 
   const sym = searchParams.get("sym");
-  const stgID = searchParams.get("stgID");
+  const [stgID, setStgID] = useState(searchParams.get("stgID"));
   const [stgName, setStgName] = useState("");
   const [history, setHistory] = useState([]);
+  const [strategies, setStrategies] = useState({});
 
   const isAuthen = useAuthen();
 
@@ -45,9 +46,27 @@ export const SymStgHistory = () => {
     }
   }
 
+  async function getstg() {
+    try {
+      const response = await Axios.get(`/strategies`);
+      const data = response.data;
+      // setStgName(data.Strategy_name);
+      // setHistory(data.historys);
+      setStrategies(data.strategies);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   useEffect(() => {
     getsymstghistory();
+    getstg();
+    console.log(searchParams);
   }, []);
+
+  useEffect(() => {
+    getsymstghistory();
+  }, [stgID]);
 
   return (
     <div>
@@ -95,6 +114,38 @@ export const SymStgHistory = () => {
             )}
           </h4>
           <ButtonSelected Bot_Type={Bot_Type} sym={sym} stgID={stgID} />
+
+          {/* Change Strategy */}
+          <>
+            <div className="mt-4 linetext mb-2 text-muted">
+              &ensp; Strategy &ensp;
+            </div>
+            <div>
+              {Object.entries(strategies).map(([stg_id, stg_name], i) => {
+                return (
+                  <Button
+                    key={i}
+                    variant="primary"
+                    type="button"
+                    className="p-1 mt-0 mb-1 me-2 btn-sm"
+                    onClick={() => {
+                      console.log(stg_id);
+                      setSearchParams(
+                        { sym: sym, stgID: stg_id },
+                        { replace: true }
+                      );
+                      setStgID(stg_id);
+                      // setDuration(value);
+                      // getBackTestDetails({ _duration: value });
+                    }}
+                  >
+                    {stg_name}
+                  </Button>
+                );
+              })}
+            </div>
+          </>
+
           {/* BackTest */}
           <div className="mt-4 linetext mb-2 text-muted">
             &ensp; Back Test &ensp;
