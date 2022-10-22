@@ -102,54 +102,63 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
       </>
 
       <div className="p-3">
-        <h6>{stgName}</h6>
-        <div className="d-flex justify-content-between mt-0">
-          <p className="text-secondary ">Symbol</p>
-          <p className="text-secondary me-3">Backtest Duration</p>
-        </div>{" "}
-        <div className="d-flex justify-content-between mt-0">
-          <h6>{sym}</h6>
-          <p className=" me-3">{durationData[duration]}</p>
-        </div>
-        <p className="text-secondary">Profit and Loss Percentage</p>
-        <h6
-          className={`${
-            data?.profit_Percent > 0
-              ? "text-success"
-              : data?.profit_Percent < 0
-              ? "text-danger"
-              : ""
-          }`}
-        >
-          {data?.profit_Percent} %{" "}
-        </h6>
-        <p className="text-secondary">Bot Action</p>
-        <p className="text-secondary">{data?.results?.length} Times</p>
+        <h5 className="text-dark">{stgName}</h5>
         <div className="d-flex justify-content-between">
-          <p className="text-secondary me-3">Date Start</p>
-          <p className="text-secondary me-3">{sym} Price on date start (THB)</p>
-          <p className="text-secondary me-3">{sym} Price to day (THB)</p>
-          <p className="text-secondary me-3">Price move (%)</p>
+          <div className="">
+            <p className="text-secondary ">Symbol</p>
+            <h6>{sym}</h6>
+          </div>
+          <div className="">
+            <p className="text-secondary ">Backtest Duration</p>
+            <p className=" ">{durationData[duration]}</p>
+            <p className="text-secondary ">Initial money for testing</p>
+            <p className=" ">{initMoney || "00.00"}</p>
+            <p className="text-secondary ">Bot Action</p>
+            <p className="text-dark ">{data?.results?.length} Times</p>
+          </div>
         </div>
         <div className="d-flex justify-content-between">
-          <h6 className="me-3">{unixDay(startData?.time)}</h6>
-          <h6 className="me-3">{startData?.data}</h6>
-          <h6 className="me-3">{nowData?.data}</h6>
-          <h6 className="me-3">
-            {(
-              ((nowData?.data - startData?.data) / startData?.data) *
-              100
-            ).toFixed(2)}{" "}
-            %
-          </h6>
+          <div>
+            <p className="text-secondary">Profit and Loss Percentage</p>
+            <h6
+              className={`${
+                data?.profit_Percent > 0
+                  ? "text-success"
+                  : data?.profit_Percent < 0
+                  ? "text-danger"
+                  : ""
+              }`}
+            >
+              {data?.profit_Percent} %
+            </h6>
+            <p className="text-secondary ">Date Start</p>
+            <h6 className="">{unixDay(startData?.time)}</h6>
+          </div>
         </div>
         <div className="d-flex justify-content-between">
-          <p className="text-secondary">Largest Winning trade</p>
-          <p className="text-secondary me-3">Largest Losing Trade</p>
+          <div>
+            <p className="text-secondary ">{sym} Price on date start (THB)</p>
+            <h6 className="">{startData?.data}</h6>
+          </div>
+          <div>
+            <p className="text-secondary ">{sym} Price to day (THB)</p>
+            <h6 className="">{nowData?.data}</h6>
+          </div>
+          <div>
+            <p className="text-secondary ">Price move (%)</p>
+            <h6 className="">
+              {(
+                ((nowData?.data - startData?.data) / startData?.data) *
+                100
+              ).toFixed(2)}{" "}
+            </h6>
+          </div>
         </div>
         <div className="d-flex justify-content-between">
-          <h6 className="text-success ">12.5%</h6>
-          <h6 className="text-danger me-3">12.5%</h6>
+          <div>
+            <p className="text-secondary"></p>
+            <h6 className="text-success "></h6>
+          </div>
         </div>
       </div>
     </div>
