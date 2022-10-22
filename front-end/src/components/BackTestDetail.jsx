@@ -60,6 +60,10 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
       );
     }
   }
+  function t_color(data) {
+    if (data > 0) return "text-success";
+    if (data < 0) return "text-danger";
+  }
   return (
     <div>
       <>
@@ -120,15 +124,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         <div className="d-flex justify-content-between">
           <div>
             <p className="text-secondary">Profit and Loss Percentage</p>
-            <h6
-              className={`${
-                data?.profit_Percent > 0
-                  ? "text-success"
-                  : data?.profit_Percent < 0
-                  ? "text-danger"
-                  : ""
-              }`}
-            >
+            <h6 className={t_color(data?.profit_Percent)}>
               {data?.profit_Percent} %
             </h6>
             <p className="text-secondary ">Date Start</p>
@@ -137,27 +133,34 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         </div>
         <div className="d-flex justify-content-between">
           <div>
-            <p className="text-secondary ">{sym} Price on date start (THB)</p>
-            <h6 className="">{startData?.data}</h6>
+            <p className="text-secondary ">{sym} Price on date start </p>
+            <h6 className="">{startData?.data} THB</h6>
           </div>
           <div>
-            <p className="text-secondary ">{sym} Price to day (THB)</p>
-            <h6 className="">{nowData?.data}</h6>
+            <p className="text-secondary ">{sym} Price to day </p>
+            <h6 className="">{nowData?.data} THB</h6>
           </div>
           <div>
-            <p className="text-secondary ">Price move (%)</p>
+            <p className="text-secondary ">Price move </p>
             <h6 className="">
               {(
                 ((nowData?.data - startData?.data) / startData?.data) *
                 100
-              ).toFixed(2)}{" "}
+              ).toFixed(2)}
+              {" %"}
             </h6>
           </div>
         </div>
         <div className="d-flex justify-content-between">
           <div>
-            <p className="text-secondary">heree</p>
-            <h6 className="text-success ">203210</h6>
+            <p className="text-secondary">Profit (THB)</p>
+            <h6
+              className={t_color(
+                data?.profit[data?.profit.length - 1] - initMoney
+              )}
+            >
+              {data?.profit[data?.profit.length - 1].toFixed(2)}
+            </h6>
           </div>
         </div>
       </div>
