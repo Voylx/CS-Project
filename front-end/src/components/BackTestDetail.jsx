@@ -156,8 +156,8 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         </div>
         <div className="d-flex justify-content-between">
           <div>
-            <p className="text-secondary"></p>
-            <h6 className="text-success "></h6>
+            <p className="text-secondary">heree</p>
+            <h6 className="text-success ">203210</h6>
           </div>
         </div>
       </div>
