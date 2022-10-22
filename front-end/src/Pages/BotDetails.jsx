@@ -17,9 +17,8 @@ export const BotDetails = () => {
   const [botData, setBotData] = useState({});
 
   const Bot_Type = params.botType;
-  // let Bot_id = "c3b5f2ea-02a2-45f2-89cc-7305893bddba";
 
-  console.log("Bot_Type", Bot_Type);
+  // console.log("Bot_Type", Bot_Type);
   function getbotDetails() {
     const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
     if (data) setBotData(data);
@@ -31,15 +30,14 @@ export const BotDetails = () => {
 
   useEffect(() => {
     getbotDetails();
-    console.log(
-      Object.keys(botData).length !== 0
-        ? botData.Type
-          ? "Trade"
-          : "Line"
-        : "None"
-    );
-    console.log(botData);
-    const datatest = JSON.parse(localStorage.getItem("botData"));
+    // console.log(
+    //   Object.keys(botData).length !== 0
+    //     ? botData.Type
+    //       ? "Trade"
+    //       : "Line"
+    //     : "None"
+    // );
+    // console.log(botData);
   }, []);
 
   return (

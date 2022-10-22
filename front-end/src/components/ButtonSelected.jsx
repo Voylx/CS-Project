@@ -54,7 +54,6 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
         Bot_id: botData.Bot_id,
         Sym: sym,
       });
-      console.log(response.data.selected);
       setSelected(response.data.selected);
     } catch (error) {
       console.error(error);
@@ -86,7 +85,7 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
     getSymSelected();
   }, []);
   useEffect(() => {
-    console.log(selected);
+    // console.log(selected);
     handleDisableSelectedButton();
   }, [selected]);
   return (

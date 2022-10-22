@@ -11,7 +11,7 @@ const RealtimeBox = ({ sym, data, botData }) => {
   const [color, setColor] = useState(false);
 
   useEffect(() => {
-    console.log(sym, price);
+    // console.log(sym, price);
     setColor(true);
     setTimeout(() => {
       setColor(false);

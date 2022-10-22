@@ -26,7 +26,7 @@ const SelectStrategies = (props) => {
     getsymbols();
     getstrategies();
     getsymstgboxdata();
-    console.log(symstg);
+    // console.log(symstg);
   }, []);
 
   function getsymbols() {
