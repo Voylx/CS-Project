@@ -59,7 +59,7 @@ app.post("/register", async function (req, res) {
             message: { affectedRows: result.affectedRows },
           });
       } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(500).send({ status: "error", message: err.sqlMessage });
       }
     });
