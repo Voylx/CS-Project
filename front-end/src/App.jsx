@@ -14,6 +14,7 @@ import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
 import { BotContorl } from "./Pages/BotControl";
 import { SymStgHistory } from "./Pages/SymStgHistory";
+import StgInfo from "./Pages/StgInfo";
 
 // import "./App.css";
 
@@ -44,6 +45,7 @@ function App() {
               <Route path="linkline" element={<LinkLine />} />
               <Route path="linkapiline" element={<LinkApiLine />} />
             </Route>
+            <Route path="StgInfo" element={<StgInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>
