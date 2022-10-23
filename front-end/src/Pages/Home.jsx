@@ -5,8 +5,9 @@ import { Button, Modal, Container, Row, Col, Carousel } from "react-bootstrap";
 
 import ViewerGif from "../img/video/tradingView.gif";
 import realTime from "../img/video/realtime.gif";
-import StrategyPic from "../img/StrategyPic.png";
+
 import botStrategy from "../img/video/botstrategy.gif";
+import BackTestPic from "../img/BackTest.png";
 
 import { useAuthen } from "../services/Authen";
 import Axios from "../services/Axios";
@@ -101,7 +102,7 @@ export const Home = () => {
               </h3>
               <Col xs={12} md={6} className="mt-0 mb-3 ">
                 <img
-                  src={StrategyPic}
+                  src={BackTestPic}
                   className=" rounded float-left w-100 h-100 shadow  "
                   alt="ViewerPic"
                 />

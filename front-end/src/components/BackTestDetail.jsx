@@ -70,14 +70,14 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         {/* Button Group */}
         <Form.Group className="mb-2" controlId="formButton">
           <Form.Label className="">Maximum Durtion</Form.Label>
-          <div>
+          <div className="d-flex justify-content-center">
             {Object.entries(durationData).map(([value, text], i) => {
               return (
                 <Button
                   key={i}
                   variant="primary"
                   type="button"
-                  className="p-1 mt-0 mb-1 me-2  btn btn-primary  btn-sm"
+                  className="p-1 mt-0 mb-0 me-2 btn-sm  "
                   onClick={() => {
                     setDuration(value);
                     getBackTestDetails({ _duration: value });
@@ -105,7 +105,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         </Form.Group>
       </>
 
-      <div className="p-3">
+      <div className="p-1">
         <h5 className="text-dark">{stgName}</h5>
         <div className="d-flex justify-content-between">
           <div className="">
@@ -120,21 +120,25 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             <p className="text-dark ">{data?.results?.length} Times</p>
           </div>
         </div>
-        <div className="d-flex justify-content-between me-5">
-          <div>
+
+        <div>
+          <p className="text-secondary ">Date Start</p>
+          <h6 className="">{unixDay(startData?.time)}</h6>
+        </div>
+
+        <div className="d-flex justify-content-between me-3">
+          <div className="me-4 ">
             <p className="text-secondary">Profit and Loss Percentage</p>
             <h6 className={t_color(data?.profit_Percent)}>
               {data?.profit_Percent} %
             </h6>
-            <p className="text-secondary ">Date Start</p>
-            <h6 className="">{unixDay(startData?.time)}</h6>
           </div>
-          <div>
+          <div className="me-1 ">
             <p className="text-secondary ">Initial money for testing</p>
             <p className=" ">{initMoney || "00.00"}</p>
           </div>
           <div>
-            <div>
+            <div className="me-2">
               <p className="text-secondary">Profit (THB)</p>
               <h6
                 className={t_color(
@@ -146,16 +150,16 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-between me-5">
-          <div>
-            <p className="text-secondary ">{sym} Price on date start </p>
+        <div className="d-flex justify-content-between me-3">
+          <div className="me-1">
+            <p className="text-secondary ">{sym}'s Price on start date</p>
             <h6 className="">{startData?.data} THB</h6>
           </div>
-          <div>
-            <p className="text-secondary ">{sym} Price to day </p>
+          <div className="me-4">
+            <p className="text-secondary ">{sym}'s Price now </p>
             <h6 className="">{nowData?.data} THB</h6>
           </div>
-          <div>
+          <div className="me-2">
             <p className="text-secondary ">Price move </p>
             <h6 className="">
               {(

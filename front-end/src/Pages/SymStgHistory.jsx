@@ -117,17 +117,17 @@ export const SymStgHistory = () => {
 
           {/* Change Strategy */}
           <>
-            <div className="mt-4 linetext mb-2 text-muted">
+            <div className="mt-4 linetext mb-3 text-muted">
               &ensp; Strategy &ensp;
             </div>
-            <div>
+            <div className="d-flex justify-content-center">
               {Object.entries(strategies).map(([stg_id, stg_name], i) => {
                 return (
                   <Button
                     key={i}
                     variant="primary"
                     type="button"
-                    className="p-1 mt-0 mb-1 me-2 btn-sm"
+                    className="p-1 mt-0 mb-0 me-2 btn-sm"
                     onClick={() => {
                       console.log(stg_id);
                       setSearchParams(
@@ -147,7 +147,7 @@ export const SymStgHistory = () => {
           </>
 
           {/* BackTest */}
-          <div className="mt-4 linetext mb-2 text-muted">
+          <div className="mt-2 linetext mb-2 text-muted">
             &ensp; Back Test &ensp;
           </div>
           {/* BackTestDetail */}
