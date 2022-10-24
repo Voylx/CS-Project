@@ -39,6 +39,10 @@ export const Register = () => {
         })
         .catch((err) => {
           console.log(err);
+          alert(
+            err?.response?.data?.message ?? "Can't register, Please try again!"
+          );
+          window.location = "/login";
         });
     }
   }

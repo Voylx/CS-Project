@@ -56,7 +56,7 @@ export const LinkApiBitkub = () => {
           style={{ borderRadius: "11px" }}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <h2 className="ms-7 ">API BITKUB</h2>
+            <h2 className="ms-7 ">LINK API BITKUB</h2>
             <h6
               className="me-2 text-secondary"
               onClick={() => navigate("/bot")}
@@ -89,6 +89,14 @@ export const LinkApiBitkub = () => {
             />
           </Form.Group>
           {isError && <Alert variant="danger">{errMsg}</Alert>}
+          <a
+            className="d-flex justify-content-center mb-2"
+            href="https://www.bitcoinkub.com/bitkub-api"
+            target="_blank"
+          >
+            วิธีสร้าง bitkub API key & Secret
+          </a>
+
           <Button
             variant="primary"
             type="button"
