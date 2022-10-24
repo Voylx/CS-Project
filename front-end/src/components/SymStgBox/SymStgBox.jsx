@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "../services/Axios";
+import Axios from "../../services/Axios";
 import { Alert, Col, Row } from "react-bootstrap";
 
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
@@ -248,7 +248,13 @@ const SymStgBox = ({
           </p>
         </div>
       </div>
-      <ModaldalCompo show={showModal} handleClose={handleModalClose} />
+      <ModaldalCompo
+        show={showModal}
+        handleClose={handleModalClose}
+        sym={sym}
+        stg={stg}
+        botData={botData}
+      />
     </Col>
   );
 };
