@@ -6,6 +6,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
+import ModaldalCompo from "./ModalCompo";
 
 const FavIcon = ({ fav, selected, fOnClick }) => {
   return (
@@ -37,6 +38,10 @@ const SymStgBox = ({
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
   const [selected, setSelected] = useState(isSelected);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
 
   const fOnClick = {
     fav: {
@@ -56,14 +61,21 @@ const SymStgBox = ({
     selected: {
       true: () => {
         //fav true->false
-        console.log("fav true->false");
+        console.log("selected true->false");
         delSelected();
+
         // getsymstgboxdata();
       },
       false: () => {
-        //fav false->true
-        console.log("fav false->false");
-        addSelected();
+        //show Modal
+        if (botData.Type === 1) {
+          handleModalShow();
+        } else {
+          //fav false->true
+          console.log("selected false->true");
+          addSelected();
+        }
+
         // getsymstgboxdata();
       },
     },
@@ -236,6 +248,7 @@ const SymStgBox = ({
           </p>
         </div>
       </div>
+      <ModaldalCompo show={showModal} handleClose={handleModalClose} />
     </Col>
   );
 };
