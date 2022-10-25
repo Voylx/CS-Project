@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 import { Table } from "react-bootstrap";
-
-export const TableHistory = ({ history }) => {
+export const TableHistoryTrade = ({ history }) => {
   function unixTime(unixtime) {
     if (unixtime) {
       var u = new Date(unixtime * 1000);
@@ -32,7 +31,7 @@ export const TableHistory = ({ history }) => {
   return (
     <div>
       <div className="mt-4 linetext mb-2 text-muted">
-        &ensp; ประวัติการแจ้งเตือนของบอทแจ้งเตือน &ensp;
+        &ensp; ประวัติการแจ้งเตือนของบอทเทรด &ensp;
       </div>
       <Table className="mt-4 table table-striped table-hover">
         <thead>
@@ -40,6 +39,8 @@ export const TableHistory = ({ history }) => {
             <td className="table-primary">Date</td>
             <td className="table-secondary">Time</td>
             <td className="table-primary">Side</td>
+            <td className="table-secondary">Amount</td>
+            <td className="table-primary">Symbol</td>
           </tr>
         </thead>
         <tbody>

@@ -15,6 +15,7 @@ import { Header } from "../components/Header";
 import { TableHistory } from "../components/TableHistory";
 import { ButtonSelected } from "../components/ButtonSelected";
 import { BackTestDetail } from "../components/BackTestDetail";
+import { TableHistoryTrade } from "../components/TableHistoryTrade";
 
 export const SymStgHistory = () => {
   let navigate = useNavigate();
@@ -153,10 +154,9 @@ export const SymStgHistory = () => {
           {/* BackTestDetail */}
           <BackTestDetail sym={sym} stgID={stgID} stgName={stgName} />
         </div>
-        <div className="mt-4 linetext mb-2 text-muted">
-          &ensp; ประวัติการแจ้งเตือนของบอท &ensp;{" "}
-        </div>
+
         <TableHistory history={history} />
+        <TableHistoryTrade history={history} />
       </Container>
     </div>
   );
