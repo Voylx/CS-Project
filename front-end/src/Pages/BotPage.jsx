@@ -21,7 +21,7 @@ const AddBox = (props) => {
 
   const linkbotapi = {
     0: () => navigate("../linkline"),
-    1: () => navigate("../bitkubupdate"),
+    1: () => navigate("../bitkub"),
   };
 
   const handleAddBot = () => {

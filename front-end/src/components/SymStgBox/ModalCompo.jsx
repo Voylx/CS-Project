@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Modal } from "react-bootstrap";
 import { ModalConfrim } from "./ModalConfrim";
-const ModaldalCompo = ({ show, handleClose }) => {
+const ModaldalCompo = ({ show, handleClose, sym, stg }) => {
   // const handleConfirm = () => setConfrim();
   const [showModalCon, setShowModalCon] = useState(false);
   const handleModalShowCon = () => setShowModalCon(true);
@@ -12,8 +12,8 @@ const ModaldalCompo = ({ show, handleClose }) => {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <p className="fs-3 ms-7 ">Stg</p>
-          <p className="fs-6 ms-7 ">Sym</p>
+          <p className="fs-3 ms-7 ">{stg}</p>
+          <p className="fs-6 ms-7 ">{sym}</p>
         </div>
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>โปรดใส่จำนวนเงินที่ต้องการให้บอทคุม</Form.Label>
