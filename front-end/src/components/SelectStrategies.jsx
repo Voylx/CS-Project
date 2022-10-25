@@ -6,7 +6,7 @@ import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
-import SymStgBox from "./SymStgBox";
+import SymStgBox from "./SymStgBox/SymStgBox";
 
 const SelectStrategies = (props) => {
   let navigate = useNavigate();
@@ -22,11 +22,14 @@ const SelectStrategies = (props) => {
   const [filFav, setFilFav] = useState(false);
   const [filSelect, setFilSelect] = useState(false);
 
+  const [balance, setBalance] = useState({});
+
   useEffect(() => {
     getsymbols();
     getstrategies();
     getsymstgboxdata();
     // console.log(symstg);
+    props.botData.Type && getAvaibleBalance();
   }, []);
 
   function getsymbols() {
@@ -86,6 +89,19 @@ const SelectStrategies = (props) => {
     setSymstgFilter(filter);
     setSymbol("default");
     setStrategy("default");
+  }
+
+  function getAvaibleBalance() {
+    Axios.post("/api/available_balance", {
+      Bot_id: props.botData.Bot_id,
+    })
+      .then((balance) => {
+        console.log(balance.data);
+        setBalance(balance.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   function StgSelectAndFilterBox() {
@@ -281,6 +297,7 @@ const SelectStrategies = (props) => {
             isSelected={Boolean(v.isSelected)}
             side={v.Side}
             datetime={v.Timestamp}
+            balances={balance}
             {...props}
           />
         ))}

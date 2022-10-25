@@ -34,6 +34,7 @@ const SymStgBox = ({
   botData,
   side,
   datetime,
+  ...props
 }) => {
   let navigate = useNavigate();
   const [fav, setFav] = useState(isFav);
@@ -254,6 +255,7 @@ const SymStgBox = ({
         sym={sym}
         stg={stg}
         botData={botData}
+        {...props}
       />
     </Col>
   );

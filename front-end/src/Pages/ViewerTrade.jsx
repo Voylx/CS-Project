@@ -3,7 +3,7 @@ import Axios from "../services/Axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthen } from "../services/Authen";
 import { Button, Container, Form, Row, Col } from "react-bootstrap";
-import SymStgBox from "../components/SymStgBox";
+import SymStgBox from "../components/SymStgBox/SymStgBox";
 
 import { Header } from "../components/Header";
 

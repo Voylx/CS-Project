@@ -7,7 +7,7 @@ import { Container, Form, Button, Modal } from "react-bootstrap";
 import { useAuthen } from "../services/Authen";
 
 import { Header } from "../components/Header";
-import ModalCompo from "../components/ModalCompo";
+import ModalCompo from "../components/SymStgBox/ModalCompo";
 
 export const BotContorl = () => {
   let navigate = useNavigate();

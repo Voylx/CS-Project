@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "../../services/Axios";
 import { Container, Form, Button, Modal } from "react-bootstrap";
 import { ModalConfrim } from "./ModalConfrim";
-const ModaldalCompo = ({ show, handleClose, sym, stg }) => {
+const ModaldalCompo = ({ show, handleClose, sym, stg, balances }) => {
   // const handleConfirm = () => setConfrim();
   const [showModalCon, setShowModalCon] = useState(false);
-  const handleModalShowCon = () => setShowModalCon(true);
+
+  const [amt, setAmt] = useState();
+  const [textErr, settextErr] = useState("");
+
+  useEffect(() => {
+    console.log(amt);
+    if (amt < 50) settextErr("❌จำนวนเงินน้อยเกินไป");
+    else if (amt >= 50) settextErr("");
+    if (amt > balances?.available) {
+      console.log(">");
+      settextErr("❌จำนวนเงินมากกว่าจำนวนเงินที่ใช้ได้");
+    }
+  }, [amt]);
+
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} className={sym + stg}>
       <Modal.Header closeButton>
         <Modal.Title>Bot Trade Cryptocurrency</Modal.Title>
       </Modal.Header>
@@ -18,25 +32,27 @@ const ModaldalCompo = ({ show, handleClose, sym, stg }) => {
         <Form.Group className="mb-2" controlId="formBasicEmail">
           <Form.Label>โปรดใส่จำนวนเงินที่ต้องการให้บอทคุม</Form.Label>
           <Form.Control
-            type="sad"
+            type="number"
             placeholder="1000"
-            // onChange={(event) => {
-            //   setEmail(event.target.value);
-            // }}
+            min={50}
+            onChange={(event) => {
+              setAmt(+event.target.value);
+            }}
           />
+          {textErr && <p className="my-1 text-danger">{textErr}</p>}
         </Form.Group>
         <div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินทั้งหมดที่มี : </p>
-            <p>1000 baht</p>
+            <p className="ms-1"> {balances?.all?.toFixed(2)} baht</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่บอทใช้ : </p>
-            <p>600 baht</p>
+            <p className="ms-1"> {balances?.waitOrder?.toFixed(2)} baht</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่ใช้ได้ : </p>
-            <p>400 baht</p>
+            <p className="ms-1"> {balances?.available?.toFixed(2)} baht</p>
           </div>
         </div>
       </Modal.Body>
