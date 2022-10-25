@@ -3,7 +3,9 @@ import Axios from "../services/Axios";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
+import ModalSelected from "./SymStgBox/ModalSelected";
+
+export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
   let navigate = useNavigate();
   const botData = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
   const [selected, setSelected] = useState(undefined);
@@ -11,6 +13,11 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
   const [textSelected, setTextSelected] = useState("ปิดการแจ้งเตือนกลยุทธ์นี้");
 
   const [fAction, setFAction] = useState("non");
+
+  const [balance, setBalance] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
 
   function addSelected() {
     Axios.post("/api/addselected", {
@@ -42,10 +49,26 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
       })
       .catch((err) => console.error(err));
   }
+  function getAvaibleBalance() {
+    Axios.post("/api/available_balance", {
+      Bot_id: botData.Bot_id,
+    })
+      .then((balance) => {
+        console.log(balance.data);
+        setBalance(balance.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  // const fOnClickSelected = {
+  //   add: addSelected,
+  //   del: delSelected,
+  //   non: () => {},
+  // };
   const fOnClickSelected = {
-    add: addSelected,
-    del: delSelected,
-    non: () => {},
+    0: { add: addSelected, del: delSelected, non: () => {} },
+    1: { add: setShowModal, del: delSelected, non: () => {} },
   };
   async function getSymSelected() {
     if (!botData.Bot_id) return;
@@ -83,11 +106,12 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
   }
   useEffect(() => {
     getSymSelected();
+    getAvaibleBalance();
   }, []);
   useEffect(() => {
     // console.log(selected);
     handleDisableSelectedButton();
-  }, [selected]);
+  }, [selected, stgID]);
   return (
     <div>
       <Button
@@ -95,10 +119,20 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID }) => {
         type="button"
         className="mt-3 mb-2 w-100"
         disabled={disableAddDelSelected}
-        onClick={fOnClickSelected[fAction]}
+        onClick={fOnClickSelected[Bot_Type][fAction]}
       >
         {textSelected}
       </Button>
+      <ModalSelected
+        show={showModal}
+        handleClose={handleModalClose}
+        sym={sym}
+        botData={botData}
+        stgID={stgID}
+        balances={balance}
+        reload={true}
+        {...props}
+      />
     </div>
   );
 };

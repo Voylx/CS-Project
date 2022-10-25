@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Axios from "../../services/Axios";
 import { Button, Modal, Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const ModalConfrim = ({
   show,
@@ -11,7 +12,9 @@ export const ModalConfrim = ({
   botData,
   stgID,
   setSelected,
+  reload,
 }) => {
+  let navigate = useNavigate();
   const [textColor, setTextColor] = useState("text-white");
 
   function addSelected() {
@@ -23,7 +26,8 @@ export const ModalConfrim = ({
     })
       .then((res) => {
         if (res.data.status === "success") {
-          setSelected(true);
+          if (setSelected !== undefined) setSelected(true);
+          if (reload) navigate(0);
         }
       })
       .catch((err) => {

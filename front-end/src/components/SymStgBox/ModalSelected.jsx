@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "../../services/Axios";
 import { Container, Form, Button, Modal } from "react-bootstrap";
 import { ModalConfrim } from "./ModalConfrim";
-const ModaldalCompo = ({ show, handleClose, sym, stg, balances, ...props }) => {
+const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
   // const handleConfirm = () => setConfrim();
   const [showModalCon, setShowModalCon] = useState(false);
 
@@ -79,4 +79,4 @@ const ModaldalCompo = ({ show, handleClose, sym, stg, balances, ...props }) => {
   );
 };
 
-export default ModaldalCompo;
+export default ModalSelected;

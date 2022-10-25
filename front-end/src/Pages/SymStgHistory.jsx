@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
-import {
-  Link,
-  useNavigate,
-  useSearchParams,
-  useParams,
-} from "react-router-dom";
-import { Container, Button, Row, Col, Table } from "react-bootstrap";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
+import { Container, Button } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
@@ -31,7 +26,18 @@ export const SymStgHistory = () => {
   const [history, setHistory] = useState([]);
   const [strategies, setStrategies] = useState({});
 
+  const [botData, setBotData] = useState({});
+
   const isAuthen = useAuthen();
+
+  function getbotDetails() {
+    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
+    if (data) setBotData(data);
+    else {
+      console.log("Can't find botData");
+      navigate("/bot", { replace: true });
+    }
+  }
 
   async function getsymstghistory() {
     try {
@@ -62,7 +68,7 @@ export const SymStgHistory = () => {
   useEffect(() => {
     getsymstghistory();
     getstg();
-    console.log(searchParams);
+    getbotDetails();
   }, []);
 
   useEffect(() => {
@@ -87,16 +93,7 @@ export const SymStgHistory = () => {
             <h3>{sym}</h3>
             {/* <h4>(open)</h4> */}
           </div>
-          {/* <Form.Group className="mb-2" controlId="formBasicApiKeys">
-            <Form.Control
-              type="UpdateAmount"
-              placeholder="แก้ไขจำนวนเงินที่ต้องการให้บอทควบคุม"
-              onChange={(event) => {
-                setKey(event.target.value);
-              }}
-              required
-            />
-          </Form.Group> */}
+
           {/* lastAction */}
           <h4>
             Last Action:{" "}
@@ -114,7 +111,13 @@ export const SymStgHistory = () => {
               <span> - </span>
             )}
           </h4>
-          <ButtonSelected Bot_Type={Bot_Type} sym={sym} stgID={stgID} />
+          <ButtonSelected
+            Bot_Type={Bot_Type}
+            sym={sym}
+            stgID={stgID}
+            stg={stgName}
+            botData={botData}
+          />
 
           {/* Change Strategy */}
           <>
@@ -130,7 +133,6 @@ export const SymStgHistory = () => {
                     type="button"
                     className="p-1 mt-0 mb-0 me-2 btn-sm"
                     onClick={() => {
-                      console.log(stg_id);
                       setSearchParams(
                         { sym: sym, stgID: stg_id },
                         { replace: true }
