@@ -1,8 +1,39 @@
 import React, { useState } from "react";
+import Axios from "../../services/Axios";
 import { Button, Modal, Nav } from "react-bootstrap";
 
-export const ModalConfrim = ({ show, handleClose }) => {
+export const ModalConfrim = ({
+  show,
+  handleClose,
+  sym,
+  stg,
+  amt,
+  botData,
+  stgID,
+  setSelected,
+}) => {
   const [textColor, setTextColor] = useState("text-white");
+
+  function addSelected() {
+    Axios.post("/api/addselected", {
+      Bot_id: botData.Bot_id,
+      Sym: sym,
+      Strategys_Id: stgID,
+      Amt_money: amt,
+    })
+      .then((res) => {
+        if (res.data.status === "success") {
+          setSelected(true);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      })
+      .finally(() => {
+        handleClose();
+      });
+  }
 
   // const handleShow = () => setShow(true);
   return (
@@ -19,19 +50,28 @@ export const ModalConfrim = ({ show, handleClose }) => {
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Confrim change</Modal.Title>
+          <Modal.Title>Confrim </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
-            <p>Are you sure you to change this?</p>
-            <p>ต้องการจะเปลี่ยนเงินที่บอทควบคุมใช่หรือไม่</p>
+            <p>
+              {/* Are you sure you to change this?
+              ต้องการจะเปลี่ยนเงินที่บอทควบคุมใช่หรือไม่ */}
+              ต้องการที่จะเปิดการเทรดเหรียญ{" "}
+              <b className="text-primary">{sym}</b> <br />
+              ด้วยกับ กลยุทธ์ <b className="text-primary">{stg}</b> <br />
+              จำนวนเงินในการเรี่มต้นเทรด <b className="text-primary">
+                {amt}
+              </b> ฿ <br />
+              ใช่หรื่อไม่
+            </p>
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={addSelected}>
             Confrim
           </Button>
         </Modal.Footer>

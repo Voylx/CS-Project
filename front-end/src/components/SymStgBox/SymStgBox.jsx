@@ -6,7 +6,7 @@ import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { MdCheckBoxOutlineBlank, MdCheckBox } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
-import ModaldalCompo from "./ModalCompo";
+import ModalSelected from "./ModalSelected";
 
 const FavIcon = ({ fav, selected, fOnClick }) => {
   return (
@@ -249,12 +249,14 @@ const SymStgBox = ({
           </p>
         </div>
       </div>
-      <ModaldalCompo
+      <ModalSelected
         show={showModal}
         handleClose={handleModalClose}
         sym={sym}
         stg={stg}
         botData={botData}
+        stgID={stgID}
+        setSelected={setSelected}
         {...props}
       />
     </Col>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "../../services/Axios";
 import { Container, Form, Button, Modal } from "react-bootstrap";
 import { ModalConfrim } from "./ModalConfrim";
-const ModaldalCompo = ({ show, handleClose, sym, stg, balances }) => {
+const ModaldalCompo = ({ show, handleClose, sym, stg, balances, ...props }) => {
   // const handleConfirm = () => setConfrim();
   const [showModalCon, setShowModalCon] = useState(false);
 
@@ -10,7 +10,6 @@ const ModaldalCompo = ({ show, handleClose, sym, stg, balances }) => {
   const [textErr, settextErr] = useState("");
 
   useEffect(() => {
-    console.log(amt);
     if (amt < 50) settextErr("❌จำนวนเงินน้อยเกินไป");
     else if (amt >= 50) settextErr("");
     if (amt > balances?.available) {
@@ -60,11 +59,22 @@ const ModaldalCompo = ({ show, handleClose, sym, stg, balances }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={setShowModalCon}>
+        <Button
+          variant="primary"
+          onClick={setShowModalCon}
+          disabled={!amt || amt < 50 || amt > balances?.available}
+        >
           Save Changes
         </Button>
       </Modal.Footer>
-      <ModalConfrim show={showModalCon} handleClose={handleClose} />
+      <ModalConfrim
+        show={showModalCon}
+        handleClose={handleClose}
+        sym={sym}
+        stg={stg}
+        amt={amt}
+        {...props}
+      />
     </Modal>
   );
 };
