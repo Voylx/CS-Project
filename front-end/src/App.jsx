@@ -12,7 +12,6 @@ import { BotDetails } from "./Pages/BotDetails";
 import { LinkApiLine } from "./Pages/LinkApiLine";
 import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
-import { BotContorl } from "./Pages/BotControl";
 import { SymStgHistory } from "./Pages/SymStgHistory";
 import StgInfo from "./Pages/StgInfo";
 
@@ -40,7 +39,6 @@ function App() {
               <Route path="bitkub" element={<LinkApiBitkub />} />
               <Route path="bitkubupdate" element={<LinkApiBitkubUpdate />} />
               {/* <Route path="viewertrade" element={<ViewerTrade />} /> */}
-              <Route path="control" element={<BotContorl />} />
 
               <Route path="linkline" element={<LinkLine />} />
               <Route path="linkapiline" element={<LinkApiLine />} />
