@@ -67,7 +67,7 @@ export const ModalConfrim = ({
               จำนวนเงินในการเรี่มต้นเทรด <b className="text-primary">
                 {amt}
               </b> ฿ <br />
-              ใช่หรื่อไม่
+              ใช่หรือไม่
             </p>
           </div>
         </Modal.Body>

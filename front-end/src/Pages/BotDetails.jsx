@@ -14,7 +14,7 @@ export const BotDetails = () => {
   let params = useParams();
   let navigate = useNavigate();
 
-  const [botData, setBotData] = useState({});
+  const [botData, setBotData] = useState(undefined);
 
   const Bot_Type = params.botType;
 
@@ -43,8 +43,8 @@ export const BotDetails = () => {
   return (
     <div>
       <Header />
-      {Object.keys(botData).length !== 0 ? (
-        Bot_Type === 1 ? (
+      {botData ? (
+        Bot_Type === "1" ? (
           <TradeBotDetail botData={botData} />
         ) : (
           <LineBotDetail botData={botData} />
