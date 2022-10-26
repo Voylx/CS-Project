@@ -49,7 +49,7 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
       })
       .catch((err) => console.error(err));
   }
-  function getAvaibleBalance() {
+  function getAvailableBalance() {
     Axios.post("/api/available_balance", {
       Bot_id: botData.Bot_id,
     })
@@ -106,7 +106,7 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
   }
   useEffect(() => {
     getSymSelected();
-    getAvaibleBalance();
+    getAvailableBalance();
   }, []);
   useEffect(() => {
     // console.log(selected);
@@ -131,6 +131,7 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
         stgID={stgID}
         balances={balance}
         reload={true}
+        getAvailableBalance={getAvailableBalance}
         {...props}
       />
     </div>

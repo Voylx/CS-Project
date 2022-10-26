@@ -13,6 +13,7 @@ export const ModalConfrim = ({
   stgID,
   setSelected,
   reload,
+  getAvailableBalance,
 }) => {
   let navigate = useNavigate();
   const [textColor, setTextColor] = useState("text-white");
@@ -36,22 +37,13 @@ export const ModalConfrim = ({
       })
       .finally(() => {
         handleClose();
+        getAvailableBalance();
       });
   }
 
   // const handleShow = () => setShow(true);
   return (
     <>
-      <Nav.Link
-        // href="#link"
-        className={textColor}
-        // onClick={handleShow}
-        onMouseEnter={() => setTextColor("text-primary")}
-        onMouseLeave={() => setTextColor("text-white")}
-      >
-        Logout
-      </Nav.Link>
-
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confrim </Modal.Title>

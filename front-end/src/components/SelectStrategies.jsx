@@ -29,7 +29,7 @@ const SelectStrategies = (props) => {
     getstrategies();
     getsymstgboxdata();
     // console.log(symstg);
-    props.botData.Type && getAvaibleBalance();
+    props.botData.Type && getAvailableBalance();
   }, []);
 
   function getsymbols() {
@@ -91,7 +91,7 @@ const SelectStrategies = (props) => {
     setStrategy("default");
   }
 
-  function getAvaibleBalance() {
+  const getAvailableBalance = () => {
     Axios.post("/api/available_balance", {
       Bot_id: props.botData.Bot_id,
     })
@@ -102,7 +102,7 @@ const SelectStrategies = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
   function StgSelectAndFilterBox() {
     return (
@@ -298,6 +298,7 @@ const SelectStrategies = (props) => {
             side={v.Side}
             datetime={v.Timestamp}
             balances={balance}
+            getAvailableBalance={getAvailableBalance}
             {...props}
           />
         ))}
