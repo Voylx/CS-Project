@@ -96,7 +96,7 @@ const SelectStrategies = (props) => {
       Bot_id: props.botData.Bot_id,
     })
       .then((balance) => {
-        console.log(balance.data);
+        // console.log(balance.data);
         setBalance(balance.data);
       })
       .catch((error) => {

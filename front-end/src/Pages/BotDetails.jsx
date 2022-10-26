@@ -44,7 +44,7 @@ export const BotDetails = () => {
     <div>
       <Header />
       {Object.keys(botData).length !== 0 ? (
-        botData.Type ? (
+        Bot_Type === 1 ? (
           <TradeBotDetail botData={botData} />
         ) : (
           <LineBotDetail botData={botData} />
