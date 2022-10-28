@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
 import { Link, useNavigate } from "react-router-dom";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Container, Modal, Button, Alert } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
-import { ModalLine } from "../components/Modalfrom/ModalLine";
 import { Header } from "../components/Header";
 
 export const LinkApiLine = () => {
   const [showModalLine, setshowModalLine] = useState(false);
+  const handleClose = () => setshowModalLine(false);
+  const handleShow = () => setshowModalLine(true);
   let navigate = useNavigate();
   const [isLinkLine, setIsLinkLine] = useState(undefined);
 
@@ -71,10 +72,26 @@ export const LinkApiLine = () => {
               >
                 ย้อนกลับ
               </Button>
-              <ModalLine show={showModalLine} />
             </div>
           )}
         </div>
+
+        {/* ModalConfirmUnlinkLine */}
+
+        <Modal show={showModalLine} onHide={handleClose} centered>
+          <Modal.Header>
+            <Modal.Title>Line Disconnect</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>คุณต้องการที่จะยกเลิกการเชื่อมต่อใช่หรือไม่ </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              ย้อนกลับ
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              ฉันต้องการที่จะยกเลิก
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
   );
