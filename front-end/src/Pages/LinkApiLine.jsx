@@ -6,9 +6,11 @@ import { Container, Form, Button, Alert } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
+import { ModalLine } from "../components/Modalfrom/ModalLine";
 import { Header } from "../components/Header";
 
 export const LinkApiLine = () => {
+  const [showModalLine, setshowModalLine] = useState(false);
   let navigate = useNavigate();
   const [isLinkLine, setIsLinkLine] = useState(undefined);
 
@@ -33,13 +35,13 @@ export const LinkApiLine = () => {
   return (
     <div>
       <Header />
-      <Container fluid="md">
+      <Container fluid="md ">
         <div
           className="border p-3 mx-auto mt-5 col-lg-6 col-md-8 shadow-lg"
-          style={{ borderRadius: "11px" }}
+          style={{ borderRadius: "12px" }}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <h2 className="ms-7 ">Line Connect</h2>
+            <h2 className=" ">Line Connect</h2>
             <h6
               className="me-2 text-secondary"
               onClick={() => navigate("/bot")}
@@ -51,16 +53,25 @@ export const LinkApiLine = () => {
             <div>
               <div className="fs-4 mt-2">
                 บัญชีของท่านได้ทำการเชื่อมต่อกับ Line เรียบร้อยแล้ว
-              </div>{" "}
-              <div>หาก...</div>
+              </div>
+              <div></div>
+              <Button
+                variant="secondary"
+                type="button"
+                className="mt-3 mb-1 w-100"
+                onClick={setshowModalLine}
+              >
+                ยกเลิกการเชื่อมต่อกับ Line
+              </Button>
               <Button
                 variant="primary"
                 type="button"
-                className="mt-3 mb-2 w-100"
-                onClick={() => navigate(0)}
+                className="mt-1 mb-2 w-100"
+                onClick={() => navigate(-1)}
               >
-                เสร็จสิ้น
+                ย้อนกลับ
               </Button>
+              <ModalLine show={showModalLine} />
             </div>
           )}
         </div>
