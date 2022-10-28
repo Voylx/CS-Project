@@ -28,6 +28,17 @@ export const LinkApiLine = () => {
       .catch((err) => console.error(err?.response?.data));
   }
 
+  function handleDisconnectLine() {
+    Axios.post("/unlinkline", {})
+      .then((res) => {
+        if (res.data.status === "ok") {
+          alert(res.data?.message);
+          navigate("/bot/linkline");
+        }
+      })
+      .catch((err) => console.error(err?.response?.data));
+  }
+
   useEffect(() => {
     document.title = "Crypto-Bot : Line Settings";
     checkLinkAPI();
@@ -87,7 +98,7 @@ export const LinkApiLine = () => {
             <Button variant="secondary" onClick={handleClose}>
               ย้อนกลับ
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleDisconnectLine}>
               ฉันต้องการที่จะยกเลิก
             </Button>
           </Modal.Footer>
