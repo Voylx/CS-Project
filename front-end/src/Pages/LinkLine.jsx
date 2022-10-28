@@ -43,7 +43,7 @@ export const LinkLine = () => {
   }
 
   useEffect(() => {
-    document.title = "Crypto-Bot : Link Line";
+    document.title = "Crypto-Bot : Line Connect";
     checkLinkAPI();
   }, []);
 
