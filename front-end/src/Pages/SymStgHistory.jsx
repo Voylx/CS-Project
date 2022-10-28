@@ -66,6 +66,7 @@ export const SymStgHistory = () => {
   }
 
   useEffect(() => {
+    document.title = "Crypto-Bot : Backtest & History";
     getsymstghistory();
     getstg();
     getbotDetails();

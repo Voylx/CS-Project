@@ -47,6 +47,10 @@ export const LinkApiBitkub = () => {
     }
   }
 
+  useEffect(() => {
+    document.title = "Crypto-Bot : Link API BITKUB";
+  }, []);
+
   return (
     <div>
       <Header />

@@ -48,6 +48,7 @@ export const Register = () => {
   }
 
   useEffect(() => {
+    document.title = "Crypto-Bot : Register ";
     checkPass();
   }, [confirmPass, pass]);
 
