@@ -4,7 +4,7 @@ import { Table, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { TableHistoryTrade } from "../components/TableHistoryTrade";
 
-export const TradeHistroy = () => {
+export const ActivePage = () => {
   let params = useParams();
   let navigate = useNavigate();
   const Bot_Type = params?.botType;

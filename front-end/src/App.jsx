@@ -13,7 +13,7 @@ import { LinkApiLine } from "./Pages/LinkApiLine";
 import { LinkApiBitkubUpdate } from "./Pages/LinkApiBitkubUpdate";
 import { ViewerTrade } from "./Pages/ViewerTrade";
 import { SymStgHistory } from "./Pages/SymStgHistory";
-import { TradeHistroy } from "./Pages/TradeHistroy";
+import { ActivePage } from "./Pages/ActivePage";
 import StgInfo from "./Pages/StgInfo";
 
 // import "./App.css";
@@ -33,7 +33,7 @@ function App() {
               <Route path=":botType">
                 <Route path="" element={<BotDetails />} />
                 <Route path="symstghistory" element={<SymStgHistory />} />
-                <Route path="TradeHistroy" element={<TradeHistroy />} />
+                <Route path="Active" element={<ActivePage />} />
                 <Route path="viewertrade">
                   <Route path=":symbol" element={<ViewerTrade />} />
                 </Route>
