@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Table, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TableHistoryTrade } from "../components/TableHistoryTrade";
 
-export const MainHistroy = () => {
+export const TradeHistroy = () => {
+  let params = useParams();
+  let navigate = useNavigate();
+  const Bot_Type = params?.botType;
+
+  useEffect(() => {
+    if (Bot_Type !== "1") {
+      navigate("/bot");
+    }
+  }, []);
+
   return (
     <>
       <Header />
