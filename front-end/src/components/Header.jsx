@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import { Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Axios from "../services/Axios";
 
 import { Logout } from "./Logout";
@@ -9,6 +9,9 @@ import { Logout } from "./Logout";
 export const Header = () => {
   const [textColor, setTextColor] = useState("text-white");
   const [username, setUsername] = useState("");
+
+  let params = useParams();
+  const Bot_Type = params?.botType;
 
   async function getusername() {
     try {
@@ -21,7 +24,6 @@ export const Header = () => {
 
   useEffect(() => {
     getusername();
-    // console.log(username);
   }, [username]);
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -40,7 +42,10 @@ export const Header = () => {
           <Nav className="">
             {/* <Nav.Link href="/home">Home</Nav.Link> */}
             <Nav.Link href="/bot">BOT</Nav.Link>
-            <Nav.Link href="/MainHistroy">History</Nav.Link>
+            {Bot_Type === "1" && (
+              <Nav.Link href="/bot/1/TradeHistroy">History</Nav.Link>
+            )}
+
             <Nav.Link href="/StgInfo">Info</Nav.Link>
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
