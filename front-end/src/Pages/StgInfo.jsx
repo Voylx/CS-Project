@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Container, Row, Col, Carousel } from "react-bootstrap";
@@ -8,6 +8,11 @@ import picCDC from "../img/picCDC.png";
 
 const StgInfo = () => {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Crypto-Bot : Strategy Information";
+  }, []);
+
   return (
     <div className="bg-light bg-opacity-25">
       <Header />

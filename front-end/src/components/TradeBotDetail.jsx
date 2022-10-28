@@ -29,6 +29,13 @@ export const TradeBotDetail = (props) => {
       <Container>
         <Row className="m-4 g-3 ">
           <div className=" d-flex  align-items-center ">
+            <h2>จำนวนเงินบาทในบัญชี</h2>
+            <h6>(Bitkub)</h6>
+          </div>
+        </Row>
+        <div className="linetext mb-5 text-muted"></div>
+        <Row className="m-4 g-3 ">
+          <div className=" d-flex  align-items-center ">
             <h2>Viewer Trade</h2>
             <h6>(Bitkub)</h6>
           </div>

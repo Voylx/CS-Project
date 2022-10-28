@@ -29,6 +29,7 @@ export const BotDetails = () => {
   }
 
   useEffect(() => {
+    document.title = "Crypto-Bot : Bot Details";
     getbotDetails();
     // console.log(
     //   Object.keys(botData).length !== 0

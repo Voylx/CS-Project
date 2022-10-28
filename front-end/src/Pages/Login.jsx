@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Form, Button, Alert } from "react-bootstrap";
@@ -45,6 +45,10 @@ export const Login = () => {
       handelLogin();
     }
   };
+
+  useEffect(() => {
+    document.title = "Crypto-Bot : Login ";
+  }, []);
 
   return (
     <>

@@ -45,6 +45,7 @@ export const ViewerTrade = () => {
     }
   }
   useEffect(() => {
+    document.title = `Crypto-Bot : ${symbol}`;
     getData();
     new TradingView.widget({
       // autosize: true,

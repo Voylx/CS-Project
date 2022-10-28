@@ -134,6 +134,10 @@ export const BotBox = (props) => {
 export const BotPage = () => {
   const isAuthen = useAuthen();
 
+  useEffect(() => {
+    document.title = "Crypto-Bot : Bots ";
+  }, []);
+
   return (
     <div>
       <Header />
