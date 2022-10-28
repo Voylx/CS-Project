@@ -40,6 +40,7 @@ export const Header = () => {
           <Nav className="">
             {/* <Nav.Link href="/home">Home</Nav.Link> */}
             <Nav.Link href="/bot">BOT</Nav.Link>
+            <Nav.Link href="/MainHistroy">History</Nav.Link>
             <Nav.Link href="/StgInfo">Info</Nav.Link>
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
