@@ -76,7 +76,10 @@ const Box = (props) => {
   };
 
   return (
-    <div className="bg-secondary mx-2 p-2 rounded " style={{ height: "7rem" }}>
+    <div
+      className="bg-secondary mt-3 mb-2 mx-2 p-2 rounded "
+      style={{ height: "8rem" }}
+    >
       <img
         src={settingpic}
         alt="setting"
@@ -84,9 +87,10 @@ const Box = (props) => {
         className="float-end"
         onClick={linksetting[type]}
       />
-      <div className=" d-flex flex-column p-3 justify-content-around align-items-center">
+      <div className=" d-flex flex-column p-3 mt-1 mb-2 justify-content-around align-items-center">
         {botData.Bot_id}
         <Button
+          className="mt-3 mb-2"
           onClick={() => {
             navigate(`../${type}`);
           }}
@@ -141,12 +145,12 @@ export const BotPage = () => {
   return (
     <div>
       <Header />
-      <Container className=" mt-5">
+      <Container className=" mt-5 ">
         <h1 className="display-1 text-center fw-bold">Crypto-Bot</h1>
 
         {isAuthen && (
           <div className="  mt-5  rounded">
-            <h3 className=" mt-5 mb-3">Choose Bot</h3>
+            <h3 className=" mt-5 mb-4">Choose Bot</h3>
             <Row className="justify-content-around ">
               <BotBox type={1} />
               <BotBox type={0} />
