@@ -4,20 +4,25 @@ import Axios from "../services/Axios";
 import { Header } from "../components/Header";
 import { Table, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+
+import { useAuthen } from "../services/Authen";
+
 import { TableHistoryTrade } from "../components/TableHistoryTrade";
 
 export const ActivePage = () => {
+  const isAuthen = useAuthen();
   let params = useParams();
   let navigate = useNavigate();
   const Bot_Type = params?.botType;
 
   const [botData, setBotData] = useState(undefined);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     if (Bot_Type !== "1") {
       navigate("/bot");
     }
-    getsymstgboxdata();
+    getBotHistory();
   }, []);
 
   function getbotDetails() {
@@ -31,21 +36,38 @@ export const ActivePage = () => {
     }
   }
 
-  const getsymstgboxdata = async () => {
+  const getBotHistory = async () => {
     try {
       const botData = getbotDetails();
-      const res = await Axios.post("/api/getsymstgboxdata", {
+      const res = await Axios.post("/api/getactionhistory", {
         Bot_id: botData.Bot_id,
       });
-      const data = res.data.data;
-      const selData = data.filter((v, i) => {
-        return v.isSelected;
-      });
-      console.log(selData);
+      setHistory(res.data.history);
+      console.log(res.data.history);
     } catch (err) {
       console.log(err);
     }
   };
+
+  function unixTime(unixtime) {
+    if (unixtime) {
+      var u = new Date(unixtime * 1000);
+
+      return (
+        u.getUTCFullYear() +
+        "-" +
+        ("0" + (u.getMonth() + 1)).slice(-2) +
+        "-" +
+        ("0" + u.getDate()).slice(-2) +
+        " : " +
+        ("0" + u.getHours()).slice(-2) +
+        ":" +
+        ("0" + u.getMinutes()).slice(-2) +
+        ":" +
+        ("0" + u.getSeconds()).slice(-2)
+      );
+    }
+  }
 
   return (
     <>
@@ -57,16 +79,35 @@ export const ActivePage = () => {
           <Table className="mt-4 table table-striped table-hover">
             <thead>
               <tr className="">
-                <td className="table-primary">Time</td>
-                <td className="table-secondary">Side</td>
-                <td className="table-primary">Amount,Sym</td>
-                <td className="table-secondary">Price Buy</td>
-                <td className="table-primary">Price Sell</td>
-                <td className="table-secondary">Profit,BTH</td>
-                <td className="table-primary">Total</td>
+                <th className="table-primary">Time</th>
+                <th className="table-secondary">Side</th>
+                <th className="table-primary">Amount,Sym</th>
+                <th className="table-secondary">Price Buy</th>
+                <th className="table-primary">Price Sell</th>
+                <th className="table-secondary">Profit,BTH</th>
+                <th className="table-primary">Total</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+              {history.map((v, i) => {
+                console.log(v);
+                return (
+                  <tr key={i}>
+                    <td className="table-primary">{unixTime(v.ts)}</td>
+                    <td className="table-secondary">{v.Side}</td>
+                    <td className="table-primary">{v.Sym}</td>
+                    <td className="table-secondary">
+                      {v.Side === "BUY" ? v.Amt_money : "-"}
+                    </td>
+                    <td className="table-primary">
+                      {v.Side === "SELL" ? v.Amt_money : "-"}
+                    </td>
+                    <td className="table-secondary">Profit,BTH</td>
+                    <td className="table-primary">Total</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </Table>
         </div>
       </Container>
