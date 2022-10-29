@@ -74,7 +74,7 @@ export const ActivePage = () => {
       <Header />
       <Container fluid="md">
         <div className="bg-light bg-opacity-25">
-          <div className="fs-1 mt-2">Table Active</div>
+          <div className="fs-1 mt-2">ประวัติการซื้อขายของบอท</div>
           <div className="mt-1 linetext mb-3 text-muted" />
           <Table className="mt-4 table table-striped table-hover">
             <thead>
