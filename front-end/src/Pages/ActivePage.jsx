@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
+import Axios from "../services/Axios";
 import { Header } from "../components/Header";
 import { Table, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,11 +11,41 @@ export const ActivePage = () => {
   let navigate = useNavigate();
   const Bot_Type = params?.botType;
 
+  const [botData, setBotData] = useState(undefined);
+
   useEffect(() => {
     if (Bot_Type !== "1") {
       navigate("/bot");
     }
+    getsymstgboxdata();
   }, []);
+
+  function getbotDetails() {
+    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
+    if (data) {
+      setBotData(data);
+      return data;
+    } else {
+      console.log("Can't find botData");
+      navigate("/bot", { replace: true });
+    }
+  }
+
+  const getsymstgboxdata = async () => {
+    try {
+      const botData = getbotDetails();
+      const res = await Axios.post("/api/getsymstgboxdata", {
+        Bot_id: botData.Bot_id,
+      });
+      const data = res.data.data;
+      const selData = data.filter((v, i) => {
+        return v.isSelected;
+      });
+      console.log(selData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>

@@ -27,12 +27,12 @@ export const TradeBotDetail = (props) => {
   return (
     <>
       <Container>
-        <Row className="m-4 g-3 ">
+        {/* <Row className="m-4 g-3 ">
           <div className=" d-flex  align-items-center ">
             <h2>จำนวนเงินบาทในบัญชี</h2>
             <h6>(Bitkub)</h6>
           </div>
-        </Row>
+        </Row> */}
         <div className="linetext mb-5 text-muted"></div>
         <Row className="m-4 g-3 ">
           <div className=" d-flex  align-items-center ">

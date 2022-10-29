@@ -5,10 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 import ModalSelected from "./SymStgBox/ModalSelected";
 
-export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
+export const ButtonSelected = ({
+  Bot_Type,
+  sym,
+  stgID,
+  selected,
+  ...props
+}) => {
   let navigate = useNavigate();
   const botData = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
-  const [selected, setSelected] = useState(undefined);
   const [disableAddDelSelected, setDisableAddDelSelected] = useState(true);
   const [textSelected, setTextSelected] = useState("ปิดการแจ้งเตือนกลยุทธ์นี้");
 
@@ -54,36 +59,21 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
       Bot_id: botData.Bot_id,
     })
       .then((balance) => {
-        console.log(balance.data);
+        // console.log(balance.data);
         setBalance(balance.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }
-  // const fOnClickSelected = {
-  //   add: addSelected,
-  //   del: delSelected,
-  //   non: () => {},
-  // };
+
   const fOnClickSelected = {
     0: { add: addSelected, del: delSelected, non: () => {} },
     1: { add: setShowModal, del: delSelected, non: () => {} },
   };
-  async function getSymSelected() {
-    if (!botData.Bot_id) return;
-    try {
-      const response = await Axios.post(`/api/check/isSelectedSym`, {
-        Bot_id: botData.Bot_id,
-        Sym: sym,
-      });
-      setSelected(response.data.selected);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
   async function handleDisableSelectedButton() {
-    if (selected === undefined) return;
+    // if (selected === undefined) return;
     // setFOnClickSelected(demoOnclick);
     if (!selected) {
       setDisableAddDelSelected(false);
@@ -105,13 +95,11 @@ export const ButtonSelected = ({ Bot_Type, sym, stgID, ...props }) => {
     }
   }
   useEffect(() => {
-    getSymSelected();
     getAvailableBalance();
   }, []);
   useEffect(() => {
-    // console.log(selected);
     handleDisableSelectedButton();
-  }, [selected, stgID]);
+  }, [stgID]);
   return (
     <div>
       <Button

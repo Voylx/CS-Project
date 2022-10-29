@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "../services/Axios";
 
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Alert } from "react-bootstrap";
 
 import { useAuthen } from "../services/Authen";
 
@@ -17,7 +17,7 @@ export const SymStgHistory = () => {
 
   let params = useParams();
   let [searchParams, setSearchParams] = useSearchParams();
-
+  // const [Bot_Type, setBot_Type] = useState(params.botType);
   const Bot_Type = params.botType;
 
   const sym = searchParams.get("sym");
@@ -25,19 +25,12 @@ export const SymStgHistory = () => {
   const [stgName, setStgName] = useState("");
   const [history, setHistory] = useState([]);
   const [strategies, setStrategies] = useState({});
+  const [selected, setSelected] = useState(undefined);
+  const [showProfit, setShowProfit] = useState(false);
 
-  const [botData, setBotData] = useState({});
+  const botData = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
 
   const isAuthen = useAuthen();
-
-  function getbotDetails() {
-    const data = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
-    if (data) setBotData(data);
-    else {
-      console.log("Can't find botData");
-      navigate("/bot", { replace: true });
-    }
-  }
 
   async function getsymstghistory() {
     try {
@@ -47,7 +40,7 @@ export const SymStgHistory = () => {
       const data = response.data;
       setStgName(data.Strategy_name);
       setHistory(data.historys);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -65,16 +58,43 @@ export const SymStgHistory = () => {
     }
   }
 
+  async function getSymSelected() {
+    if (!botData.Bot_id) return;
+    try {
+      const response = await Axios.post(`/api/check/isSelectedSym`, {
+        Bot_id: botData.Bot_id,
+        Sym: sym,
+      });
+      console.log(response.data.selected);
+      setSelected(response.data.selected);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleShowProfit() {
+    if (!selected) return;
+
+    if (selected.Strategys_Id == stgID) {
+      setShowProfit(true);
+      return;
+    }
+    setShowProfit(false);
+  }
+
   useEffect(() => {
+    // setBot_Type(params.botType);
     document.title = "Crypto-Bot : Backtest & History";
     getsymstghistory();
     getstg();
-    getbotDetails();
+    getSymSelected();
+    console.log(Bot_Type);
   }, []);
 
   useEffect(() => {
     getsymstghistory();
-  }, [stgID]);
+    handleShowProfit();
+  }, [stgID, botData]);
 
   return (
     <div>
@@ -112,12 +132,29 @@ export const SymStgHistory = () => {
               <span> - </span>
             )}
           </h4>
+          {/* Active Box */}
+          {showProfit &&
+            (Bot_Type === "1" ? (
+              //for Bot_Type Trade
+              <Alert variant="success">
+                <h5>Active </h5>
+                Status : Waiting for signal <br />
+                Status : On Trade <br />
+              </Alert>
+            ) : (
+              // for Bot_Type Line
+              <Alert variant="success">
+                <h5>Active </h5>
+              </Alert>
+            ))}
+
           <ButtonSelected
             Bot_Type={Bot_Type}
             sym={sym}
             stgID={stgID}
             stg={stgName}
             botData={botData}
+            selected={selected}
           />
 
           {/* Change Strategy */}
