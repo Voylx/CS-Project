@@ -52,41 +52,21 @@ export const ActivePage = () => {
       <Header />
       <Container fluid="md">
         <div className="bg-light bg-opacity-25">
+          <div className="fs-1 mt-2">Table Active</div>
+          <div className="mt-1 linetext mb-3 text-muted" />
           <Table className="mt-4 table table-striped table-hover">
             <thead>
               <tr className="">
-                <td className="table-primary">Date</td>
-                <td className="table-secondary">Time</td>
-                <td className="table-primary">Side</td>
-                <td className="table-secondary">Amount</td>
-                <td className="table-primary">Symbol</td>
+                <td className="table-primary">Time</td>
+                <td className="table-secondary">Side</td>
+                <td className="table-primary">Amount,Sym</td>
+                <td className="table-secondary">Price Buy</td>
+                <td className="table-primary">Price Sell</td>
+                <td className="table-secondary">Profit,BTH</td>
+                <td className="table-primary">Total</td>
               </tr>
             </thead>
-            <tbody>
-              {/* {history.length > 0 ? (
-            history.map((v, i) => {
-              return (
-                <tr key={i}>
-                  <td>{unixDay(v.Timestamp)}</td>
-                  <td>{unixTime(v.Timestamp)}</td>
-                  <td
-                    className={
-                      v.Side === "BUY" ? "text-success" : "text-danger"
-                    }
-                  >
-                    {v.Side}
-                  </td>
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td> - </td>
-              <td> - </td>
-              <td> - </td>
-            </tr>
-          )} */}
-            </tbody>
+            <tbody></tbody>
           </Table>
         </div>
       </Container>
