@@ -93,7 +93,7 @@ export const SymStgHistory = () => {
   useEffect(() => {
     getsymstghistory();
     handleShowProfit();
-  }, [stgID, botData]);
+  }, [stgID, selected]);
 
   return (
     <div>

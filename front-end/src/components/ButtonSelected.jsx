@@ -73,6 +73,7 @@ export const ButtonSelected = ({
   };
 
   async function handleDisableSelectedButton() {
+    console.log("handleDisableSelectedButton");
     // if (selected === undefined) return;
     // setFOnClickSelected(demoOnclick);
     if (!selected) {
@@ -99,7 +100,7 @@ export const ButtonSelected = ({
   }, []);
   useEffect(() => {
     handleDisableSelectedButton();
-  }, [stgID]);
+  }, [stgID, selected]);
   return (
     <div>
       <Button
