@@ -86,7 +86,7 @@ const SymStgBox = ({
     Axios.post("/api/addfav", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (
@@ -107,7 +107,7 @@ const SymStgBox = ({
     Axios.post("/api/delfav", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (
@@ -128,7 +128,7 @@ const SymStgBox = ({
     Axios.post("/api/addselected", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (
@@ -152,7 +152,7 @@ const SymStgBox = ({
     Axios.post("/api/delselected", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (

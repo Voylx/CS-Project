@@ -74,7 +74,7 @@ export const SymStgHistory = () => {
   async function handleShowProfit() {
     if (!selected) return;
 
-    if (selected.Strategys_Id == stgID) {
+    if (selected.Strategy_Id == stgID) {
       setShowProfit(true);
       return;
     }

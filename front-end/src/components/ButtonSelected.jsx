@@ -28,7 +28,7 @@ export const ButtonSelected = ({
     Axios.post("/api/addselected", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (res.data.status === "success") {
@@ -45,7 +45,7 @@ export const ButtonSelected = ({
     Axios.post("/api/delselected", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
     })
       .then((res) => {
         if (res.data.status === "success") {
@@ -81,13 +81,13 @@ export const ButtonSelected = ({
       setFAction("add");
       return;
     }
-    if (selected.Strategys_Id != stgID) {
+    if (selected.Strategy_Id != stgID) {
       setDisableAddDelSelected(true);
       setTextSelected("คุณได้เลือกเหรียญนี้โดยใช้กลยุทธ์อื่นแล้ว");
       setFAction("non");
       return;
     }
-    if (selected.Strategys_Id == stgID) {
+    if (selected.Strategy_Id == stgID) {
       setDisableAddDelSelected(false);
       setTextSelected("ปิดการแจ้งเตือนกลยุทธ์นี้");
       setFAction("del");

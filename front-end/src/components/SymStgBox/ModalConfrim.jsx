@@ -22,7 +22,7 @@ export const ModalConfrim = ({
     Axios.post("/api/addselected", {
       Bot_id: botData.Bot_id,
       Sym: sym,
-      Strategys_Id: stgID,
+      Strategy_Id: stgID,
       Amt_money: amt,
     })
       .then((res) => {
