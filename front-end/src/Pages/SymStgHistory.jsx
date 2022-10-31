@@ -10,6 +10,7 @@ import { Header } from "../components/Header";
 import { TableHistory } from "../components/TableHistory";
 import { ButtonSelected } from "../components/ButtonSelected";
 import { BackTestDetail } from "../components/BackTestDetail";
+import { BotActiveStatus } from "../components/BotActiveStatus";
 
 export const SymStgHistory = () => {
   let navigate = useNavigate();
@@ -132,20 +133,9 @@ export const SymStgHistory = () => {
             )}
           </h4>
           {/* Active Box */}
-          {showProfit &&
-            (Bot_Type === "1" ? (
-              //for Bot_Type Trade
-              <Alert variant="success">
-                <h5>Active </h5>
-                Status : Waiting for signal <br />
-                Status : On Trade <br />
-              </Alert>
-            ) : (
-              // for Bot_Type Line
-              <Alert variant="success">
-                <h5>Active </h5>
-              </Alert>
-            ))}
+          {showProfit && (
+            <BotActiveStatus Bot_Type={Bot_Type} botData={botData} sym={sym} />
+          )}
 
           <ButtonSelected
             Bot_Type={Bot_Type}
