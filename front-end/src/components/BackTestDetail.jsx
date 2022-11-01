@@ -69,7 +69,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
       <>
         {/* Button Group */}
         <Form.Group className="mb-2" controlId="formButton">
-          <Form.Label className="">Maximum Durtion</Form.Label>
+          <Form.Label className="fs-5">Maximum Durtion</Form.Label>
           <div className="d-flex justify-content-center">
             {Object.entries(durationData).map(([value, text], i) => {
               return (
@@ -92,7 +92,9 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
 
         {/* Input Intial Money */}
         <Form.Group className="mb-2">
-          <Form.Label className="">Initial money for testing</Form.Label>
+          <Form.Label className="fs-5 mt-2">
+            Initial money for testing
+          </Form.Label>
           <Form.Control
             type="number"
             placeholder=" ใส่จำนวนเงินเรี่มต้นในการ BackTest"
@@ -105,62 +107,70 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         </Form.Group>
       </>
 
-      <div className="p-1">
-        <h5 className="text-dark">{stgName}</h5>
+      <div className="p-1 ms-2 me-2 mb-4">
+        <h4 className="text-dark ms-2 ">{stgName}</h4>
         <div className="d-flex justify-content-between">
-          <div className="">
-            <p className="text-secondary ">Symbol</p>
-            <h6>{sym}</h6>
+          <div className="ms-2 ">
+            <p className="text-secondary mb-0">Symbol</p>
+            <h5>{sym}</h5>
           </div>
-          <div className="">
-            <p className="text-secondary ">Backtest Duration</p>
+          <div className="me-4 mb-0">
+            <p className="text-secondary me-5 mb-0">Backtest Duration</p>
             <p className=" ">{durationData[duration]}</p>
 
-            <p className="text-secondary ">Bot Action</p>
+            <p className="text-secondary me-4 mb-0">Bot Action</p>
             <p className="text-dark ">{data?.results?.length} Times</p>
           </div>
         </div>
 
-        <div>
-          <p className="text-secondary ">Date Start</p>
+        <div className="ms-2 mb-4">
+          <p className="text-secondary mb-0">Date Start</p>
           <h6 className="">{unixDay(startData?.time)}</h6>
         </div>
 
-        <div className="d-flex justify-content-between me-3">
-          <div className="me-4 ">
-            <p className="text-secondary">Profit and Loss Percentage</p>
-            <h6 className={t_color(data?.profit_Percent)}>
-              {data?.profit_Percent} %
+        <div className="d-flex justify-content-between me-4 mb-1">
+          <div className="ms-3 me-5 ">
+            <p className="text-secondary mb-0">Profit</p>
+            <p className="text-secondary mb-0">(THB)</p>
+
+            <h6
+              className={`mt-2 ${t_color(
+                data?.profit[data?.profit.length - 1] - initMoney
+              )}`}
+            >
+              {data?.profit[data?.profit.length - 1].toFixed(2)}
             </h6>
           </div>
-          <div className="me-1 ">
-            <p className="text-secondary ">Initial money for testing</p>
+          <div className="  ">
+            <p className="text-secondary mb-0">Initial money</p>
+            <p className="text-secondary mb-2"> for testing</p>
             <p className=" ">{initMoney || "00.00"}</p>
           </div>
           <div>
-            <div className="me-2">
-              <p className="text-secondary">Profit (THB)</p>
-              <h6
-                className={t_color(
-                  data?.profit[data?.profit.length - 1] - initMoney
-                )}
-              >
-                {data?.profit[data?.profit.length - 1].toFixed(2)}
+            <div className="me-5">
+              <p className="text-secondary mb-0">Profit and Loss </p>
+              <p className="text-secondary mb-2">Percentage</p>
+              <h6 className={t_color(data?.profit_Percent)}>
+                {data?.profit_Percent} %
               </h6>
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-between me-3">
-          <div className="me-1">
-            <p className="text-secondary ">{sym}'s Price on start date</p>
+
+        <div className="d-flex justify-content-between me-5">
+          <div className="ms-1 me-0">
+            <p className="text-secondary mb-0">{sym}'s Price </p>
+            <p className="text-secondary ">on start date</p>
             <h6 className="">{startData?.data} THB</h6>
           </div>
-          <div className="me-4">
-            <p className="text-secondary ">{sym}'s Price now </p>
+          <div className="ms-0 ">
+            <p className="text-secondary mb-0">{sym}'s</p>
+            <p className="text-secondary ">Price now </p>
             <h6 className="">{nowData?.data} THB</h6>
           </div>
-          <div className="me-2">
-            <p className="text-secondary ">Price move </p>
+          <div className="me-5">
+            <p className="text-secondary mb-0">Price move </p>
+            <p className="text-secondary ">Percentage </p>
             <h6 className="">
               {(
                 ((nowData?.data - startData?.data) / startData?.data) *
