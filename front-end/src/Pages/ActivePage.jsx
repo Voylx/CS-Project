@@ -82,8 +82,8 @@ export const ActivePage = () => {
                 <th className="table-primary">Time</th>
                 <th className="table-secondary">Currency</th>
                 <th className="table-primary">Side</th>
-                <th className="table-secondary">xxxxxx</th>
-                <th className="table-primary">xxxxx</th>
+                <th className="table-secondary">จำนวนเงิน</th>
+                <th className="table-primary">จำนวนเหรียญ</th>
               </tr>
             </thead>
             <tbody>
