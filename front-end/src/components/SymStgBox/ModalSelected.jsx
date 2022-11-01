@@ -25,11 +25,14 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
       </Modal.Header>
       <Modal.Body>
         <div>
-          <p className="fs-3 ms-7 ">{stg}</p>
-          <p className="fs-6 ms-7 ">{sym}</p>
+          <p className="fs-3 ms-7 mb-0">{stg}</p>
+          <p className="fs-5 ms-7 ">{sym}</p>
         </div>
-        <Form.Group className="mb-2" controlId="formBasicEmail">
-          <Form.Label>โปรดใส่จำนวนเงินที่ต้องการให้บอทคุม</Form.Label>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label className="mb-0">
+            โปรดใส่จำนวนเงินที่ต้องการให้บอทคุม
+          </Form.Label>
+
           <Form.Control
             type="number"
             placeholder="1000"
@@ -41,7 +44,10 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
           {textErr && <p className="my-1 text-danger">{textErr}</p>}
         </Form.Group>
         <div>
-          <div className="d-flex">
+          <div className="text-danger fs-6 mb-3">
+            *** ขั้นต่ำในการควบคุม 50 บาท ***
+          </div>
+          <div className="d-flex ">
             <p className="fw-bold">จำนวนเงินทั้งหมดที่มี : </p>
             <p className="ms-1"> {balances?.all?.toFixed(2)} baht</p>
           </div>
