@@ -80,12 +80,10 @@ export const ActivePage = () => {
             <thead>
               <tr className="">
                 <th className="table-primary">Time</th>
-                <th className="table-secondary">Side</th>
-                <th className="table-primary">Amount,Sym</th>
-                <th className="table-secondary">Price Buy</th>
-                <th className="table-primary">Price Sell</th>
-                <th className="table-secondary">Profit,BTH</th>
-                <th className="table-primary">Total</th>
+                <th className="table-secondary">Currency</th>
+                <th className="table-primary">Side</th>
+                <th className="table-secondary">xxxxxx</th>
+                <th className="table-primary">xxxxx</th>
               </tr>
             </thead>
             <tbody>
@@ -94,16 +92,12 @@ export const ActivePage = () => {
                 return (
                   <tr key={i}>
                     <td className="table-primary">{unixTime(v.ts)}</td>
-                    <td className="table-secondary">{v.Side}</td>
-                    <td className="table-primary">{v.Sym}</td>
-                    <td className="table-secondary">
-                      {v.Side === "BUY" ? v.Amt_money : "-"}
-                    </td>
+                    <td className="table-secondary">{v.Sym}</td>
+                    <td className="table-primary">{v.Side}</td>
+                    <td className="table-secondary">{v.Amt_money} THB</td>
                     <td className="table-primary">
-                      {v.Side === "SELL" ? v.Amt_money : "-"}
+                      {v.Amt_coins} {v.Sym}
                     </td>
-                    <td className="table-secondary">Profit,BTH</td>
-                    <td className="table-primary">Total</td>
                   </tr>
                 );
               })}
