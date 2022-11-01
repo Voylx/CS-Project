@@ -65,7 +65,7 @@ export const SymStgHistory = () => {
         Bot_id: botData.Bot_id,
         Sym: sym,
       });
-      console.log(response.data.selected);
+      // console.log(response.data.selected);
       setSelected(response.data.selected);
     } catch (error) {
       console.error(error);
@@ -88,7 +88,7 @@ export const SymStgHistory = () => {
     getsymstghistory();
     getstg();
     getSymSelected();
-    console.log(Bot_Type);
+    // console.log(Bot_Type);
   }, []);
 
   useEffect(() => {

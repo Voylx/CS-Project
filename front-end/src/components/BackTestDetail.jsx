@@ -32,7 +32,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
         }&initMoney=${_initMoney || initMoney}`
       );
       const data = result.data;
-      console.log(data);
+      // console.log(data);
       setData(data);
       setStartData({
         data: data.data[0],

@@ -15,7 +15,7 @@ export const ButtonSelected = ({
   let navigate = useNavigate();
   const botData = JSON.parse(localStorage.getItem(`botData${Bot_Type}`));
   const [disableAddDelSelected, setDisableAddDelSelected] = useState(true);
-  const [textSelected, setTextSelected] = useState("ปิดการแจ้งเตือนกลยุทธ์นี้");
+  const [textSelected, setTextSelected] = useState("ปิดการทำงานกลยุทธ์นี้");
 
   const [fAction, setFAction] = useState("non");
 
@@ -77,7 +77,7 @@ export const ButtonSelected = ({
     // setFOnClickSelected(demoOnclick);
     if (!selected) {
       setDisableAddDelSelected(false);
-      setTextSelected("เปิดการแจ้งเตือนกลยุทธ์นี้");
+      setTextSelected("เปิดการทำงานกลยุทธ์นี้");
       setFAction("add");
       return;
     }
@@ -89,7 +89,7 @@ export const ButtonSelected = ({
     }
     if (selected.Strategy_Id == stgID) {
       setDisableAddDelSelected(false);
-      setTextSelected("ปิดการแจ้งเตือนกลยุทธ์นี้");
+      setTextSelected("ปิดการทำงานกลยุทธ์นี้");
       setFAction("del");
       return;
     }
