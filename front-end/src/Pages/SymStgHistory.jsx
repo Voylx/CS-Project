@@ -101,7 +101,7 @@ export const SymStgHistory = () => {
       <Header />
       <Container fluid="md">
         <div
-          className="border p-3 mx-auto mt-5 col-lg-8 col-md-8 shadow-lg"
+          className="border p-3 mx-auto mt-5 col-lg-8 col-md-9 shadow-lg"
           style={{ borderRadius: "11px" }}
         >
           <div className="d-flex justify-content-between align-items-center">
