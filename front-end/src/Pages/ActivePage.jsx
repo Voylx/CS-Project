@@ -102,20 +102,20 @@ export const ActivePage = () => {
       <Header />
       <Container fluid="md">
         <div className="bg-light bg-opacity-25">
-          <div className="fs-1 mt-2">ประวัติการซื้อขายของบอท</div>
-          <div className="mt-1 linetext mb-3 text-muted" />
+          <div className="fs-2 mt-3">ประวัติการซื้อขายของบอท</div>
+          <div className="mt-1 linetext mb-2 text-muted" />
 
           {/* Filter Currency */}
           <Col className="mb-3" xs={12} sm={6}>
             {" "}
-            <Form.Label>Currency</Form.Label>
+            <Form.Label className="fs-4">Currency</Form.Label>
             <Form.Select
               aria-label="Select Symbol"
               onChange={(e) => {
                 setSel_sym(e.target.value);
               }}
             >
-              <option value="default" className="text-muted">
+              <option value="default" className="text-muted ">
                 [All]
               </option>
 
