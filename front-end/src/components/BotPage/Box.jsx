@@ -16,10 +16,31 @@ export const Box = (props) => {
     1: () => navigate("../bitkubupdate"),
   };
 
+  const [botInfo, setBotInfo] = useState({});
+
+  useEffect(() => {
+    if (botData.Bot_id) {
+      getbotInfo();
+    }
+  }, [botData]);
+
+  function getbotInfo() {
+    Axios.post("/api/bot_info", {
+      Bot_id: botData.Bot_id,
+    })
+      .then((res) => {
+        console.log(res.data);
+        setBotInfo(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   return (
     <div
       className="bg-white mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
-      style={{ height: "8rem" }}
+      // style={{ height: "8rem" }}
     >
       <img
         src={settingpic}
@@ -33,11 +54,33 @@ export const Box = (props) => {
         {botData.Bot_id ? (
           <>
             {/* <div>{botData.Bot_id}</div> */}
-            <div>Bot Selected : 7/21 Currency</div>
-            {Boolean(type) && <div>Already buy : 4/21 Currency</div>}
-            {Boolean(type) && <div>Wait for signal : 4/21 Currency</div>}
-            {Boolean(type) && <div>Amount : 2000 BHT</div>}
-            {Boolean(type) && <div> Profit : 20 %</div>}
+            <div>Bot Selected : {botInfo.countSelected}/21 Currency</div>
+            {Boolean(type) ? (
+              <div>
+                Already buy : {botInfo.countBUY}/{botInfo.countSelected}{" "}
+                Currency
+              </div>
+            ) : (
+              <br />
+            )}
+            {Boolean(type) ? (
+              <div>
+                Wait for signal : {botInfo.countWait}/{botInfo.countSelected}{" "}
+                Currency
+              </div>
+            ) : (
+              <br />
+            )}
+            {Boolean(type) ? (
+              <div>Balance : {botInfo.Balance?.toFixed(2)} THB</div>
+            ) : (
+              <br />
+            )}
+            {Boolean(type) ? (
+              <div> Profit : {botInfo.pnl_percent?.toFixed(2)} %</div>
+            ) : (
+              <br />
+            )}
 
             <Button
               className="mt-3 mb-2"
