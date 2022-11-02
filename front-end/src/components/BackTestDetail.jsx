@@ -134,7 +134,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             <p className="text-secondary mb-0">(THB)</p>
 
             <h6
-              className={`mt-2 ${t_color(
+              className={`mt-2  ${t_color(
                 data?.profit[data?.profit.length - 1] - initMoney
               )}`}
             >
@@ -171,7 +171,11 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
           <div className="me-5">
             <p className="text-secondary mb-0">Price move </p>
             <p className="text-secondary ">Percentage </p>
-            <h6 className="">
+            <h6
+              className={t_color(
+                ((nowData?.data - startData?.data) / startData?.data) * 100
+              )}
+            >
               {(
                 ((nowData?.data - startData?.data) / startData?.data) *
                 100

@@ -61,10 +61,15 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
         console.log(err);
       });
   }
-
+  function t_color(data) {
+    if (data > 0) return "text-success";
+    if (data < 0) return "text-danger";
+  }
   return Bot_Type === "1" ? (
     //for Bot_Type Trade
-    <Alert variant={pnl > 0 ? "success" : pnl < 0 ? "danger" : "primary"}>
+    <Alert
+    // variant={pnl > 0 ? "success" : pnl < 0 ? "danger" : "primary"}
+    >
       {status.active ? (
         <>
           <h5>Active </h5>
@@ -72,14 +77,18 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
           {status.active}
           <Row>
             <Col className="d-flex flex-column flex-lg-row ">
-              <div className="fw-bolder">Initial money&nbsp;</div>
-              <div>{status.Initial_money.toFixed(2)}</div>
+              <div className="fw-bolder">Initial money (BTH): &nbsp;</div>
+              <div>{status.Initial_money.toFixed(2)} </div>
             </Col>
             {status.last_history_Side === "BUY" && (
               <>
                 <Col className="d-flex flex-column flex-lg-row ">
-                  <div className="fw-bolder">Value Now&nbsp;</div>
-                  <div>
+                  <div className="fw-bolder">Value Now (BTH) : &nbsp;</div>
+                  <div
+                  // className={`${t_color(
+                  //   price * status.curr_coin - status.Initial_money
+                  // )}`}
+                  >
                     {price && status
                       ? (price * status.curr_coin).toFixed(2)
                       : "Loading.."}
@@ -90,8 +99,13 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
                   sm={"auto"}
                   className="d-flex flex-column flex-lg-row "
                 >
-                  <div className="fw-bolder">Unrealized P&L&nbsp;</div>
-                  <div>{pnl ? pnl.toFixed(2) : "Loading.."} %</div>
+                  <div className="fw-bolder">Unrealized P/L : &nbsp;</div>
+                  <div className={`${t_color(pnl)}`}>
+                    {(price * status.curr_coin - status.Initial_money).toFixed(
+                      2
+                    )}
+                    ({pnl ? pnl.toFixed(2) : "Loading.."}%)
+                  </div>
                 </Col>
               </>
             )}
