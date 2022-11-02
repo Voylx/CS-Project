@@ -282,6 +282,12 @@ const SelectStrategies = (props) => {
           <p className="text-danger text-center">
             *** 1 เหรียญ เลือกได้ 1 กลยุทธ์ เท่านั้น ***
           </p>
+          <a
+            className="link-primary  ms-1"
+            onClick={() => (location = "/StgInfo")}
+          >
+            ศึกษากลยุทธ์เพิ่มเติม...
+          </a>
         </Row>
       </div>
     );
