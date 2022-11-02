@@ -143,4 +143,18 @@ router.post("/available_balance", getapikey, async (req, res) => {
   }
 });
 
+router.post("/bot_info", async (req, res) => {
+  const db = await require("../services/db_promise");
+  const { Bot_id } = req.body;
+  if (!Bot_id) {
+    res.status(400).send({
+      status: "error",
+      message: "Incomplete information!!!",
+    });
+    return;
+  }
+  ฟ;
+  res.send({ status: "ok", bot_info: "bot_info" });
+});
+
 module.exports = router;
