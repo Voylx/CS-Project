@@ -33,8 +33,10 @@ export const Box = (props) => {
         {botData.Bot_id ? (
           <>
             {/* <div>{botData.Bot_id}</div> */}
-            <div>Bot Active : 3/21 Currency</div>
-            {Boolean(type) && <div>U pnl : 20 %</div>}
+            <div>Bot Selected : 7/21 Currency</div>
+            <div>Bot Actived : 3/21 Currency</div>
+            {Boolean(type) && <div>Amount : 2000 BHT</div>}
+            {Boolean(type) && <div> Profit : 20 %</div>}
 
             <Button
               className="mt-3 mb-2"
