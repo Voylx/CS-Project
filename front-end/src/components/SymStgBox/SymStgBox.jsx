@@ -10,11 +10,11 @@ import ModalSelected from "./ModalSelected";
 
 const FavIcon = ({ fav, selected, fOnClick }) => {
   return (
-    <h5 className="col-4 me-0 mb-0 d-flex justify-content-end">
+    <h5 className="col-4 me-0 mb-0 d-flex justify-content-end c-grab">
       <span className="ms-1" onClick={fOnClick.fav[fav]}>
         {fav ? <AiFillStar className="text-warning" /> : <AiOutlineStar />}
       </span>
-      <span className="ms-1" onClick={fOnClick.selected[selected]}>
+      <span className="ms-1 c-grab" onClick={fOnClick.selected[selected]}>
         {selected ? (
           <MdCheckBox className="text-primary" />
         ) : (
@@ -217,7 +217,7 @@ const SymStgBox = ({
 
   return (
     <Col className="">
-      <div className="border rounded-3 shadow p-2 mb-1">
+      <div className="border rounded-3 shadow p-2 mb-1 h-bg-primary-2">
         <Row className="">
           <h6 className="col-8">{stg}</h6>
 
@@ -229,6 +229,7 @@ const SymStgBox = ({
               `/bot/${botData.Type}/symstghistory?sym=${sym}&stgID=${stgID}`
             )
           }
+          className="c-grab"
         >
           <h6 className="m-0 text-primary">{sym}</h6>
           <p

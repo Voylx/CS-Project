@@ -4,43 +4,41 @@
 @import "variables";
 
 // scss-docs-start theme-color-variables
-$primary:       $violet !default;
-$secondary:     $gray-600 !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $gray-100 !default;
-$dark:          $gray-900 !default;
-$purlight:      $purple-200 !default;
-$lightgray:      $gray-400 !default;
-$lightgray2:      $gray-500 !default;
-$middlegray:   $gray-700 !default;
-$middlegray2:   $gray-800 !default;
-$crystal:       $cyan-100 !default;
-
+$primary: $violet !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-900 !default;
+$purlight: $purple-200 !default;
+$lightgray: $gray-400 !default;
+$lightgray2: $gray-500 !default;
+$middlegray: $gray-700 !default;
+$middlegray2: $gray-800 !default;
+$crystal: $cyan-100 !default;
 
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
 $theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark,
-  "purlight":   $purlight,
-  "lightgray":  $lightgray,
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
+  "purlight": $purlight,
+  "lightgray": $lightgray,
   "lightgray2": $lightgray,
   "middlegray": $middlegray,
   "middlegray2": $middlegray2,
-  "crystal":  $crystal,
-  
-  
-//   "new-indigo": $new-indigo
+  "crystal": $crystal,
+
+  //   "new-indigo": $new-indigo
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -51,3 +49,38 @@ $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
 @import "../../node_modules/bootstrap/scss/_variables";
 
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+.h-text-primary {
+  // filter: drop-shadow(0 0 2em #646cffaa);
+  &:hover {
+    // text-shadow:0 0 2em #646cffaa ;
+    text-shadow: 1px 1px 5em $primary;
+    // text-shadow:0 0  2em $primary;
+  }
+}
+
+.h-bg-primary {
+  // filter: drop-shadow(0 0 2em #646cffaa);
+  backdrop-filter: blur(8px);
+  &:hover {
+    filter: drop-shadow(0 0 1em #646cffaa);
+  }
+}
+.h-bg-primary-2 {
+  // filter: drop-shadow(0 0 2em #646cffaa);
+  backdrop-filter: blur(8px);
+
+  &:hover {
+    filter: drop-shadow(0 0 1em $primary);
+  }
+}
+
+.h-blur {
+  &:hover {
+    filter: blur(1px);
+  }
+}
+
+.c-grab {
+  cursor: grab;
+}

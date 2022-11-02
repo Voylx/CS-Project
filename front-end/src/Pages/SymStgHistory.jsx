@@ -106,7 +106,10 @@ export const SymStgHistory = () => {
         >
           <div className="d-flex justify-content-between align-items-center">
             <h2 className="ms-7">{stgName}</h2>
-            <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
+            <h6
+              className="me-2 text-secondary c-grab"
+              onClick={() => navigate(-1)}
+            >
               {"Go back"}
             </h6>
           </div>

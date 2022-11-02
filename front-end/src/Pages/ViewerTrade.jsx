@@ -74,7 +74,10 @@ export const ViewerTrade = () => {
       >
         <div className="d-flex justify-content-between ">
           <h2 className="ms-7">Trading View</h2>
-          <h6 className="me-2 text-secondary" onClick={() => navigate(-1)}>
+          <h6
+            className="me-2 text-secondary c-grab"
+            onClick={() => navigate(-1)}
+          >
             {"Go back"}
           </h6>
         </div>

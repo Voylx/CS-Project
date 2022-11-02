@@ -18,7 +18,7 @@ export const Box = (props) => {
 
   return (
     <div
-      className="bg-secondary mt-3 mb-2 mx-2 p-2 rounded "
+      className="bg-white mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
       style={{ height: "8rem" }}
     >
       <img
@@ -28,16 +28,26 @@ export const Box = (props) => {
         className="float-end"
         onClick={linksetting[type]}
       />
-      <div className=" d-flex flex-column p-3 mt-1 mb-2 justify-content-around align-items-center">
-        {botData.Bot_id}
-        <Button
-          className="mt-3 mb-2"
-          onClick={() => {
-            navigate(`../${type}`);
-          }}
-        >
-          Control
-        </Button>
+
+      <div className=" d-flex flex-column p-3 mt-1 mb-2 justify-content-around align-items-center  ">
+        {botData.Bot_id ? (
+          <>
+            {/* <div>{botData.Bot_id}</div> */}
+            <div>Bot Active : 3/21 Currency</div>
+            {Boolean(type) && <div>U pnl : 20 %</div>}
+
+            <Button
+              className="mt-3 mb-2"
+              onClick={() => {
+                navigate(`../${type}`);
+              }}
+            >
+              Control
+            </Button>
+          </>
+        ) : (
+          <>Loading...</>
+        )}
       </div>
     </div>
   );

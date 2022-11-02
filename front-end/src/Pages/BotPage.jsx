@@ -18,7 +18,9 @@ export const BotPage = () => {
     <div>
       <Header />
       <Container className=" mt-5 ">
-        <h1 className="display-1 text-center fw-bold">Crypto-Bot</h1>
+        <h1 className="display-1 text-center fw-bold h-text-primary">
+          Crypto-Bot
+        </h1>
 
         {isAuthen && (
           <div className="  mt-5  rounded">

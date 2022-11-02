@@ -28,7 +28,7 @@ export const BotBox = (props) => {
   }
 
   return (
-    <Col md={5} className="bg-lightgray2 m-2 p-2 pb-3  rounded">
+    <Col md={5} className="bg-lightgray2 m-2 p-2 pb-3  rounded ">
       <h3>{title[type]}</h3>
 
       {botData ? (

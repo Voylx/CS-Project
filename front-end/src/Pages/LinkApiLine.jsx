@@ -55,7 +55,7 @@ export const LinkApiLine = () => {
           <div className="d-flex justify-content-between align-items-center">
             <h2 className=" ">Line Connect</h2>
             <h6
-              className="me-2 text-secondary"
+              className="me-2 text-secondary c-grab"
               onClick={() => navigate("/bot")}
             >
               {"Go back"}

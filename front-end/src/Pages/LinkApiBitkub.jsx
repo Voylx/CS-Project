@@ -62,7 +62,7 @@ export const LinkApiBitkub = () => {
           <div className="d-flex justify-content-between align-items-center">
             <h2 className="ms-7 ">LINK API BITKUB</h2>
             <h6
-              className="me-2 text-secondary"
+              className="me-2 text-secondary c-grab"
               onClick={() => navigate("/bot")}
             >
               {"Go back"}
