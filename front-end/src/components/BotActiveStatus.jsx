@@ -77,13 +77,13 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
           {status.active}
           <Row>
             <Col className="d-flex flex-column flex-lg-row ">
-              <div className="fw-bolder">Initial money (BTH): &nbsp;</div>
+              <div className="fw-bolder">Initial money (THB): &nbsp;</div>
               <div>{status.Initial_money.toFixed(2)} </div>
             </Col>
             {status.last_history_Side === "BUY" && (
               <>
                 <Col className="d-flex flex-column flex-lg-row ">
-                  <div className="fw-bolder">Value Now (BTH) : &nbsp;</div>
+                  <div className="fw-bolder">Value Now (THB) : &nbsp;</div>
                   <div
                   // className={`${t_color(
                   //   price * status.curr_coin - status.Initial_money

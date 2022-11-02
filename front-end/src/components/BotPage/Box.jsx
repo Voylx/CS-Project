@@ -40,7 +40,7 @@ export const Box = (props) => {
   return (
     <div
       className="bg-white mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
-      // style={{ height: "8rem" }}
+      style={{ height: "16rem" }}
     >
       <img
         src={settingpic}
@@ -50,13 +50,15 @@ export const Box = (props) => {
         onClick={linksetting[type]}
       />
 
-      <div className=" d-flex flex-column p-3 mt-1 mb-2 justify-content-around align-items-center  ">
+      <div className=" d-flex flex-column p-3 mt-1 mb-2   ">
         {botData.Bot_id ? (
-          <>
+          <div className="">
             {/* <div>{botData.Bot_id}</div> */}
-            <div>Bot Selected : {botInfo.countSelected}/21 Currency</div>
+            <div className="d-flex justify-content-center  fs-5">
+              Bot Selected : {botInfo.countSelected}/21 Currency
+            </div>
             {Boolean(type) ? (
-              <div>
+              <div className="d-flex justify-content-center fs-5 ">
                 Already buy : {botInfo.countBUY}/{botInfo.countSelected}{" "}
                 Currency
               </div>
@@ -64,7 +66,7 @@ export const Box = (props) => {
               <br />
             )}
             {Boolean(type) ? (
-              <div>
+              <div className="d-flex justify-content-center fs-5">
                 Wait for signal : {botInfo.countWait}/{botInfo.countSelected}{" "}
                 Currency
               </div>
@@ -72,25 +74,39 @@ export const Box = (props) => {
               <br />
             )}
             {Boolean(type) ? (
-              <div>Balance : {botInfo.Balance?.toFixed(2)} THB</div>
+              <div className="d-flex justify-content-center fs-5">
+                Balance : {botInfo.Balance?.toFixed(2)} THB
+              </div>
             ) : (
               <br />
             )}
             {Boolean(type) ? (
-              <div> Profit : {botInfo.pnl_percent?.toFixed(2)} %</div>
+              <div className="d-flex justify-content-center fs-5">
+                {" "}
+                Profit : {botInfo.pnl_percent?.toFixed(2)} %
+              </div>
             ) : (
               <br />
             )}
 
+            {/* <Button
+              className="d-flex justify-content-center mt-2 mb-0 "
+              onClick={() => {
+                navigate(`../${type}`);
+              }}
+            >
+              Control
+            </Button> */}
             <Button
-              className="mt-3 mb-2"
+              type="button"
+              className="mb-2 w-100 mt-3 mb-0"
               onClick={() => {
                 navigate(`../${type}`);
               }}
             >
               Control
             </Button>
-          </>
+          </div>
         ) : (
           <>Loading...</>
         )}
