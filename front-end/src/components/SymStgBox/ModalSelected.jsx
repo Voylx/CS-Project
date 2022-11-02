@@ -10,11 +10,11 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
   const [textErr, settextErr] = useState("");
 
   useEffect(() => {
-    if (amt < 50) settextErr("❌จำนวนเงินน้อยเกินไป");
+    if (amt < 50) settextErr("❌จำนวนเงินน้อยเกินไป จำนวนขั้นต่ำคือ 50 บาท");
     else if (amt >= 50) settextErr("");
     if (amt > balances?.available) {
       console.log(">");
-      settextErr("❌จำนวนเงินมากกว่าจำนวนเงินที่ใช้ได้");
+      settextErr("❌จำนวนเงินไม่พอ");
     }
   }, [amt]);
 
@@ -44,9 +44,6 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
           {textErr && <p className="my-1 text-danger">{textErr}</p>}
         </Form.Group>
         <div>
-          <div className="text-danger fs-6 mb-3">
-            *** ขั้นต่ำในการควบคุม 50 บาท ***
-          </div>
           <div className="d-flex ">
             <p className="fw-bold">จำนวนเงินทั้งหมดที่มี : </p>
             <p className="ms-1"> {balances?.all?.toFixed(2)} baht</p>
