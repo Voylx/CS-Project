@@ -106,7 +106,7 @@ const SelectStrategies = (props) => {
 
   function StgSelectAndFilterBox() {
     return (
-      <div className="border rounded-3 p-3 mb-5 mx-auto mt-5  shadow-lg col-lg-10 ">
+      <div className="border rounded-3 p-3 mb-5 mx-auto   shadow-lg col-lg-10 ">
         <Row>
           <div className="d-flex justify-content-between align-items-center">
             <h2 className="ms-7 ">Strategy bot</h2>

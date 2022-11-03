@@ -115,10 +115,10 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             <h5>{sym}</h5>
           </div>
           <div className="me-4 mb-0">
-            <p className="text-secondary me-5 mb-0">Backtest Duration</p>
+            <p className="text-secondary me-lg-5 mb-0">Backtest Duration</p>
             <p className=" ">{durationData[duration]}</p>
 
-            <p className="text-secondary me-4 mb-0">Bot Action</p>
+            <p className="text-secondary me-lg-4 mb-0">Bot Action</p>
             <p className="text-dark ">{data?.results?.length} Times</p>
             <div className="me-4 mb-0">
               <p className="text-secondary mb-0">Date Start</p>
@@ -127,7 +127,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
           </div>
         </div>
 
-        <div className="d-flex me-5 mb-1">
+        <div className="d-flex me-lg-5 mb-1 justify-content-around ">
           {/* <div className="ms-3 me-5 ">
             <p className="text-secondary mb-0">Profit / Loss</p>
             <p className="text-secondary mb-0">(THB)</p>
@@ -146,17 +146,16 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             <p className=" ">{initMoney || "00.00"}</p>
           </div> */}
 
-          <div className="me-5">
-            <p className="text-secondary mb-1">Profit/Loss Percentage</p>
-
-            <h6 className={t_color(data?.profit_Percent)}>
+          <div className="d-flex flex-column flex-md-row mt-2">
+            <p className=" fw-bold me-md-2">Profit/Loss&nbsp;</p>
+            <h5 className={t_color(data?.profit_Percent)}>
               {data?.profit_Percent} %
-            </h6>
+            </h5>
           </div>
-          <div className="me-5">
-            <p className="text-secondary mb-1">Price move Percentage </p>
+          <div className=" d-flex flex-column flex-md-row mt-2">
+            <p className=" fw-bold me-md-2">Price move&nbsp;</p>
 
-            <h6
+            <h5
               className={t_color(
                 ((nowData?.data - startData?.data) / startData?.data) * 100
               )}
@@ -166,7 +165,7 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
                 100
               ).toFixed(2)}
               {" %"}
-            </h6>
+            </h5>
           </div>
         </div>
 

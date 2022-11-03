@@ -32,15 +32,15 @@ export const AddBox = (props) => {
 
   return (
     <>
-      <div
-        className=" bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
+      <di
+        className="c-grab h-bg-primary bg-secondary mx-2 p-2 rounded  d-flex justify-content-center align-items-center"
         style={{ height: "10rem" }}
         // onClick={linkbotapi[type]}
         onClick={handleShow}
       >
         <img src={add} alt="add" height={"50rem"} className="" />
         {/* <AddBoxModal show={showModal} setShow={setShowModal} /> */}
-      </div>
+      </di>
       {/* Modal popup confirmed create Bot */}
       <>
         <Modal show={showModal} onHide={handleClose} centered>

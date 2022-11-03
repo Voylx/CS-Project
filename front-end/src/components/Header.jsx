@@ -60,8 +60,13 @@ export const Header = () => {
               </NavDropdown.Item>
             </NavDropdown> */}
           </Nav>{" "}
+          <Nav className="ms-auto">
+            <Nav.Link href="#" className="text-primary">
+              {username}
+            </Nav.Link>
+          </Nav>
         </Navbar.Collapse>
-        <p className="text-primary mb-0"> {username}</p>
+
         <Logout />
       </Container>
     </Navbar>

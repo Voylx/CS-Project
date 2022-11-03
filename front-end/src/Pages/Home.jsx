@@ -7,7 +7,7 @@ import ViewerGif from "../img/video/tradingView.gif";
 import realTime from "../img/video/realtime.gif";
 
 import botStrategy from "../img/video/botstrategy.gif";
-import BackTestPic from "../img/BackTest.png";
+import BackTestPic from "../img/Backtest.png";
 
 import { useAuthen } from "../services/Authen";
 import Axios from "../services/Axios";

@@ -9,7 +9,7 @@ const BannerBottom = () => {
   return (
     <div className="bannerBottom-bg">
       <div className="containerBottom">
-        <div className="bannerBottom-con">
+        <div className="bannerBottom-con d-flex flex-column flex-md-row">
           <div className="bannerBottom-textHeader">
             <p>{BannerText.title}</p>
           </div>
