@@ -43,6 +43,7 @@
   --bs-middlegray: #495057;
   --bs-middlegray2: #343a40;
   --bs-crystal: #cff4fc;
+  --bs-indigo: #e0cffc;
   --bs-primary-rgb: 113, 44, 249;
   --bs-secondary-rgb: 108, 117, 125;
   --bs-success-rgb: 25, 135, 84;
@@ -57,6 +58,7 @@
   --bs-middlegray-rgb: 73, 80, 87;
   --bs-middlegray2-rgb: 52, 58, 64;
   --bs-crystal-rgb: 207, 244, 252;
+  --bs-indigo-rgb: 224, 207, 252;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
@@ -3236,6 +3238,36 @@ textarea.form-control-lg {
   border-color: #cff4fc;
 }
 
+.btn-indigo {
+  color: #000;
+  background-color: #e0cffc;
+  border-color: #e0cffc;
+}
+.btn-indigo:hover {
+  color: #000;
+  background-color: #e5d6fc;
+  border-color: #e3d4fc;
+}
+.btn-check:focus + .btn-indigo, .btn-indigo:focus {
+  color: #000;
+  background-color: #e5d6fc;
+  border-color: #e3d4fc;
+  box-shadow: 0 0 0 0.25rem rgba(190, 176, 214, 0.5);
+}
+.btn-check:checked + .btn-indigo, .btn-check:active + .btn-indigo, .btn-indigo:active, .btn-indigo.active, .show > .btn-indigo.dropdown-toggle {
+  color: #000;
+  background-color: #e6d9fd;
+  border-color: #e3d4fc;
+}
+.btn-check:checked + .btn-indigo:focus, .btn-check:active + .btn-indigo:focus, .btn-indigo:active:focus, .btn-indigo.active:focus, .show > .btn-indigo.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.25rem rgba(190, 176, 214, 0.5);
+}
+.btn-indigo:disabled, .btn-indigo.disabled {
+  color: #000;
+  background-color: #e0cffc;
+  border-color: #e0cffc;
+}
+
 .btn-outline-primary {
   color: #712cf9;
   border-color: #712cf9;
@@ -3583,6 +3615,31 @@ textarea.form-control-lg {
 }
 .btn-outline-crystal:disabled, .btn-outline-crystal.disabled {
   color: #cff4fc;
+  background-color: transparent;
+}
+
+.btn-outline-indigo {
+  color: #e0cffc;
+  border-color: #e0cffc;
+}
+.btn-outline-indigo:hover {
+  color: #000;
+  background-color: #e0cffc;
+  border-color: #e0cffc;
+}
+.btn-check:focus + .btn-outline-indigo, .btn-outline-indigo:focus {
+  box-shadow: 0 0 0 0.25rem rgba(224, 207, 252, 0.5);
+}
+.btn-check:checked + .btn-outline-indigo, .btn-check:active + .btn-outline-indigo, .btn-outline-indigo:active, .btn-outline-indigo.active, .btn-outline-indigo.dropdown-toggle.show {
+  color: #000;
+  background-color: #e0cffc;
+  border-color: #e0cffc;
+}
+.btn-check:checked + .btn-outline-indigo:focus, .btn-check:active + .btn-outline-indigo:focus, .btn-outline-indigo:active:focus, .btn-outline-indigo.active:focus, .btn-outline-indigo.dropdown-toggle.show:focus {
+  box-shadow: 0 0 0 0.25rem rgba(224, 207, 252, 0.5);
+}
+.btn-outline-indigo:disabled, .btn-outline-indigo.disabled {
+  color: #e0cffc;
   background-color: transparent;
 }
 
@@ -5170,6 +5227,15 @@ textarea.form-control-lg {
   color: #424e51;
 }
 
+.alert-indigo {
+  color: #5a5365;
+  background-color: #f9f5fe;
+  border-color: #f6f1fe;
+}
+.alert-indigo .alert-link {
+  color: #484251;
+}
+
 @-webkit-keyframes progress-bar-stripes {
   0% {
     background-position-x: 1rem;
@@ -5639,6 +5705,20 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #536265;
   border-color: #536265;
+}
+
+.list-group-item-indigo {
+  color: #5a5365;
+  background-color: #f9f5fe;
+}
+.list-group-item-indigo.list-group-item-action:hover, .list-group-item-indigo.list-group-item-action:focus {
+  color: #5a5365;
+  background-color: #e0dde5;
+}
+.list-group-item-indigo.list-group-item-action.active {
+  color: #fff;
+  background-color: #5a5365;
+  border-color: #5a5365;
 }
 
 .btn-close {
@@ -6778,6 +6858,13 @@ textarea.form-control-lg {
   color: #d9f6fd;
 }
 
+.link-indigo {
+  color: #e0cffc;
+}
+.link-indigo:hover, .link-indigo:focus {
+  color: #e6d9fd;
+}
+
 .ratio {
   position: relative;
   width: 100%;
@@ -7229,6 +7316,10 @@ textarea.form-control-lg {
 
 .border-crystal {
   border-color: #cff4fc !important;
+}
+
+.border-indigo {
+  border-color: #e0cffc !important;
 }
 
 .border-white {
@@ -8098,6 +8189,11 @@ textarea.form-control-lg {
   color: rgba(var(--bs-crystal-rgb), var(--bs-text-opacity)) !important;
 }
 
+.text-indigo {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-indigo-rgb), var(--bs-text-opacity)) !important;
+}
+
 .text-black {
   --bs-text-opacity: 1;
   color: rgba(var(--bs-black-rgb), var(--bs-text-opacity)) !important;
@@ -8217,6 +8313,11 @@ textarea.form-control-lg {
 .bg-crystal {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-crystal-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-indigo {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-indigo-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-black {
@@ -10900,4 +11001,8 @@ textarea.form-control-lg {
 .c-grab {
   cursor: -webkit-grab;
   cursor: grab;
+}
+
+.f-inv {
+  filter: invert(80%);
 }/*# sourceMappingURL=bootstrap_custom.css.map */

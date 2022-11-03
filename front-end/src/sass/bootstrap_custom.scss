@@ -37,6 +37,7 @@ $theme-colors: (
   "middlegray": $middlegray,
   "middlegray2": $middlegray2,
   "crystal": $crystal,
+  "indigo": $indigo-100,
 
   //   "new-indigo": $new-indigo
 ) !default;
@@ -83,4 +84,8 @@ $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
 
 .c-grab {
   cursor: grab;
+}
+
+.f-inv {
+  filter: invert(80%);
 }

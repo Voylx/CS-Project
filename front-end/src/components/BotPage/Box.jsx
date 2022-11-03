@@ -16,7 +16,7 @@ export const Box = (props) => {
     1: () => navigate("../bitkubupdate"),
   };
 
-  const [botInfo, setBotInfo] = useState({});
+  const [botInfo, setBotInfo] = useState(undefined);
 
   useEffect(() => {
     if (botData.Bot_id) {
@@ -39,14 +39,14 @@ export const Box = (props) => {
 
   return (
     <div
-      className="bg-secondary mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
-      style={{ height: "16rem" }}
+      className="bg-white mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
+      // style={{ height: "16rem" }}
     >
       <img
         src={settingpic}
         alt="setting"
         height={"22rem"}
-        className="float-end "
+        className="float-end f-inv "
         onClick={linksetting[type]}
       />
 
@@ -55,27 +55,29 @@ export const Box = (props) => {
           <div className="">
             {/* <div>{botData.Bot_id}</div> */}
             <div className="d-flex justify-content-center  fs-5">
-              Bot Selected : {botInfo.countSelected}/21 Currency
+              Bot Selected :{" "}
+              {botInfo ? `${botInfo.countSelected}/21 Currency` : "Loading..."}
             </div>
-            {Boolean(type) ? (
+            {/* {Boolean(type) ? (
               <div className="d-flex justify-content-center fs-5 ">
                 Already buy : {botInfo.countBUY}/{botInfo.countSelected}{" "}
                 Currency
               </div>
             ) : (
               <br />
-            )}
-            {Boolean(type) ? (
+            )} */}
+            {/* {Boolean(type) ? (
               <div className="d-flex justify-content-center fs-5">
                 Wait for signal : {botInfo.countWait}/{botInfo.countSelected}{" "}
                 Currency
               </div>
             ) : (
               <br />
-            )}
+            )} */}
             {Boolean(type) ? (
               <div className="d-flex justify-content-center fs-5">
-                Balance : {botInfo.Balance?.toFixed(2)} THB
+                Balance :{" "}
+                {botInfo ? `${botInfo?.Balance?.toFixed(2)} THB` : "Loading.."}
               </div>
             ) : (
               <br />
@@ -83,7 +85,10 @@ export const Box = (props) => {
             {Boolean(type) ? (
               <div className="d-flex justify-content-center fs-5">
                 {" "}
-                Profit : {botInfo.pnl_percent?.toFixed(2)} %
+                Profit :{" "}
+                {botInfo
+                  ? `${botInfo?.pnl_percent?.toFixed(2)} %`
+                  : "Loading.."}
               </div>
             ) : (
               <br />
