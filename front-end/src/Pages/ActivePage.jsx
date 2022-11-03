@@ -96,6 +96,9 @@ export const ActivePage = () => {
       );
     }
   }
+  function numFormat(num) {
+    return new Intl.NumberFormat().format(num);
+  }
 
   return (
     <>
@@ -146,7 +149,7 @@ export const ActivePage = () => {
                       <td>{unixTime(v.ts)}</td>
                       <td>{v.Sym}</td>
                       <td>{v.Side}</td>
-                      <td>{v.Amt_money} THB</td>
+                      <td>{numFormat(v.Amt_money)} THB</td>
                       <td>
                         {v.Amt_coins} {v.Sym}
                       </td>

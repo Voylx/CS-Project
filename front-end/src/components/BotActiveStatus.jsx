@@ -77,21 +77,23 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
           {status.active}
           <Row>
             <Col className="d-flex flex-column flex-lg-row ">
-              <div className="fw-bolder">Initial money (THB): &nbsp;</div>
-              <div>{status.Initial_money.toFixed(2)} </div>
+              <div className="fw-bolder">Initial money&nbsp;</div>
+              <div>{status.Initial_money.toFixed(2)} THB </div>
             </Col>
             {status.last_history_Side === "BUY" && (
               <>
                 <Col className="d-flex flex-column flex-lg-row ">
-                  <div className="fw-bolder">Value Now (THB) : &nbsp;</div>
+                  <div className="fw-bolder">Balance&nbsp;</div>
                   <div
                   // className={`${t_color(
                   //   price * status.curr_coin - status.Initial_money
                   // )}`}
                   >
-                    {price && status
-                      ? (price * status.curr_coin).toFixed(2)
-                      : "Loading.."}
+                    {price && status ? (
+                      <>{(price * status.curr_coin).toFixed(2)} THB</>
+                    ) : (
+                      "Loading.."
+                    )}
                   </div>
                 </Col>
                 <Col
@@ -99,7 +101,7 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
                   sm={"auto"}
                   className="d-flex flex-column flex-lg-row "
                 >
-                  <div className="fw-bolder">Unrealized P/L : &nbsp;</div>
+                  <div className="fw-bolder">Unrealized P/L&nbsp;</div>
                   <div className={`${t_color(pnl)}`}>
                     {(price * status.curr_coin - status.Initial_money).toFixed(
                       2
@@ -112,9 +114,13 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
             {status.last_history_Side === "SELL" && (
               <>
                 <Col className="d-flex flex-column flex-lg-row">
-                  <div>Value Now&nbsp;</div>
+                  <div className="fw-bolder">Balance&nbsp;</div>
                   <div>
-                    {status ? status.curr_money.toFixed(2) : "Loading.."}
+                    {status ? (
+                      <>{status.curr_money.toFixed(2)} THB</>
+                    ) : (
+                      "Loading.."
+                    )}
                   </div>
                 </Col>
                 <Col
@@ -122,8 +128,11 @@ export const BotActiveStatus = ({ Bot_Type, botData, sym }) => {
                   sm={"auto"}
                   className="d-flex flex-column flex-lg-row"
                 >
-                  <div>realized P&L&nbsp;</div>
-                  <div>{pnl ? pnl.toFixed(2) : "Loading.."} %</div>
+                  <div className="fw-bolder">realized P&L&nbsp;</div>
+                  <div className={`${t_color(pnl)}`}>
+                    {(status.curr_money - status.Initial_money).toFixed(2)}(
+                    {pnl ? pnl.toFixed(2) : "Loading.."}%)
+                  </div>
                 </Col>
               </>
             )}

@@ -43,7 +43,7 @@ export const Header = () => {
             {/* <Nav.Link href="/home">Home</Nav.Link> */}
             <Nav.Link href="/bot">BOT</Nav.Link>
             {Bot_Type === "1" && (
-              <Nav.Link href="/bot/1/Active">Active</Nav.Link>
+              <Nav.Link href="/bot/1/Active">History</Nav.Link>
             )}
 
             <Nav.Link href="/StgInfo">Info</Nav.Link>
