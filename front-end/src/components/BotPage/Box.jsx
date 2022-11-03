@@ -85,7 +85,7 @@ export const Box = (props) => {
             {Boolean(type) ? (
               <div className="d-flex justify-content-center fs-5">
                 {" "}
-                Profit :{" "}
+                Profit / Lost :{" "}
                 {botInfo
                   ? `${botInfo?.pnl_percent?.toFixed(2)} %`
                   : "Loading.."}
