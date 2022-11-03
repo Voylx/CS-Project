@@ -10,7 +10,7 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
   const [textErr, settextErr] = useState("");
 
   useEffect(() => {
-    if (amt < 50) settextErr("❌จำนวนเงินน้อยเกินไป จำนวนขั้นต่ำคือ 50 บาท");
+    if (amt < 50) settextErr("❌จำนวนเงินขั้นต่ำคือ 50 บาท");
     else if (amt >= 50) settextErr("");
     if (amt > balances?.available) {
       console.log(">");
@@ -50,15 +50,15 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
         <div>
           <div className="d-flex ">
             <p className="fw-bold">จำนวนเงินทั้งหมดที่มี : </p>
-            <p className="ms-1"> {numFormat(balances?.all)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.all)} บาท</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่บอทใช้ : </p>
-            <p className="ms-1"> {numFormat(balances?.waitOrder)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.waitOrder)} บาท</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่ใช้ได้ : </p>
-            <p className="ms-1"> {numFormat(balances?.available)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.available)} บาท</p>
           </div>
         </div>
       </Modal.Body>

@@ -120,17 +120,16 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
 
             <p className="text-secondary me-4 mb-0">Bot Action</p>
             <p className="text-dark ">{data?.results?.length} Times</p>
+            <div className="me-4 mb-0">
+              <p className="text-secondary mb-0">Date Start</p>
+              <h6 className="">{unixDay(startData?.time)}</h6>
+            </div>
           </div>
         </div>
 
-        <div className="ms-2 mb-4">
-          <p className="text-secondary mb-0">Date Start</p>
-          <h6 className="">{unixDay(startData?.time)}</h6>
-        </div>
-
-        <div className="d-flex justify-content-between me-4 mb-1">
-          <div className="ms-3 me-5 ">
-            <p className="text-secondary mb-0">Profit</p>
+        <div className="d-flex me-5 mb-1">
+          {/* <div className="ms-3 me-5 ">
+            <p className="text-secondary mb-0">Profit / Loss</p>
             <p className="text-secondary mb-0">(THB)</p>
 
             <h6
@@ -145,32 +144,18 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
             <p className="text-secondary mb-0">Initial money</p>
             <p className="text-secondary mb-2"> for testing</p>
             <p className=" ">{initMoney || "00.00"}</p>
-          </div>
-          <div>
-            <div className="me-5">
-              <p className="text-secondary mb-0">Profit and Loss </p>
-              <p className="text-secondary mb-2">Percentage</p>
-              <h6 className={t_color(data?.profit_Percent)}>
-                {data?.profit_Percent} %
-              </h6>
-            </div>
-          </div>
-        </div>
+          </div> */}
 
-        <div className="d-flex justify-content-between me-5">
-          <div className="ms-1 me-0">
-            <p className="text-secondary mb-0">{sym}'s Price </p>
-            <p className="text-secondary ">on start date</p>
-            <h6 className="">{startData?.data} THB</h6>
-          </div>
-          <div className="ms-0 ">
-            <p className="text-secondary mb-0">{sym}'s</p>
-            <p className="text-secondary ">Price now </p>
-            <h6 className="">{nowData?.data} THB</h6>
+          <div className="me-5">
+            <p className="text-secondary mb-1">Profit/Loss Percentage</p>
+
+            <h6 className={t_color(data?.profit_Percent)}>
+              {data?.profit_Percent} %
+            </h6>
           </div>
           <div className="me-5">
-            <p className="text-secondary mb-0">Price move </p>
-            <p className="text-secondary ">Percentage </p>
+            <p className="text-secondary mb-1">Price move Percentage </p>
+
             <h6
               className={t_color(
                 ((nowData?.data - startData?.data) / startData?.data) * 100
@@ -183,6 +168,19 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
               {" %"}
             </h6>
           </div>
+        </div>
+
+        <div className="d-flex justify-content-between me-5">
+          {/* <div className="ms-1 me-0">
+            <p className="text-secondary mb-0">{sym}'s Price </p>
+            <p className="text-secondary ">on start date</p>
+            <h6 className="">{startData?.data} THB</h6>
+          </div>
+          <div className="ms-0 ">
+            <p className="text-secondary mb-0">{sym}'s</p>
+            <p className="text-secondary ">Price now </p>
+            <h6 className="">{nowData?.data} THB</h6>
+          </div> */}
         </div>
       </div>
     </div>
