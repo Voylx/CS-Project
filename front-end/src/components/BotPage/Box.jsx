@@ -29,7 +29,7 @@ export const Box = (props) => {
       Bot_id: botData.Bot_id,
     })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setBotInfo(res.data);
       })
       .catch((err) => {
@@ -39,14 +39,14 @@ export const Box = (props) => {
 
   return (
     <div
-      className="bg-white mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
+      className="bg-secondary mt-3 mb-2 mx-2 p-2 rounded h-bg-primary "
       style={{ height: "16rem" }}
     >
       <img
         src={settingpic}
         alt="setting"
         height={"22rem"}
-        className="float-end"
+        className="float-end "
         onClick={linksetting[type]}
       />
 

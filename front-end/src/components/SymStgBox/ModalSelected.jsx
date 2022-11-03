@@ -18,6 +18,10 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
     }
   }, [amt]);
 
+  function numFormat(num) {
+    return new Intl.NumberFormat().format(num);
+  }
+
   return (
     <Modal show={show} onHide={handleClose} className={sym + stg}>
       <Modal.Header closeButton>
@@ -46,15 +50,15 @@ const ModalSelected = ({ show, handleClose, sym, stg, balances, ...props }) => {
         <div>
           <div className="d-flex ">
             <p className="fw-bold">จำนวนเงินทั้งหมดที่มี : </p>
-            <p className="ms-1"> {balances?.all?.toFixed(2)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.all)} baht</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่บอทใช้ : </p>
-            <p className="ms-1"> {balances?.waitOrder?.toFixed(2)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.waitOrder)} baht</p>
           </div>
           <div className="d-flex">
             <p className="fw-bold">จำนวนเงินที่ใช้ได้ : </p>
-            <p className="ms-1"> {balances?.available?.toFixed(2)} baht</p>
+            <p className="ms-1"> {numFormat(balances?.available)} baht</p>
           </div>
         </div>
       </Modal.Body>

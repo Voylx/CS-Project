@@ -49,6 +49,10 @@ const RealtimeBox = ({ sym, data, botData }) => {
     };
   }, []);
 
+  function numFormat(num) {
+    return new Intl.NumberFormat().format(num);
+  }
+
   return (
     <Col
       className="h-bg-primary-2 c-grab"
@@ -66,7 +70,9 @@ const RealtimeBox = ({ sym, data, botData }) => {
       >
         <Row>
           <h5 className="m-0 col col-xl-12 ">{sym}</h5>
-          <h6 className="m-0 fs-6 text-primary col col-xl-12">{price}</h6>
+          <h6 className="m-0 fs-6 text-primary col col-xl-12">
+            {numFormat(price)}
+          </h6>
 
           <p
             className={`m-0 fs-6 col col-xl-12 ${

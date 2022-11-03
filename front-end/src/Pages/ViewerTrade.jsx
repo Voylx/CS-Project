@@ -20,6 +20,8 @@ export const ViewerTrade = () => {
   const [symStgBoxData, setSymStgBoxData] = useState([]);
   const [botData, setBotData] = useState(undefined);
 
+  const [balance, setBalance] = useState({});
+
   function getsymstgboxdata_onlysym(data) {
     Axios.post("/api/getsymstgboxdata_onlysym", {
       Bot_id: data.Bot_id,
@@ -44,6 +46,21 @@ export const ViewerTrade = () => {
       navigate("/bot", { replace: true });
     }
   }
+  const getAvailableBalance = () => {
+    if (botData) {
+      Axios.post("/api/available_balance", {
+        Bot_id: botData.Bot_id,
+      })
+        .then((balance) => {
+          setBalance(balance.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
+    // console.log(balance);
+  };
   useEffect(() => {
     document.title = `Crypto-Bot : ${symbol}`;
     getData();
@@ -64,6 +81,9 @@ export const ViewerTrade = () => {
       container_id: "tradingview_3c6e1",
     });
   }, []);
+  useEffect(() => {
+    getAvailableBalance();
+  }, [botData]);
 
   return (
     <div>
@@ -116,6 +136,7 @@ export const ViewerTrade = () => {
                 botData={botData}
                 side={v.Side}
                 datetime={v.Timestamp}
+                balances={balance}
               />
             );
           })}
