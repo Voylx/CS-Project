@@ -23,8 +23,20 @@ export default function TakeprofitStoploss() {
   const [tp,setTP] = useState(undefined);
   const [sl,setSL] = useState(undefined);
   const handleClose = () => setShowModalCon(false);
+  const handleCancelClose = () => setShowCancelModal(false);
   let navigate = useNavigate();
   useAuthen()
+
+  function delTPSL(){
+    Axios.post("/deltpsl",{
+      Sym:sym
+    }).then((res)=>{
+      console.log(res.data);
+    }).catch((err)=>{console.error(err);
+      alert(err?.response?.data?.message);}).finally(() => {
+        handleCancelClose();
+      })
+  }
 
    function addTPSL(){
     Axios.post("/api/addtpsl",{
@@ -40,6 +52,7 @@ export default function TakeprofitStoploss() {
       handleClose();
     })
   }
+
 
   const [currencies, setCurrencies] = useState([]);
   useEffect(() => {
@@ -155,7 +168,7 @@ export default function TakeprofitStoploss() {
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
-                  <td className="text-danger">Cancel</td>
+                  <td className="text-danger"onClick={setShowCancelModal}>Cancel</td>
                  
                 </tr>
               
@@ -178,6 +191,24 @@ export default function TakeprofitStoploss() {
               ยกเลิก
             </Button>
             <Button variant="primary" onClick={addTPSL}>ยืนยัน</Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* ยกเลิกการสั่ง TP&SL */}
+        <Modal show={showCancelModal} onHide={handleCancelClose} centered>
+          <Modal.Header>
+            <Modal.Title>Cancel Order</Modal.Title>
+          </Modal.Header>
+          <Modal.Body> คุณต้องที่จะยกเลิกการขาย {sym} <br/>
+            {tp&&<> เมื่อราคาขี้นไปถึง {tp} บาท </>}
+            {(tp&&sl)&& <>หรือ <br/> </>}
+            {sl&& <>เมื่อราคาลงมาถึง {sl} บาท<br/></>}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCancelClose}>
+              ยกเลิก
+            </Button>
+            <Button variant="primary" onClick={handleCancelClose}>ยืนยัน</Button>
           </Modal.Footer>
         </Modal>
       </Container>
