@@ -43,11 +43,13 @@ export const Header = () => {
             {/* <Nav.Link href="/home">Home</Nav.Link> */}
             <Nav.Link href="/bot">BOT</Nav.Link>
             {Bot_Type === "1" && (
-              <Nav.Link href="/bot/1/Active">History</Nav.Link>
+              <>
+                <Nav.Link href="/bot/1/Active">History</Nav.Link>
+                <Nav.Link href="/Takeprofit&Stoploss">Take&Stop</Nav.Link>
+              </>
             )}
 
             <Nav.Link href="/StgInfo">Info</Nav.Link>
-            <Nav.Link href="/Takeprofit&Stoploss">Take&Stop</Nav.Link>
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

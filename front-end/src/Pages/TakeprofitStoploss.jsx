@@ -17,41 +17,43 @@ import { Header } from "../components/Header";
 
 export default function TakeprofitStoploss() {
   const [showModalCon, setShowModalCon] = useState(false);
-  const [showCancelModal,setShowCancelModal]= useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
-  const [sym,setSym] = useState("");
-  const [tp,setTP] = useState(undefined);
-  const [sl,setSL] = useState(undefined);
+  const [sym, setSym] = useState("");
+  const [tp, setTP] = useState(undefined);
+  const [sl, setSL] = useState(undefined);
   const [orders, setOrders] = useState([]);
-  
+
+  const [symDel, setSymDel] = useState("");
+
   const handleClose = () => setShowModalCon(false);
   const handleCancelClose = () => setShowCancelModal(false);
   let navigate = useNavigate();
   useAuthen();
 
-  function delTPSL(){
-    Axios.post("/deltpsl",{
-      Sym:sym
-    }).then((res)=>{
-      console.log(res.data);
-    }).catch((err)=>{console.error(err);
-      alert(err?.response?.data?.message);}).finally(() => {
-        handleCancelClose();
+  function delTPSL() {
+    Axios.post("/api/deltpsl", {
+      Sym: symDel,
+    })
+      .then((res) => {
+        console.log(res.data);
       })
+      .catch((err) => {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      })
+      .finally(() => {
+        handleCancelClose();
+
+        getTPSL();
+      });
   }
 
-   function addTPSL(){
-    Axios.post("/api/addtpsl",{
-      Sym:sym,
-      TP:tp,
-      SL:sl,
-    }).then((res)=>{
-      console.log(res.data);
-    }).catch((err)=>{
-      console.error(err);
-      alert(err?.response?.data?.message);
-    }).finally(() => {
-      handleClose();
+  function addTPSL() {
+    Axios.post("/api/addtpsl", {
+      Sym: sym,
+      TP: tp,
+      SL: sl,
     })
       .then((res) => {
         console.log(res.data);
@@ -62,6 +64,7 @@ export default function TakeprofitStoploss() {
       })
       .finally(() => {
         handleClose();
+        getTPSL();
       });
   }
 
@@ -79,7 +82,6 @@ export default function TakeprofitStoploss() {
         handleClose();
       });
   }
-
 
   const [currencies, setCurrencies] = useState([]);
   useEffect(() => {
@@ -179,30 +181,24 @@ export default function TakeprofitStoploss() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((v) => {
-              console.log(v);
+            {orders.map((v, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td>{v.Sym}</td>
                   <td>{v.TP || "-"}</td>
                   <td>{v.SL || "-"}</td>
-                  <td className="text-danger"onClick={setShowCancelModal}>Cancel</td>
+                  <td
+                    className="text-danger"
+                    onClick={() => {
+                      setShowCancelModal(true);
+                      setSymDel(v.Sym);
+                    }}
+                  >
+                    Cancel
+                  </td>
                 </tr>
               );
             })}
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td className="text-danger">Cancel</td>
-            </tr>
           </tbody>
         </Table>
 
@@ -243,16 +239,17 @@ export default function TakeprofitStoploss() {
           <Modal.Header>
             <Modal.Title>Cancel Order</Modal.Title>
           </Modal.Header>
-          <Modal.Body> คุณต้องที่จะยกเลิกการขาย {sym} <br/>
-            {tp&&<> เมื่อราคาขี้นไปถึง {tp} บาท </>}
-            {(tp&&sl)&& <>หรือ <br/> </>}
-            {sl&& <>เมื่อราคาลงมาถึง {sl} บาท<br/></>}
+          <Modal.Body>
+            {" "}
+            คุณต้องที่จะยกเลิกการขาย {symDel} <br />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCancelClose}>
               ยกเลิก
             </Button>
-            <Button variant="primary" onClick={handleCancelClose}>ยืนยัน</Button>
+            <Button variant="primary" onClick={delTPSL}>
+              ยืนยัน
+            </Button>
           </Modal.Footer>
         </Modal>
       </Container>
