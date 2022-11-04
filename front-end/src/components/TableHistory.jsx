@@ -32,7 +32,7 @@ export const TableHistory = ({ history }) => {
   return (
     <div>
       <div className="mt-4 linetext mb-2 text-muted">
-        &ensp; ประวัติการทำงาน&ensp;
+        &ensp;สัญญาณการซื้อขาย&ensp;
       </div>
       <Table className="mt-4 table table-striped table-hover">
         <thead>

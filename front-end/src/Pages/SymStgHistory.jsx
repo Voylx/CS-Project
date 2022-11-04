@@ -135,20 +135,21 @@ export const SymStgHistory = () => {
               <span> - </span>
             )}
           </h4>
+
           {/* Active Box */}
           {showProfit && (
             <BotActiveStatus Bot_Type={Bot_Type} botData={botData} sym={sym} />
           )}
-
-          <ButtonSelected
-            Bot_Type={Bot_Type}
-            sym={sym}
-            stgID={stgID}
-            stg={stgName}
-            botData={botData}
-            selected={selected}
-          />
-
+          <div className="">
+            <ButtonSelected
+              Bot_Type={Bot_Type}
+              sym={sym}
+              stgID={stgID}
+              stg={stgName}
+              botData={botData}
+              selected={selected}
+            />
+          </div>
           {/* Change Strategy */}
           <>
             <div className="mt-4 linetext mb-3 text-muted">

@@ -105,7 +105,7 @@ export const ActivePage = () => {
       <Header />
       <Container fluid="md">
         <div className="bg-light bg-opacity-25">
-          <div className="fs-2 mt-3">ประวัติการซื้อขายของบอท</div>
+          <div className="fs-2 mt-3">ประวัติการออกคำสั่งซื้อขายของบอท</div>
           <div className="mt-1 linetext mb-2 text-muted" />
 
           {/* Filter Currency */}

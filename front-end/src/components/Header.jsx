@@ -47,6 +47,7 @@ export const Header = () => {
             )}
 
             <Nav.Link href="/StgInfo">Info</Nav.Link>
+            <Nav.Link href="/Takeprofit&Stoploss">Take&Stop</Nav.Link>
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

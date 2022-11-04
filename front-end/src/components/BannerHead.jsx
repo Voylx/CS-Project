@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 let BannerText = {
   title: "Crypto-Bot Trade",
-  description:
-    "เว็บบอทเทรดสำหรับผู้ที่ไม่อยากเฝ้าหน้าจอตลอดเวลา ตามกลยุทธ์ CDC ActionZone, EMA10 21... เพื่อป้องกันการขาดทุนมากในตลาด",
+  description: `เว็บบอทเทรดสำหรับผู้ที่ไม่อยากเฝ้าหน้าจอตลอดเวลา
+    ตามกลยุทธ์ CDC ActionZone, EMA10 21... เพื่อป้องกันการขาดทุนมากในตลาด`,
 };
 
 const BannerHead = () => {
@@ -19,7 +19,12 @@ const BannerHead = () => {
             <p>{BannerText.title}</p>
 
             <div className="banner-text">
-              <p>{BannerText.description}</p>
+              <p>
+                เว็บบอทเทรดสำหรับผู้ที่ไม่อยากเฝ้าหน้าจอตลอดเวลา
+                <br /> ตามกลยุทธ์ CDC ActionZone, EMA10 21
+                <br />
+                เพื่อลดการขาดทุนในตลาด
+              </p>
               <Button
                 type="button"
                 className="btn btn-primary mt-1"

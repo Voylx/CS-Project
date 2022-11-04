@@ -29,12 +29,16 @@ export const Box = (props) => {
       Bot_id: botData.Bot_id,
     })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setBotInfo(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  function numFormat(num) {
+    return new Intl.NumberFormat().format(num);
   }
 
   return (
@@ -75,28 +79,41 @@ export const Box = (props) => {
               <br />
             )} */}
             {Boolean(type) ? (
-              <div className="d-flex justify-content-center fs-5">
-                Balance :{" "}
-                {botInfo ? `${botInfo?.Balance?.toFixed(2)} THB` : "Loading.."}
+              <div className="d-flex justify-content-center ">
+                Initial money :{" "}
+                {botInfo
+                  ? `${numFormat(botInfo?.Initial_money?.toFixed(2))} THB`
+                  : "Loading.."}
               </div>
             ) : (
               <br />
             )}
             {Boolean(type) ? (
-              <div className="d-flex justify-content-center fs-5">
+              <div className="d-flex justify-content-center ">
+                Balance :{" "}
+                {botInfo
+                  ? `${numFormat(botInfo?.Balance?.toFixed(2))} THB`
+                  : "Loading.."}
+              </div>
+            ) : (
+              <br />
+            )}
+            {Boolean(type) ? (
+              <div className="d-flex justify-content-center ">
                 {" "}
                 Profit / Lost :{" "}
                 {botInfo ? (
                   botInfo?.pnl_percent > 0 ? (
                     <div className="text-success">
-                      {"  "}&nbsp;
-                      {botInfo?.pnl_percent?.toFixed(2)} % ⬆
+                      &nbsp;
+                      {numFormat(botInfo?.pnl?.toFixed(2))}
+                      {"  "}({botInfo?.pnl_percent?.toFixed(2)} % )⬆
                     </div>
                   ) : (
                     <div className="text-danger">
-                      {" "}
                       &nbsp;
-                      {botInfo?.pnl_percent?.toFixed(2)} % ⬇
+                      {numFormat(botInfo?.pnl?.toFixed(2))}
+                      {"  "}({botInfo?.pnl_percent?.toFixed(2)} % )⬇
                     </div>
                   )
                 ) : (

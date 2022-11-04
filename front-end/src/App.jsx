@@ -15,6 +15,7 @@ import { ViewerTrade } from "./Pages/ViewerTrade";
 import { SymStgHistory } from "./Pages/SymStgHistory";
 import { ActivePage } from "./Pages/ActivePage";
 import StgInfo from "./Pages/StgInfo";
+import TakeprofitStoploss from "./Pages/TakeprofitStoploss";
 
 // import "./App.css";
 
@@ -46,6 +47,10 @@ function App() {
               <Route path="linkapiline" element={<LinkApiLine />} />
             </Route>
             <Route path="StgInfo" element={<StgInfo />} />
+            <Route
+              path="Takeprofit&Stoploss"
+              element={<TakeprofitStoploss />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
