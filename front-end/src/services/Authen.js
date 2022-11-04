@@ -29,11 +29,11 @@ export function useAuthen() {
     })
     .catch((err) => {
       console.log(err.response.data);
-      setIsAuthen(false);
-      console.log("token error");
-      alert("sestion time out!");
-      localStorage.clear();
-      window.location = "/";
+      // setIsAuthen(false);
+      // console.log("token error");
+      // alert("sestion time out!");
+      // localStorage.clear();
+      // window.location = "/";
     });
 
   return isAuthen;

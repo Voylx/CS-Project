@@ -24,7 +24,7 @@ export default function TakeprofitStoploss() {
   const [sl, setSL] = useState(undefined);
   const [orders, setOrders] = useState([]);
 
-  const [symDel, setSymDel] = useState("");
+  const [del, setDel] = useState({});
 
   const handleClose = () => setShowModalCon(false);
   const handleCancelClose = () => setShowCancelModal(false);
@@ -33,7 +33,7 @@ export default function TakeprofitStoploss() {
 
   function delTPSL() {
     Axios.post("/api/deltpsl", {
-      Sym: symDel,
+      Sym: del.Sym,
     })
       .then((res) => {
         console.log(res.data);
@@ -191,7 +191,7 @@ export default function TakeprofitStoploss() {
                     className="text-danger"
                     onClick={() => {
                       setShowCancelModal(true);
-                      setSymDel(v.Sym);
+                      setDel(v);
                     }}
                   >
                     Cancel
@@ -241,7 +241,19 @@ export default function TakeprofitStoploss() {
           </Modal.Header>
           <Modal.Body>
             {" "}
-            คุณต้องที่จะยกเลิกการขาย {symDel} <br />
+            คุณต้องที่จะยกเลิกการขาย {del.Sym} <br />
+            {del.TP && <> เมื่อราคาขี้นไปถึง {del.TP} บาท </>}
+            {del.TP && del.SL && (
+              <>
+                หรือ <br />{" "}
+              </>
+            )}
+            {del.SL && (
+              <>
+                เมื่อราคาลงมาถึง {del.SL} บาท
+                <br />
+              </>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCancelClose}>
