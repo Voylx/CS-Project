@@ -17,6 +17,8 @@ import { Header } from "../components/Header";
 
 export default function TakeprofitStoploss() {
   const [showModalCon, setShowModalCon] = useState(false);
+  const [showCancelModal,setShowCancelModal]= useState(false);
+
   const [sym,setSym] = useState("");
   const [tp,setTP] = useState(undefined);
   const [sl,setSL] = useState(undefined);
@@ -136,7 +138,7 @@ export default function TakeprofitStoploss() {
                 <th className="table-primary">Symbols</th>
                 <th className="table-secondary">Take Profit's Price</th>
                 <th className="table-primary">Stop Loss's Price</th>
-                
+                <th className="table-secondary"></th>
               </tr>
             </thead>
             <tbody>
@@ -145,14 +147,15 @@ export default function TakeprofitStoploss() {
                     <tr >
                       <td></td>
                       <td></td>
-                      <td></td>
-                      
+                      <td></td>            
+                      <td></td>            
                     </tr>
                    
                 <tr>
                   <td>-</td>
                   <td>-</td>
                   <td>-</td>
+                  <td className="text-danger">Cancel</td>
                  
                 </tr>
               
