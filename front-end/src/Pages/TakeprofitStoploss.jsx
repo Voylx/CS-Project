@@ -17,14 +17,38 @@ import { Header } from "../components/Header";
 
 export default function TakeprofitStoploss() {
   const [showModalCon, setShowModalCon] = useState(false);
+  const [sym,setSym] = useState("");
+  const [tp,setTP] = useState(undefined);
+  const [sl,setSL] = useState(undefined);
   const handleClose = () => setShowModalCon(false);
   let navigate = useNavigate();
-  
+  useAuthen()
+
+   function addTPSL(){
+    Axios.post("/api/addtpsl",{
+      Sym:sym,
+      TP:tp,
+      SL:sl,
+    }).then((res)=>{
+      console.log(res.data);
+    }).catch((err)=>{
+      console.error(err);
+      alert(err?.response?.data?.message);
+    }).finally(() => {
+      handleClose();
+    })
+  }
+
   const [currencies, setCurrencies] = useState([]);
   useEffect(() => {
     getCurrencies();
     
   }, []);
+
+  useEffect(() => {
+    console.log({sym,tp,sl})
+    
+  }, [sl,tp,sym]);
   function getCurrencies() {
     Axios.get("/symbols")
       .then((res) => {
@@ -56,8 +80,9 @@ export default function TakeprofitStoploss() {
             <Form.Label className="fs-4">Currency</Form.Label>
             <Form.Select
               aria-label="Select Symbol"
+              
               onChange={(e) => {
-                setSel_sym(e.target.value);
+                setSym(e.target.value);
               }}
             >
               <option value="default" className="text-muted ">
@@ -81,6 +106,8 @@ export default function TakeprofitStoploss() {
           <Form.Control
             type="number"
             placeholder="..."
+            min={0}
+            onChange={(e)=>{setTP(e.target.value)}}
           />
           <Form.Label className="fs-5 mt-2">
           Stop Loss
@@ -88,6 +115,8 @@ export default function TakeprofitStoploss() {
           <Form.Control
             type="number"
             placeholder="..."
+            min={0}
+            onChange={(e)=>{setSL(e.target.value)}}
           />
         </Form.Group>
             <Button
@@ -95,6 +124,7 @@ export default function TakeprofitStoploss() {
               type="button"
               className="mt-1 mb-1 w-100"
               onClick={setShowModalCon}
+              disabled={!sym||( !tp &&!sl)}
             >
                ยืนยันการตั้งคำสั่ง
             </Button>
@@ -133,14 +163,18 @@ export default function TakeprofitStoploss() {
 
         <Modal show={showModalCon} onHide={handleClose} centered>
           <Modal.Header>
-            <Modal.Title>Line Disconnect</Modal.Title>
+            <Modal.Title>Confrim Order</Modal.Title>
           </Modal.Header>
-          <Modal.Body>คุณต้องการที่จะยกเลิกการเชื่อมต่อใช่หรือไม่ </Modal.Body>
+          <Modal.Body> คุณยืนยันที่จะขาย {sym} <br/>
+            {tp&&<> เมื่อราคาขี้นไปถึง {tp} บาท </>}
+            {(tp&&sl)&& <>หรือ <br/> </>}
+            {sl&& <>เมื่อราคาลงมาถึง {sl} บาท<br/></>}
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               ยกเลิก
             </Button>
-            <Button variant="primary">ยืนยัน</Button>
+            <Button variant="primary" onClick={addTPSL}>ยืนยัน</Button>
           </Modal.Footer>
         </Modal>
       </Container>
