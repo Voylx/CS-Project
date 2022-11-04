@@ -234,4 +234,64 @@ router.post("/bot_info", async (req, res) => {
   }
 });
 
+router.post("/addtpsl", async (req, res) => {
+  const db = await require("../services/db_promise");
+  const { User_id, Sym, TP, SL } = req.body;
+
+  if (!Sym || (!TP && !SL)) {
+    res.status(400).send({
+      status: "error",
+      message: "Incomplete information!!!",
+    });
+    return;
+  }
+
+  const sql = `
+  INSERT INTO SLTP(user_id, Sym, TP, SL) 
+  VALUES (?,?,?,?)  
+  ON DUPLICATE KEY UPDATE    
+  TP=?, SL=?`;
+
+  try {
+    const [result] = await db.query(sql, [User_id, Sym, TP, SL, TP, SL]);
+    if (result.affectedRows > 0) {
+      res.status(400).send({
+        status: "ok",
+        message: "Add TP SL Completed",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: "error", message: error });
+  }
+});
+router.post("/deltpsl", async (req, res) => {
+  const db = await require("../services/db_promise");
+  const { User_id, Sym } = req.body;
+
+  if (!Sym) {
+    res.status(400).send({
+      status: "error",
+      message: "Incomplete information!!!",
+    });
+    return;
+  }
+
+  const sql = `
+   DELETE FROM SLTP WHERE user_id = ? AND Sym = ?`;
+
+  try {
+    const [result] = await db.query(sql, [User_id, Sym]);
+    if (result.affectedRows > 0) {
+      res.status(400).send({
+        status: "ok",
+        message: "Delete TP SL Completed",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: "error", message: error });
+  }
+});
+
 module.exports = router;
