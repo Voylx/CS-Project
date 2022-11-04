@@ -16,41 +16,62 @@ import { useAuthen } from "../services/Authen";
 import { Header } from "../components/Header";
 
 export default function TakeprofitStoploss() {
-  const [showModalCon, setShowModalCon] = useState(false);
-  const [showCancelModal,setShowCancelModal]= useState(false);
-
-  const [sym,setSym] = useState("");
-  const [tp,setTP] = useState(undefined);
-  const [sl,setSL] = useState(undefined);
-  const handleClose = () => setShowModalCon(false);
   let navigate = useNavigate();
-  useAuthen()
+  useAuthen();
 
-   function addTPSL(){
-    Axios.post("/api/addtpsl",{
-      Sym:sym,
-      TP:tp,
-      SL:sl,
-    }).then((res)=>{
-      console.log(res.data);
-    }).catch((err)=>{
-      console.error(err);
-      alert(err?.response?.data?.message);
-    }).finally(() => {
-      handleClose();
+  const [showModalCon, setShowModalCon] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+  const handleClose = () => setShowModalCon(false);
+
+  const [sym, setSym] = useState("");
+  const [tp, setTP] = useState(undefined);
+  const [sl, setSL] = useState(undefined);
+
+  const [orders, setOrders] = useState([]);
+
+  function addTPSL() {
+    Axios.post("/api/addtpsl", {
+      Sym: sym,
+      TP: tp,
+      SL: sl,
     })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      })
+      .finally(() => {
+        handleClose();
+      });
+  }
+
+  function getTPSL() {
+    Axios.post("/api/gettpsl")
+      .then((res) => {
+        console.log(res.data.results);
+        setOrders(res.data.results);
+      })
+      .catch((err) => {
+        console.error(err);
+        // alert(err?.response?.data?.message);
+      })
+      .finally(() => {
+        handleClose();
+      });
   }
 
   const [currencies, setCurrencies] = useState([]);
   useEffect(() => {
     getCurrencies();
-    
+    getTPSL();
   }, []);
 
   useEffect(() => {
-    console.log({sym,tp,sl})
-    
-  }, [sl,tp,sym]);
+    console.log({ sym, tp, sl });
+  }, [sl, tp, sym]);
+
   function getCurrencies() {
     Axios.get("/symbols")
       .then((res) => {
@@ -82,7 +103,6 @@ export default function TakeprofitStoploss() {
             <Form.Label className="fs-4">Currency</Form.Label>
             <Form.Select
               aria-label="Select Symbol"
-              
               onChange={(e) => {
                 setSym(e.target.value);
               }}
@@ -99,68 +119,73 @@ export default function TakeprofitStoploss() {
             </Form.Select>
           </Col>
           <div>
-           
-           
             <Form.Group className="mb-1">
-          <Form.Label className="fs-5 mt-2">
-            Take Profit
-          </Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="..."
-            min={0}
-            onChange={(e)=>{setTP(e.target.value)}}
-          />
-          <Form.Label className="fs-5 mt-2">
-          Stop Loss
-          </Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="..."
-            min={0}
-            onChange={(e)=>{setSL(e.target.value)}}
-          />
-        </Form.Group>
+              <Form.Label className="fs-5 mt-2">Take Profit</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="..."
+                min={0}
+                onChange={(e) => {
+                  setTP(e.target.value);
+                }}
+              />
+              <Form.Label className="fs-5 mt-2">Stop Loss</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="..."
+                min={0}
+                onChange={(e) => {
+                  setSL(e.target.value);
+                }}
+              />
+            </Form.Group>
             <Button
               variant="primary"
               type="button"
               className="mt-1 mb-1 w-100"
               onClick={setShowModalCon}
-              disabled={!sym||( !tp &&!sl)}
+              disabled={!sym || (!tp && !sl)}
             >
-               ยืนยันการตั้งคำสั่ง
+              ยืนยันการตั้งคำสั่ง
             </Button>
           </div>
         </div>
         <Table className="mt-4 table table-striped table-hover">
-            <thead>
-              <tr className="text-center">
-                <th className="table-primary">Symbols</th>
-                <th className="table-secondary">Take Profit's Price</th>
-                <th className="table-primary">Stop Loss's Price</th>
-                <th className="table-secondary"></th>
-              </tr>
-            </thead>
-            <tbody>
-              
-                  
-                    <tr >
-                      <td></td>
-                      <td></td>
-                      <td></td>            
-                      <td></td>            
-                    </tr>
-                   
+          <thead>
+            <tr className="text-center">
+              <th className="table-primary">Symbols</th>
+              <th className="table-secondary">Take Profit's Price</th>
+              <th className="table-primary">Stop Loss's Price</th>
+              <th className="table-secondary"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((v) => {
+              console.log(v);
+              return (
                 <tr>
-                  <td>-</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td className="text-danger">Cancel</td>
-                 
+                  <td>{v.Sym}</td>
+                  <td>{v.TP || "-"}</td>
+                  <td>{v.SL || "-"}</td>
+                  <td></td>
                 </tr>
-              
-            </tbody>
-          </Table>
+              );
+            })}
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td className="text-danger">Cancel</td>
+            </tr>
+          </tbody>
+        </Table>
 
         {/* ModalConfirm*/}
 
@@ -168,16 +193,29 @@ export default function TakeprofitStoploss() {
           <Modal.Header>
             <Modal.Title>Confrim Order</Modal.Title>
           </Modal.Header>
-          <Modal.Body> คุณยืนยันที่จะขาย {sym} <br/>
-            {tp&&<> เมื่อราคาขี้นไปถึง {tp} บาท </>}
-            {(tp&&sl)&& <>หรือ <br/> </>}
-            {sl&& <>เมื่อราคาลงมาถึง {sl} บาท<br/></>}
+          <Modal.Body>
+            {" "}
+            คุณยืนยันที่จะขาย {sym} <br />
+            {tp && <> เมื่อราคาขี้นไปถึง {tp} บาท </>}
+            {tp && sl && (
+              <>
+                หรือ <br />{" "}
+              </>
+            )}
+            {sl && (
+              <>
+                เมื่อราคาลงมาถึง {sl} บาท
+                <br />
+              </>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               ยกเลิก
             </Button>
-            <Button variant="primary" onClick={addTPSL}>ยืนยัน</Button>
+            <Button variant="primary" onClick={addTPSL}>
+              ยืนยัน
+            </Button>
           </Modal.Footer>
         </Modal>
       </Container>
