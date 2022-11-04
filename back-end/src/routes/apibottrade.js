@@ -265,6 +265,7 @@ router.post("/addtpsl", async (req, res) => {
     res.status(500).send({ status: "error", message: error });
   }
 });
+
 router.post("/deltpsl", async (req, res) => {
   const db = await require("../services/db_promise");
   const { User_id, Sym } = req.body;
@@ -287,7 +288,32 @@ router.post("/deltpsl", async (req, res) => {
         status: "ok",
         message: "Delete TP SL Completed",
       });
+      return;
     }
+    res.status(400).send({
+      status: "ok",
+      message: "Can't Delete TP SL",
+    });
+    return;
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ status: "error", message: error });
+  }
+});
+
+router.post("/gettpsl", async (req, res) => {
+  const db = await require("../services/db_promise");
+  const { User_id } = req.body;
+
+  const sql = `
+  SELECT * FROM SLTP WHERE user_id = ? `;
+
+  try {
+    const [results] = await db.query(sql, [User_id]);
+    res.status(400).send({
+      status: "ok",
+      results: results,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ status: "error", message: error });
