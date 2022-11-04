@@ -149,23 +149,30 @@ export const BackTestDetail = ({ sym, stgID, stgName }) => {
           <div className="d-flex flex-column flex-md-row mt-2">
             <p className=" fw-bold me-md-2">Profit/Loss&nbsp;</p>
             <h5 className={t_color(data?.profit_Percent)}>
-              {data?.profit_Percent} %
+              {data?.profit_Percent} % {data?.profit_Percent > 0 ? "↑" : "↓"}
             </h5>
           </div>
           <div className=" d-flex flex-column flex-md-row mt-2">
             <p className=" fw-bold me-md-2">Price move&nbsp;</p>
 
-            <h5
-              className={t_color(
-                ((nowData?.data - startData?.data) / startData?.data) * 100
-              )}
-            >
-              {(
-                ((nowData?.data - startData?.data) / startData?.data) *
-                100
-              ).toFixed(2)}
-              {" %"}
-            </h5>
+            {((nowData?.data - startData?.data) / startData?.data) * 100 >=
+            0 ? (
+              <h5 className="text-success">
+                {(
+                  ((nowData?.data - startData?.data) / startData?.data) *
+                  100
+                ).toFixed(2)}{" "}
+                {" % ↑"}
+              </h5>
+            ) : (
+              <h5 className="text-danger">
+                {(
+                  ((nowData?.data - startData?.data) / startData?.data) *
+                  100
+                ).toFixed(2)}{" "}
+                {" % ↓"}
+              </h5>
+            )}
           </div>
         </div>
 

@@ -86,9 +86,22 @@ export const Box = (props) => {
               <div className="d-flex justify-content-center fs-5">
                 {" "}
                 Profit / Lost :{" "}
-                {botInfo
-                  ? `${botInfo?.pnl_percent?.toFixed(2)} %`
-                  : "Loading.."}
+                {botInfo ? (
+                  botInfo?.pnl_percent > 0 ? (
+                    <div className="text-success">
+                      {"  "}&nbsp;
+                      {botInfo?.pnl_percent?.toFixed(2)} % ⬆
+                    </div>
+                  ) : (
+                    <div className="text-danger">
+                      {" "}
+                      &nbsp;
+                      {botInfo?.pnl_percent?.toFixed(2)} % ⬇
+                    </div>
+                  )
+                ) : (
+                  "Loading.."
+                )}
               </div>
             ) : (
               <br />

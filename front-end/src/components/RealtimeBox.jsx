@@ -74,13 +74,11 @@ const RealtimeBox = ({ sym, data, botData }) => {
             {numFormat(price)}
           </h6>
 
-          <p
-            className={`m-0 fs-6 col col-xl-12 ${
-              change >= 0 ? "text-success" : "text-danger"
-            }`}
-          >
-            ({change}%)
-          </p>
+          {change >= 0 ? (
+            <p className="m-0 fs-6 col col-xl-12 text-success">({change}%) ↑</p>
+          ) : (
+            <p className="m-0 fs-6 col col-xl-12 text-danger">({change}%) ↓</p>
+          )}
         </Row>
       </div>
     </Col>
